@@ -1,0 +1,104 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Beat {
+    id         Int       @id @default(autoincrement())
+    title      String    @db.VarChar(20000)
+    category   String[]  @db.VarChar
+    beatFile   Bytes
+    introduce  String?
+    keyword    String[]  @db.VarChar
+    producerId Int
+    isClosed   Boolean   @default(false)
+    Producer   Producer  @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "beat_producer_id_fk")
+    Comment    Comment[]
+}
+
+model Comment {
+    id          Int     @id @default(autoincrement())
+    beatId      Int
+    vocalId     Int
+    commentFile Bytes
+    content     String?
+    Beat        Beat    @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "comment_beat_id_fk")
+    Vocal       Vocal   @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "comment_vocal_id_fk")
+}
+
+model Producer {
+    id                Int                 @id @default(autoincrement())
+    name              String              @unique @db.VarChar(200)
+    contact           String              @db.VarChar(200)
+    category          String[]            @db.VarChar
+    keyword           String[]            @db.VarChar
+    introduce         String?
+    producerImage     String              @db.VarChar(10000)
+    producerID        String              @unique @db.VarChar(200)
+    producerPW        String              @db.VarChar(200)
+    Beat              Beat[]
+    ProducerPortfolio ProducerPortfolio[]
+    ProducerTitle     ProducerTitle[]
+}
+
+model ProducerPortfolio {
+    id            Int             @id(map: "producerPF_pkey") @default(autoincrement())
+    ppfImage      String          @db.VarChar(20000)
+    title         String          @db.VarChar(20000)
+    ppfFile       Bytes
+    category      String[]        @db.VarChar
+    content       String?
+    keyword       String[]        @db.VarChar
+    producerId    Int
+    Producer      Producer        @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producerpf_producer_id_fk")
+    ProducerTitle ProducerTitle[]
+}
+
+model ProducerTitle {
+    id                  Int               @id(map: "producerTitle_pkey") @default(autoincrement())
+    producerPortfolioId Int
+    producerId          Int
+    ProducerPortfolio   ProducerPortfolio @relation(fields: [producerPortfolioId], references: [id], onDelete: Cascade, map: "producertitle_ppf_id_fk")
+    Producer            Producer          @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producertitle_producer_id_fk")
+}
+
+model Vocal {
+    id             Int              @id @default(autoincrement())
+    name           String           @unique @db.VarChar(200)
+    contact        String           @db.VarChar(200)
+    category       String[]         @db.VarChar
+    keyword        String[]         @db.VarChar
+    introduce      String?
+    vocalImage     String           @db.VarChar(10000)
+    isSelected     Boolean          @default(false)
+    vocalID        String           @unique @db.VarChar(200)
+    vocalPW        String           @db.VarChar(200)
+    Comment        Comment[]
+    VocalTitle     VocalTitle[]
+    vocalPortfolio vocalPortfolio[]
+}
+
+model VocalTitle {
+    id               Int            @id @default(autoincrement())
+    vocalPortfolioId Int
+    vocalId          Int
+    Vocal            Vocal          @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocaltitle_vocal_id_fk")
+    vocalPortfolio   vocalPortfolio @relation(fields: [vocalPortfolioId], references: [id], onDelete: Cascade, map: "vocaltitle_vpf_id_fk")
+}
+
+model vocalPortfolio {
+    id         Int          @id @default(autoincrement())
+    vpfImage   String       @db.VarChar(20000)
+    title      String       @db.VarChar(20000)
+    vpfFile    Bytes
+    category   String[]     @db.VarChar
+    content    String?
+    keyword    String[]     @db.VarChar
+    vocalId    Int
+    VocalTitle VocalTitle[]
+    Vocal      Vocal        @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocalpf_vocal_id_fk")
+}
