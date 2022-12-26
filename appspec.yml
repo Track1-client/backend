@@ -13,7 +13,7 @@ permissions:
 
 hooks:
   BeforeInstall:
-    - location: scripts/before_deploy.sh
+    - location: scripts/before-deploy.sh
       runas: ubuntu
   AfterInstall:
     - location: scripts/after-deploy.sh
