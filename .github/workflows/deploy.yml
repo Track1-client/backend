@@ -31,15 +31,14 @@ jobs:
           touch .env
           echo "${{ secrets.ENV_FILE }}" > .env
 
+      - name : install dependencies
+        working-directory: ./
+        run: yarn install --frozen-lockfile 
+
       - name: build server files
         working-directory: ./
-        run: |
-          yarn install --frozen-lockfile
-          yarn run build         
-      # to get dist file
+        run: yarn run build         
 
-      
-  #### CD 위한 설정 추가 
 
       - name: zip file
         run: zip -r track_1.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./yarn.lock ./nodemon.json
