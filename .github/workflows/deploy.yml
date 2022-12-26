@@ -24,28 +24,24 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        working-directory: ./backend
-        run: |
-          yarn install --frozen-lockfile
-          yarn build
-
       - name: create env file
-        working-directory: ./backend
+        working-directory: ./
         run: |
           pwd
           touch .env
           echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: build server files
-        working-directory: ./backend
+        working-directory: ./
         run: |
-          yarn run dev
+          yarn install --frozen-lockfile
+          yarn run build         
+      # to get dist file
 
+      
   #### CD 위한 설정 추가 
 
       - name: zip file
-        working-directory: ./backend
         run: zip -r track_1.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./yarn.lock ./nodemon.json
 
       - name: AWS configure credentials
