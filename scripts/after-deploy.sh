@@ -4,4 +4,5 @@ sudo pm2 kill
 cd $REPOSITORY
 
 sudo yarn install --frozen-lockfile
+sudo npx prisma generate
 sudo pm2 start dist
