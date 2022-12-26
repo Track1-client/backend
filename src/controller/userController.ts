@@ -4,7 +4,7 @@ import { fail, success } from '../constants/response';
 import { producerJoinDTO, vocalJoinDTO, userLogInDTO } from '../interfaces';
 import jwtHandler from '../modules/jwtHandler';
 import { userService } from '../service';
-
+import { getAudioDurationInSeconds } from 'get-audio-duration';
 
 //! 프로듀서 회원가입
 const createProducer = async(req: Request, res: Response) => {
