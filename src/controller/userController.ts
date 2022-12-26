@@ -58,7 +58,6 @@ const createVocal = async(req: Request, res: Response) => {
 const logInUser = async(req: Request, res: Response) => {
 
     const userLogInDto: userLogInDTO = req.body;
-    console.log(userLogInDto);
     
     try {
         const userId = await userService.logIn(userLogInDto);

@@ -56,7 +56,8 @@ const createVocal = async(vocalCreateDto: vocalJoinDTO, location: string) => {
         })
     
     if (existsUser) return null;  //! 중복 아이디 또는 닉네임 존재 
-
+    
+    var isTrueSet = (vocalCreateDto.isSelected === 'true');
     const data = await prisma.vocal
         .create({
             data: {
@@ -67,7 +68,7 @@ const createVocal = async(vocalCreateDto: vocalJoinDTO, location: string) => {
                 category: vocalCreateDto.category,
                 keyword: vocalCreateDto.keyword,
                 introduce: vocalCreateDto.introduce,
-                isSelected: vocalCreateDto.isSelected,
+                isSelected: isTrueSet,
                 vocalImage: location,
             }
         });
@@ -90,12 +91,9 @@ const logIn = async(userLogInDTO: userLogInDTO) => {
         });
 
         const user = producer || vocal
-        console.log(user);
         if (!user) return null;  //! 존재하지 않는 ID
 
         const userPW = producer?.producerPW || vocal?.vocalPW; 
-        console.log(userPW);
-        console.log(userLogInDTO.PW);
         const isMatch = await bcrypt.compare(userLogInDTO.PW, userPW as string);
         if (!isMatch) return sc.UNAUTHORIZED;
     

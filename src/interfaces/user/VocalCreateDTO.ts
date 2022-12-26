@@ -6,5 +6,5 @@ export default interface VocalCreateDTO {
     category: string[];
     keyword: string[];
     introduce: string;
-    isSelected: boolean;
+    isSelected: string;
 };
