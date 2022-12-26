@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout source code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -35,3 +35,25 @@ jobs:
         working-directory: ./
         run: |
           yarn run dev
+
+  #### CD 위한 설정 추가 
+
+      - name: zip file
+        run: zip -r track_1.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./yarn.lock ./nodemon.json
+
+      - name: AWS configure credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./track_1.zip s3://nodejs-cd/deploy/
+
+      - name: deploy with AWS codeDeploy
+        run: aws deploy create-deployment
+          --application-name Track-1_codedeploy
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --deployment-group-name Track-1_CD_group
+          --s3-location bucket=nodejs-cd,bundleType=zip,key=deploy/track-1.zip
