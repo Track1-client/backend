@@ -39,7 +39,7 @@ jobs:
         working-directory: ./
         run: 
           yarn add typescript && yarn run build         
-
+          
 ### for code deploy 
       - name: zip file
         run: zip -r track_1.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./yarn.lock ./nodemon.json

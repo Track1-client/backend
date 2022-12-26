@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc && node dist",
+    "create:distFolder": "tsc",
     "db:pull": "npx prisma db pull && npx prisma generate",
     "db:push": "npx prisma db push && npx prisma generate"
   },
