@@ -42,7 +42,7 @@ jobs:
 
 ### for code deploy 
       - name: zip file
-        run: zip -r track_1.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./yarn.lock ./nodemon.json
+        run: zip -r track_1.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./yarn.lock ./nodemon.json ./prisma
 
       - name: AWS configure credentials
         uses: aws-actions/configure-aws-credentials@v1
