@@ -38,8 +38,8 @@ jobs:
       - name: build server files
         working-directory: ./
         run: 
-          yarn add typescript && yarn run build         
-          
+          yarn add typescript && yarn run create:distFolder        
+
 ### for code deploy 
       - name: zip file
         run: zip -r track_1.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./yarn.lock ./nodemon.json
