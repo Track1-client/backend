@@ -23,6 +23,8 @@ const Prod_ProfileImage = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE, //? mimetype 은 자동으로 설정
         acl: "public-read", // Access control for the file
         key: function (req: Express.Request, file: Express.MulterS3.File, cb) {
+            if (!file) cb(new Error('이미지 파일이 존재하지 않습니다.'));
+
             var  newFileName = Date.now() + "-" + file.originalname;
             var fullPath = 'profileImage/producerProfileImage/'+ newFileName;
             cb(null, fullPath);
@@ -40,6 +42,8 @@ const Vocal_ProfileImage = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE, //? mimetype 은 자동으로 설정
         acl: "public-read", // Access control for the file
         key: function (req: Express.Request, file: Express.MulterS3.File, cb) {
+            if (!file) cb(new Error('이미지 파일이 존재하지 않습니다'));
+
             var  newFileName = Date.now() + "-" + file.originalname;
             var fullPath = 'profileImage/vocalProfileImage/'+ newFileName;
             cb(null, fullPath);
