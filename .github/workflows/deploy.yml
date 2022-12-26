@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest   #ubuntu-latest
@@ -33,6 +29,8 @@ jobs:
 
       - name: create env file
         run: |
+          pwd
+          touch .env
           echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: build server files
