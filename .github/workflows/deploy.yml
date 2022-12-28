@@ -58,5 +58,5 @@ jobs:
         run: aws deploy create-deployment
           --application-name Track-1_codedeploy
           --deployment-config-name CodeDeployDefault.OneAtATime
-          --deployment-group-name Track-1_CD_group
+          --deployment-group-name Track-1_second_group
           --s3-location bucket=nodejs-cd,bundleType=zip,key=deploy/track_1.zip
