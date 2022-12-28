@@ -5,14 +5,16 @@ import { producerJoinDTO, vocalJoinDTO, userLogInDTO } from '../interfaces';
 import jwtHandler from '../modules/jwtHandler';
 import { userService } from '../service';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
+import config from '../config';
 
 //! 프로듀서 회원가입
 const createProducer = async(req: Request, res: Response) => {
     
     const profileImage: Express.MulterS3.File = req.file as Express.MulterS3.File;  //! req.file -> single()로 받은 파일 
-    const { location } = profileImage;
 
-    if (!location) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_IMAGE));
+    if (!profileImage) var location = config.defaultUserImage ;   //~ 파일 없는 경우 default image로 설정 
+    //return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_IMAGE));  //~ 파일 없는 경우 그냥 오류로 줄 경우 
+    else var { location } = profileImage;   
     
     const producerDTO: producerJoinDTO = req.body;
     const data = await userService.createProducer(producerDTO, location as string);
@@ -34,9 +36,10 @@ const createProducer = async(req: Request, res: Response) => {
 const createVocal = async(req: Request, res: Response) => {
 
     const profileImage: Express.MulterS3.File = req.file as Express.MulterS3.File;  //! req.file -> single()로 받은 파일 
-    const { location } = profileImage;
 
-    if (!location) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_IMAGE));
+    if (!profileImage) var location = config.defaultUserImage ;   //~ 파일 없는 경우 default image로 설정 
+    //return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_IMAGE));  //~ 파일 없는 경우 그냥 오류로 줄 경우 
+    else var { location } = profileImage;
     
     const vocalDTO: vocalJoinDTO = req.body;
     const data = await userService.createVocal(vocalDTO, location as string);

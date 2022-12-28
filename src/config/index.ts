@@ -25,6 +25,6 @@ export default {
   wavBucketName: process.env.S3_BUCKET_WAV_FILE as string,                //* only wav file
   imageBucketName: process.env.S3_BUCKET_IMAGE_FILE as string,            //* only image file
   bothWavImageBucketName: process.env.S3_BUCKET_WAV_AND_IMAGE as string,  //* both wav and image file into one object 
-  defaultImageBucketName: process.env.S3_BUCKET_DEFAULT_IMAGE as string,  //* default image file for jacket image 
+  defaultUserImage: process.env.S3_DEFAULT_USER_IMAGE as string,  //* default user image file
 
 };

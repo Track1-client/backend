@@ -6,13 +6,15 @@ import s3 from "../../config/s3Config";
 
 //? 파일 타입 검사 
 const fileFilter = (req: Express.Request, file: Express.MulterS3.File, cb: any ) => {
+    if (!file) cb(new Error('no image'), false);
+
     var ext = file.mimetype.split('/')[1];    //! ex) image/jpg 에서 jpg 추출
     var type = file.mimetype;                 //! ex) image/jpg 전체 
 
         (type.startsWith('image') && ['png', 'jpg', 'jpeg'].includes(ext)) ? cb(null, true)
-    : (!['png', 'jpg', 'jpeg'].includes(ext)) ? cb(new Error('이미지파일 형식은 .png, .jpg, .jpeg이어야함.'))  //! 이미지 파일 형식이 옳지 않은 경우
+    : (!['png', 'jpg', 'jpeg'].includes(ext)) ? cb(new Error('이미지파일 형식은 .png/.jpg/.jpeg이어야함.'))  //! 이미지 파일 형식이 옳지 않은 경우
     : cb(new Error('Only image files are allowed'));   //! 아예 이미지가 아닌 경우 
-};
+}
 
 
 //! 프로듀서 프로필 이미지 업로드 
@@ -23,8 +25,6 @@ const Prod_ProfileImage = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE, //? mimetype 은 자동으로 설정
         acl: "public-read", // Access control for the file
         key: function (req: Express.Request, file: Express.MulterS3.File, cb) {
-            if (!file) cb(new Error('이미지 파일이 존재하지 않습니다.'));
-
             var  newFileName = Date.now() + "-" + file.originalname;
             var fullPath = 'profileImage/producerProfileImage/'+ newFileName;
             cb(null, fullPath);
@@ -42,8 +42,6 @@ const Vocal_ProfileImage = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE, //? mimetype 은 자동으로 설정
         acl: "public-read", // Access control for the file
         key: function (req: Express.Request, file: Express.MulterS3.File, cb) {
-            if (!file) cb(new Error('이미지 파일이 존재하지 않습니다'));
-
             var  newFileName = Date.now() + "-" + file.originalname;
             var fullPath = 'profileImage/vocalProfileImage/'+ newFileName;
             cb(null, fullPath);
