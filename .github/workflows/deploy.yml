@@ -52,11 +52,11 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./track_1.zip s3://nodejs-cd/deploy/
+        run: aws s3 cp --region ap-northeast-2 ./track_1.zip s3://devops-track-1/deploy/
 
       - name: deploy with AWS codeDeploy
         run: aws deploy create-deployment
-          --application-name Track-1_codedeploy
+          --application-name Track-1_CD_application
           --deployment-config-name CodeDeployDefault.OneAtATime
-          --deployment-group-name Track-1_second_group
-          --s3-location bucket=nodejs-cd,bundleType=zip,key=deploy/track_1.zip
+          --deployment-group-name Track-1_CD_group
+          --s3-location bucket=devops-track-1,bundleType=zip,key=deploy/track_1.zip
