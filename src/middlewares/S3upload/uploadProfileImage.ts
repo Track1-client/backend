@@ -6,8 +6,6 @@ import s3 from "../../config/s3Config";
 
 //? 파일 타입 검사 
 const fileFilter = (req: Express.Request, file: Express.MulterS3.File, cb: any ) => {
-    if (!file) cb(new Error('no image'), false);
-
     var ext = file.mimetype.split('/')[1];    //! ex) image/jpg 에서 jpg 추출
     var type = file.mimetype;                 //! ex) image/jpg 전체 
 
