@@ -1,8 +1,11 @@
 import { Router, Request, Response } from "express";
-import { sc } from '../constants';
-import { fail } from '../constants/response';
+import { tracksController } from '../controller';
+import { auth } from '../middlewares';
 
 const router: Router = Router();
+
+
+router.get('/:beatId', auth, tracksController.getTracks);
 
 
 export default router;
