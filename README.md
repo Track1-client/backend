@@ -160,7 +160,7 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 
 ## <strong> API 명세서 초안 링크 </strong>
 
-[API 명세서](https://www.notion.so/API-Docs-1-c5376e1667a34bb4b6c0a57bedf61770)
+[API 명세서](https://granite-allosaurus-84c.notion.site/API-Docs-76a02ccc9b4e4fe9bd4dc48335242ec5)
 
 <br>
 
