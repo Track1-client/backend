@@ -153,15 +153,17 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 - 공통적인 것 작업 - Global
     - feature/chore/fix/network
 
-
+<br>
+## <strong> API 로직 구현 진척도 : 100% </strong>
+<br>
 <br>
 
 ## <strong> API 명세서 초안 링크 </strong>
 
 [API 명세서](https://www.notion.so/API-Docs-1-c5376e1667a34bb4b6c0a57bedf61770)
->> api 명세서 전체 작성 완료 !
 
 <br>
+
 
 
 
