@@ -81,17 +81,17 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 
 📦 controller               
  ┣ 📜 index.ts
- ┗ 📜 mypageController.ts
- ┗ 📜 profileController.ts
- ┗ 📜 tracksController.ts
- ┗ 📜 userController.ts
+ ┣ 📜 mypageController.ts
+ ┣ 📜 profileController.ts
+ ┣ 📜 tracksController.ts
+ ┣ 📜 userController.ts
  ┗ 📜 vocalsController.ts
 
 📦 interfaces                
  ┗ 📂 user
  ┃ ┣ 📜 index.ts
- ┃ ┗ 📜 ProducerCreateDTO.ts
- ┃ ┗ 📜 UserLogInDTO.ts
+ ┃ ┣ 📜 ProducerCreateDTO.ts
+ ┃ ┣ 📜 UserLogInDTO.ts
  ┃ ┗ 📜 vocalsController.ts
  ┗ 📜 index.ts
  
@@ -100,20 +100,20 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
  ┃ ┣ 📜 index.ts
  ┗ 📂 S3upload
  ┃ ┣ 📜 index.ts
- ┃ ┗ 📜 uploadCommentWav.ts
- ┃ ┗ 📜 uploadProfileImage.ts
+ ┃ ┣ 📜 uploadCommentWav.ts
+ ┃ ┣ 📜 uploadProfileImage.ts
  ┃ ┗ 📜 uploadWavAndImage.ts
  ┗ 📂 user
  ┃ ┣ 📜 auth.ts
- ┃ ┗ 📜 index.ts
+ ┃ ┣ 📜 index.ts
  ┃ ┗ 📜 validator.ts
  ┗ 📜 index.ts
 
 📦 constants                  
  ┣ 📜 index.ts
  ┣ 📜 responseMessage.ts
- ┗ 📜 reponse.ts
- ┗ 📜 statusCode.ts
+ ┣ 📜 reponse.ts
+ ┣ 📜 statusCode.ts
  ┗ 📜 tokenType.ts
 
 📦 modules                   
@@ -121,18 +121,18 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 
 📦 router                   
  ┣ 📜 index.ts
- ┗ 📜 mypageRouter.ts
- ┗ 📜 profileRouter.ts
- ┗ 📜 tracksRouter.ts
- ┗ 📜 userRouter.ts
+ ┣ 📜 mypageRouter.ts
+ ┣ 📜 profileRouter.ts
+ ┣ 📜 tracksRouter.ts
+ ┣ 📜 userRouter.ts
  ┗ 📜 vocalsRouter.ts
  
 📦 service                  
  ┣ 📜 index.ts
- ┗ 📜 mypageService.ts
- ┗ 📜 profileService.ts
- ┗ 📜 tracksService.ts
- ┗ 📜 userService.ts
+ ┣ 📜 mypageService.ts
+ ┣ 📜 profileService.ts
+ ┣ 📜 tracksService.ts
+ ┣ 📜 userService.ts
  ┗ 📜 vocalsService.ts
  
 📜 index.ts
