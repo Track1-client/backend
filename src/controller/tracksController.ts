@@ -6,8 +6,7 @@ import { getAudioDurationInSeconds } from 'get-audio-duration';
 
 const getTracks = async(req: Request, res: Response) => {
 
-    const { userId } = req.body;    //! auth 미들웨어를 통해 토큰 검사 후 userId 받아옴.
-    console.log(userId);
+    const { tableName, userId } = req.body;    //! auth 미들웨어를 통해 토큰 검사 후 userId 받아옴.
 
 
 
