@@ -1,10 +1,11 @@
-// src/modules/jwtHandler.ts
 import jwt from "jsonwebtoken";
 import { tokenType } from "../constants";
 
+
 //* 받아온 userId를 담는 access token 생성
-const sign = (userId: number) => {
+const sign = (tableName: string, userId: number) => {
   const payload = {
+    tableName,
     userId,
   };
 
@@ -13,10 +14,10 @@ const sign = (userId: number) => {
   return accessToken;
 };
 
+
 //* token 검사!
 const verify = (token: string) => {
   let decoded: string | jwt.JwtPayload;
-
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET as string);
   } catch (error: any) {
@@ -28,7 +29,7 @@ const verify = (token: string) => {
       return tokenType.TOKEN_INVALID;
     }
   }
-
+  
   return decoded;
 };
 

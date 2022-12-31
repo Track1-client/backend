@@ -1,1 +1,1 @@
-export { producerJoinDTO, vocalJoinDTO, userLogInDTO } from './user';
+export { producerJoinDTO, vocalJoinDTO, userLogInDTO, UserLogInReturnDTO } from './user';

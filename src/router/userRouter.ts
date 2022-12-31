@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { body, header, query } from "express-validator";
 import multer from 'multer';
 import { sc } from '../constants';
@@ -12,9 +12,10 @@ const router: Router = Router();
 //! 프로듀서 회원가입
 router.post(
     '/join/producer', 
-    (req: Request, res: Response) => {
+    (req: Request, res: Response, next: NextFunction) => {
         Prod_ProfileImage(req, res, err => {  //! 프로듀서 프로필 이미지파일업로드 미들웨어  -> fullPath 받아옴 
             if (err) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, err.message));
+            next();
         })
     },
     [
@@ -34,9 +35,10 @@ router.post(
 //! 보컬 회원가입
 router.post(
     '/join/vocal',
-    (req: Request, res: Response) => {
+    (req: Request, res: Response, next: NextFunction) => {
         Vocal_ProfileImage(req, res, err => {  //! 보컬 프로필 이미지파일업로드 미들웨어  -> fullPath 받아옴 
             if (err) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, err.message));
+            next();
         })
     },
     [
