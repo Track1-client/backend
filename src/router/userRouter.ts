@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { body, header, query } from "express-validator";
-import multer from 'multer';
 import { sc } from '../constants';
 import { fail } from '../constants/response';
 import { userController } from '../controller';

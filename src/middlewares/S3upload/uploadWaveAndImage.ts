@@ -8,10 +8,10 @@ import s3 from "../../config/s3Config";
 const fileFilter = (req: Express.Request, file: Express.MulterS3.File, cb: any ) => {
     var ext = file.mimetype.split('/')[1];    //! ex) image/jpg 에서 jpg 추출
     var type = file.mimetype;                 //! ex) image/jpg 전체 
-
+    
     (type.startsWith('image') && ['png', 'jpg', 'jpeg'].includes(ext)) ? cb(null, true)
-    : (type.startsWith('audio') && ext==='wav') ? cb(null, true) //!TO-DO : mp3 파일도 나중에 추가
-    : (!['png', 'jpg', 'jpeg', 'wav'].includes(ext)) ? cb(new Error('오디오파일 형식은 .wav, 이미지파일 형식은 .png/.jpg/.jpeg이어야함.'))
+    : (type.startsWith('audio') && ( ext==='wav' || ext==='wave')) ? cb(null, true) //!TO-DO : mp3 파일도 나중에 추가
+    : (!['png', 'jpg', 'jpeg', 'wav', 'wave'].includes(ext)) ? cb(new Error('오디오파일 형식은 .wav/.wave, 이미지파일 형식은 .png/.jpg/.jpeg이어야함.'))
     : cb(new Error('Only image files or audio files are allowed'));   //! 아예 오디오나 이미지가 아닌 경우 
 };
 
@@ -23,7 +23,6 @@ const Beat_WavAndImage = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE, //? mimetype 은 자동으로 설정
         acl: "public-read", // Access control for the file
         key: function (req: Express.Request, file: Express.MulterS3.File, cb) {
-            if (!file) cb(new Error('이미지 파일이 존재하지 않습니다'));
             
             var  newFileName = Date.now() + "-" + file.originalname;
             var fullPath = 'beat/'+ newFileName;
@@ -45,7 +44,6 @@ const Prod_Portfolio_WavAndImage = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE, //? mimetype 은 자동으로 설정
         acl: "public-read", // Access control for the file
         key: function (req: Express.Request, file: Express.MulterS3.File, cb) {
-            if (!file) cb(new Error('이미지 파일이 존재하지 않습니다'));
 
             var  newFileName = Date.now() + "-" + file.originalname;
             var fullPath = 'portfolio/producer/'+ newFileName;
@@ -67,7 +65,6 @@ const Vocal_Portfolio_WavAndImage = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE, //? mimetype 은 자동으로 설정
         acl: "public-read", // Access control for the file
         key: function (req: Express.Request, file: Express.MulterS3.File, cb) {
-            if (!file) cb(new Error('이미지 파일이 존재하지 않습니다'));
 
             var  newFileName = Date.now() + "-" + file.originalname;
             var fullPath = 'portfolio/vocal/'+ newFileName;

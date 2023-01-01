@@ -19,7 +19,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (decoded === tokenType.TOKEN_INVALID)
       return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.INVALID_TOKEN));
     
-    console.log(decoded as JwtPayload);
     //? decode한 후 담겨있는 userId를 꺼내옴
     const tableName: string = (decoded as JwtPayload).tableName;    //! 'producer' OR 'vocal'
     const userId: number = (decoded as JwtPayload).userId;
