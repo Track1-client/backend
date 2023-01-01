@@ -4,8 +4,7 @@ import { auth } from '../middlewares';
 
 const router: Router = Router();
 
-
-router.get('/:beatId', auth, tracksController.getTracks);
+router.get('/:beatId', auth, tracksController.getOneBeat);
 
 
 export default router;

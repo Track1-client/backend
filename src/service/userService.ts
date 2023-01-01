@@ -3,9 +3,10 @@ import { producerJoinDTO, userLogInDTO, vocalJoinDTO } from '../interfaces';
 import bcrypt from "bcryptjs";
 import { sc } from '../constants';
 import { UserLogInReturnDTO } from '../interfaces/user';
-import { table } from 'console';
+
 
 const prisma = new PrismaClient();
+
 
 //! 기존 프로듀서와 동일한 아이디나 이름 존재하는지 
 function existsProducer(userID: string, userName: string): any {
@@ -13,8 +14,8 @@ function existsProducer(userID: string, userName: string): any {
             .findFirst({
                 where: {
                     OR: [
-                        {producerID: {
-                            equals: userID}
+                        {producerID: 
+                            {equals: userID}
                         },
                         {name: userName},
                     ]
@@ -28,8 +29,8 @@ function existsVocal(userID: string, userName: string): any {
             .findFirst({
                 where: {
                     OR: [
-                        {vocalID: {
-                            equals: userID}
+                        {vocalID: 
+                            {equals: userID}
                         },
                         {name: userName},
                     ]
