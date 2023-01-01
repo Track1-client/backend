@@ -4,9 +4,9 @@ import { fail, success } from '../constants/response';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
 
 
-const getTracks = async(req: Request, res: Response) => {
+const getOneBeat = async(req: Request, res: Response) => {
 
-    const { tableName, userId } = req.body;    //! auth 미들웨어를 통해 토큰 검사 후 userId 받아옴.
+    const { tableName, userId, beatId } = req.body;    //! auth 미들웨어를 통해 토큰 검사 후 userId 받아옴.
 
 
 
@@ -14,7 +14,7 @@ const getTracks = async(req: Request, res: Response) => {
 
 
 const tracksController = {
-    getTracks,
+    getOneBeat,
 };
 
 export default tracksController;
