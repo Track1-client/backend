@@ -27,6 +27,14 @@ export default {
     IMAGE_UPLOAD_FAIL: "이미지 업로드 실패",
     IMAGE_UPLOAD_SUCCESS: "이미지 업로드 성공",
 
+    // wav file 
+    NO_WAV_FILE: "파일이 없습니다.",
+
+    // 게시물 관련
+    ONLY_PRODUCER_CREATE: "프로듀서만 게시글을 작성할 수 있습니다.",
+    BEAT_UPLOAD_SUCCESS: "트랙 게시글 작성 성공",
+    BEAT_UPLOAD_FAIL: "트랙 게시글 작성 실패",
+
     // 토큰
     CREATE_TOKEN_SUCCESS: "토큰 재발급 성공",
     EXPIRED_TOKEN: "토큰이 만료되었습니다.",
@@ -34,24 +42,6 @@ export default {
     INVALID_TOKEN: "유효하지 않은 토큰입니다.",
     VALID_TOKEN: "유효한 토큰입니다.",
     EMPTY_TOKEN: "토큰 값이 없습니다.",
-
-    //작품
-    NO_PRODUCT: "작품이 존재하지 않습니다.",
-    GET_PRODUCT_SUCCESS: "작품 조회 성공",
-
-    //작품마다의 에피소드
-    USER_NEVER_SEEN: "해당 회차를 조회하지 않았습니다.",
-    GET_USER_EPISODE_INFO_SUCCESS: "선택한 에피소드 정보 반환 성공",
-    UPDATE_EPISODE_SUCCESS: "에피소드 업데이트 성공",
-    NO_PLOT_OR_RUNNINGTIME: "PLOT / RUNNING-TIME 없음",
-
-    //작품 평가
-    USER_NEVER_EVALUATED: "유저의 작품평가 데이터가 존재하지 않습니다.",
-    POST_EVALUATION_SUCCESS: "작품평가 성공",
-
-    //작품 찜 관련
-    POST_LIKED_SUCCESS: "찜 성공",
-    POST_UNDO_LIKED_SUCCESS: "찜 취소 성공",
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: "서버 내 오류",
