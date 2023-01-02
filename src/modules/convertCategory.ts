@@ -12,9 +12,8 @@ function convertCategory(categoryList: string) {
     };
 
     const categList: string = (JSON.stringify(categoryList)).replace(" ","");
-    console.log(categList);
-    console.log(typeof(categList));
     var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
+    
     const convertResult = categList.replace(re, function(matched){
         return mapObj[matched];
     });

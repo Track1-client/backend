@@ -1,11 +1,26 @@
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
-import { sc } from '../constants';
+import { ProducerPortfolioDTO } from '../interfaces/mypage';
 
 const prisma = new PrismaClient();
 
-const myPageService = {
+const postProducerPortfolio  = async(portfolioDTO: ProducerPortfolioDTO, jacketLocation: string, wavLocation: string) => {
+    const data = await prisma.producerPortfolio.create({
+        data: {
+            title: portfolioDTO.title,
+            category: portfolioDTO.category,
+            ppfFile: wavLocation,
+            ppfImage: jacketLocation,
+            content: portfolioDTO.introduce,
+            keyword: portfolioDTO.keyword,
+            producerId: portfolioDTO.userId,
+        },
+    });
 
+    return data;
 };
 
-export default myPageService;
+const mypageService = {
+    postProducerPortfolio,
+};
+
+export default mypageService;
