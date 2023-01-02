@@ -50,7 +50,7 @@ model ProducerPortfolio {
   id            Int             @id(map: "producerPF_pkey") @default(autoincrement())
   ppfImage      String          @db.VarChar(20000)
   title         String          @db.VarChar(20000)
-  ppfFile       String   @db.VarChar(10000)
+  ppfFile       String          @db.VarChar(10000)
   category      String[]        @db.VarChar
   content       String?
   keyword       String[]        @db.VarChar

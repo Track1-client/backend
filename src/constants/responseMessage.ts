@@ -28,12 +28,18 @@ export default {
     IMAGE_UPLOAD_SUCCESS: "이미지 업로드 성공",
 
     // wav file 
-    NO_WAV_FILE: "파일이 없습니다.",
+    NO_WAV_FILE: "파일이 없습니다",
 
     // 게시물 관련
     ONLY_PRODUCER_CREATE: "프로듀서만 게시글을 작성할 수 있습니다.",
     BEAT_UPLOAD_SUCCESS: "트랙 게시글 작성 성공",
     BEAT_UPLOAD_FAIL: "트랙 게시글 작성 실패",
+
+    // 포트폴리오 관련
+    PRODUCER_PORTFOLIO_UPLOAD_SUCCESS: "프로듀서 포트폴리오 작성 성공",
+    PRODUCER_PORTFOLIO_UPLOAD_FAIL: "프로듀서 포트폴리오 작성 실패",
+    VOCAL_PORTFOLIO_UPLOAD_SUCCESS: "보컬 포트폴리오 작성 성공",
+    VOCAL_PORTFOLIO_UPLOAD_FAIL: "보컬 포트폴리오 작성 실패",
 
     // 토큰
     CREATE_TOKEN_SUCCESS: "토큰 재발급 성공",
