@@ -80,7 +80,7 @@ model Vocal {
   vocalPW        String           @db.VarChar(200)
   Comment        Comment[]
   VocalTitle     VocalTitle[]
-  vocalPortfolio vocalPortfolio[]
+  vocalPortfolio VocalPortfolio[]
 }
 
 model VocalTitle {
@@ -88,10 +88,10 @@ model VocalTitle {
   vocalId          Int
   vocalPortfolioId Int
   Vocal            Vocal          @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocaltitle_vocal_id_fk")
-  vocalPortfolio   vocalPortfolio @relation(fields: [vocalPortfolioId], references: [id], onDelete: Cascade, map: "vocaltitle_vpf_id_fk")
+  vocalPortfolio   VocalPortfolio @relation(fields: [vocalPortfolioId], references: [id], onDelete: Cascade, map: "vocaltitle_vpf_id_fk")
 }
 
-model vocalPortfolio {
+model VocalPortfolio {
   id         Int          @id @default(autoincrement())
   vpfImage   String       @db.VarChar(20000)
   title      String       @db.VarChar(20000)
