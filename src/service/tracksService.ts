@@ -23,9 +23,24 @@ const createBeat = async(beatDTO: BeatCreateDTO, jacketLocation: string, wavLoca
     return data;
 };
 
+const updateBeatClosed = async(beatId: number) => {
+    const data = await prisma.beat.update({
+        where: {
+          id: beatId,
+        },
+        data: {
+          isClosed: true,
+        },
+      });
+    
+      return data;
+    };
+    
+
 
 const tracksService = {
-    createBeat
+    createBeat,
+    updateBeatClosed,
 };
 
 export default tracksService;
