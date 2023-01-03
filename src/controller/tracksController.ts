@@ -3,9 +3,12 @@ import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
 import config from '../config';
-import { BeatCreateDTO } from '../interfaces/tracks';
+import { BeatCreateDTO, BeatDownloadReturnDTO } from '../interfaces/tracks';
 import { tracksService } from '../service';
 import convertCategory from '../modules/convertCategory';
+import downloadBeatFile from '../modules/downloadBeatFile';
+const fs = require('fs')
+
 
 
 const createBeat = async(req: Request, res: Response) => {
@@ -28,15 +31,56 @@ const createBeat = async(req: Request, res: Response) => {
     if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BEAT_UPLOAD_FAIL));
 
     return res.status(sc.CREATED).send(success(sc.CREATED, rm.IMAGE_UPLOAD_SUCCESS, {"beatId": data.id}));
+};
 
-}
+<<<<<<< HEAD
+=======
+const getOneBeat = async(req: Request, res: Response) => {
+    
 
+
+};
+
+const getAllBeat = async (req: Request, res: Response) => {
+
+    const data = await tracksService.getAllBeat();
+    if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_USERS_SUCCESS, {"trackList": data})); 
+};
+
+const getBeatFile = async(req: Request, res: Response) => {
+
+    try {
+        const { beatId } = req.params;
+
+        const beatObject = await tracksService.getBeatLocation(+beatId);  //* beat url 가져오기
+        if(!beatObject) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_FILE_ID));
+
+        const fileId = beatObject?.id;
+        //const beatFile = await downloadBeatFile(beatObject?.beatFile, config.bothWavImageBucketName);
+        
+        const beatFileLength = await getAudioDurationInSeconds(beatObject.beatFile);
+        
+        const beatReturnDTO: BeatDownloadReturnDTO = {
+            beatId: fileId,
+            wavFile: beatObject.beatFile,
+            wavFileLength: beatFileLength
+        }
+        return res.status(sc.OK).send(success(sc.OK, rm.GET_FILE_SUCCESS, beatReturnDTO));
+    } 
+    catch(error) {
+        console.error(error);
+        return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+    };
+};
+>>>>>>> 187e448c6a50d7e2c71fddac22db37fd71273edc
 
 const updateBeatClosed = async(req: Request, res: Response) => {
 
     const { beatId } = req.params;
     
-    if(!beatId) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_USER));
+    if(!beatId) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_BEAT_ID));
 
     const updatedBeatClosed = await tracksService.updateBeatClosed(+beatId);
     return res.status(sc.OK).send(success(sc.OK, rm.BEAT_CLOSED))
@@ -54,6 +98,12 @@ const getClickedBeat = async(req:Request, res:Response) => {
 
 const tracksController = {
     createBeat,
+<<<<<<< HEAD
+=======
+    getOneBeat,
+    getAllBeat,
+    getBeatFile,
+>>>>>>> 187e448c6a50d7e2c71fddac22db37fd71273edc
     updateBeatClosed,
     getClickedBeat,
 };

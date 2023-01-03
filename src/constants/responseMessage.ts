@@ -29,13 +29,19 @@ export default {
 
     // wav file 
     NO_WAV_FILE: "파일이 없습니다",
+    INVALID_FILE_ID: "유효하지 않은 파일입니다",
+    GET_FILE_SUCCESS: "게시글 다운로드 성공",
 
     // 게시물 관련
     ONLY_PRODUCER_CREATE: "프로듀서만 게시글을 작성할 수 있습니다.",
     BEAT_UPLOAD_SUCCESS: "트랙 게시글 작성 성공",
     BEAT_UPLOAD_FAIL: "트랙 게시글 작성 실패",
     BEAT_CLOSED: "트랙 모집 완료 성공",
+<<<<<<< HEAD
     GET_CLICKED_BEAT_SUCCESS: "게시글 조회 성공",
+=======
+    INVALID_BEAT_ID: "유효하지 않은 게시글입니다",
+>>>>>>> 187e448c6a50d7e2c71fddac22db37fd71273edc
 
     // 포트폴리오 관련
     PRODUCER_PORTFOLIO_UPLOAD_SUCCESS: "프로듀서 포트폴리오 작성 성공",
