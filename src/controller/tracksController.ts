@@ -73,12 +73,22 @@ const getBeatFile = async(req: Request, res: Response) => {
     };
 };
 
+const updateBeatClosed = async(req: Request, res: Response) => {
+
+    const { beatId } = req.params;
+    
+    if(!beatId) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_USER));
+
+    const updatedBeatClosed = await tracksService.updateBeatClosed(+beatId);
+    return res.status(sc.OK).send(success(sc.OK, rm.BEAT_CLOSED))
+}
 
 const tracksController = {
     createBeat,
     getOneBeat,
     getAllBeat,
     getBeatFile,
+    updateBeatClosed,
 };
 
 export default tracksController;

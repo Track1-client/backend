@@ -92,11 +92,27 @@ const getAllBeat = async() => {
 
 }
 
+const updateBeatClosed = async(beatId: number) => {
+    const data = await prisma.beat.update({
+        where: {
+          id: beatId,
+        },
+        data: {
+          isClosed: true,
+        },
+      });
+    
+      return data;
+    };
+    
+
+
 
 const tracksService = {
     createBeat,
     getBeatLocation,
     getAllBeat,
+    updateBeatClosed,
 };
 
 export default tracksService;
