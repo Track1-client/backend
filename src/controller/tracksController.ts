@@ -33,11 +33,6 @@ const createBeat = async(req: Request, res: Response) => {
     return res.status(sc.CREATED).send(success(sc.CREATED, rm.IMAGE_UPLOAD_SUCCESS, {"beatId": data.id}));
 };
 
-const getOneBeat = async(req: Request, res: Response) => {
-    
-
-
-};
 
 const getAllBeat = async (req: Request, res: Response) => {
 
@@ -73,6 +68,7 @@ const getBeatFile = async(req: Request, res: Response) => {
     };
 };
 
+
 const updateBeatClosed = async(req: Request, res: Response) => {
 
     const { beatId } = req.params;
@@ -83,12 +79,22 @@ const updateBeatClosed = async(req: Request, res: Response) => {
     return res.status(sc.OK).send(success(sc.OK, rm.BEAT_CLOSED))
 }
 
+const getClickedBeat = async(req:Request, res:Response) => {
+    const { userId, tableName } = req.body;
+    const { beatId } = req.params;
+
+    const data = await tracksService.getClickedBeat(+beatId, +userId, tableName);
+    if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+     
+    return res.status(sc.OK).send(success(sc.OK, rm.GET_CLICKED_BEAT_SUCCESS, data)); 
+}
+
 const tracksController = {
     createBeat,
-    getOneBeat,
     getAllBeat,
     getBeatFile,
     updateBeatClosed,
+    getClickedBeat,
 };
 
 export default tracksController;
