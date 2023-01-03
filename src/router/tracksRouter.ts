@@ -19,6 +19,7 @@ router.post(
 );
 
 router.get('/:beatId', auth, tracksController.getOneBeat);
+router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
 
 
 export default router;
