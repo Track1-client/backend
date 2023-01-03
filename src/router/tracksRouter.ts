@@ -18,9 +18,10 @@ router.post(
     tracksController.createBeat
 );
 
-router.get('/:beatId', auth, tracksController.getOneBeat);
+router.get('/:beatId', auth, tracksController.getClickedBeat);
+router.get('/', auth, tracksController.getAllBeat);
+router.get('/:beatId/download', auth, tracksController.getBeatFile);
 router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
 router.get('/', auth, tracksController.getAllBeat);
-
 
 export default router;

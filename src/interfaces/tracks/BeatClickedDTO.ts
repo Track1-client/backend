@@ -1,14 +1,14 @@
-export default interface AllBeatDTO {
+export default interface BeatClickedDTO {
     beatId: number;
     jacketImage: string;
-    wavFile: string;
+    beatWavFile: string;
     title: string;
     producerName: string;
+    producerProfileImage: string;
+    introduce: string;
     keyword: string[];
     category: string[];
-<<<<<<< HEAD
+    isMe: boolean;
     wavFileLength: number;
-=======
-    wavFileLength: Promise<number>;
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
+    isClosed: boolean;
 };

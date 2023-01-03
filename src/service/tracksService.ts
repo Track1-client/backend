@@ -2,8 +2,12 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { sc } from '../constants';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
+<<<<<<< HEAD
 import { BeatCreateDTO } from '../interfaces/tracks';
 import { AllBeatDTO } from '../interfaces/tracks';
+=======
+import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO } from '../interfaces/tracks';
+>>>>>>> b667eab67d08736dc22b117b013240f562f72872
 
 const prisma = new PrismaClient();
 
@@ -26,19 +30,100 @@ const createBeat = async(beatDTO: BeatCreateDTO, jacketLocation: string, wavLoca
     return data;
 };
 
+const getBeatLocation = async(beatId: number) => {
+    
+    const data = await prisma.beat.findUnique({
+        where: {
+            id: beatId,
+        },
+        select: {
+            id: true,
+            beatFile: true,
+        },
+    });
+
+    return data;
+};
+
+const getAllBeat = async() => {
+
+    const allBeatData = await prisma.beat.findMany({
+        select: {
+            id: true,
+            beatImage: true,
+            beatFile: true,
+            title: true,
+            keyword: true,
+            category: true,
+            producerId: true
+        }
+    });
+
+    let producerNameData: object[] = [];
+
+    for(const data of allBeatData) {
+        const temp = await prisma.producer.findUnique({
+            where: {
+                id: data.producerId
+            },
+            select: {
+                name: true
+            }
+        });
+        
+        producerNameData.push(temp as object);
+    };
+
+
+    const allBeats = allBeatData.map((item, i) => {
+        //const beatObject = Object.assign({}, item, producerNameData[i]);
+        const prd = producerNameData[i] as any;
+        const wavefileLength = getAudioDurationInSeconds(item.beatFile);
+        const a = getAudioDurationInSeconds(item.beatFile).then((duration) => {
+            return duration;
+        });
+        const beatReturn: AllBeatDTO = {
+            beatId: item.id,
+            jacketImage: item.beatImage,
+            wavFile: item.beatFile,
+            title: item.title,
+            producerName: prd['name'],
+            keyword: item.keyword,
+            category: item.category,
+            wavFileLength: wavefileLength
+        };
+        console.log(beatReturn);
+        return beatReturn;
+    });
+    
+    return allBeats;
+
+}
+
 const updateBeatClosed = async(beatId: number) => {
+    const isClosedBeat = await prisma.beat.findUnique({
+        where: {
+            id: beatId,
+        },
+        select: {
+            isClosed: true,
+        }
+    });
+
+    const changeIsClosed = isClosedBeat ? false: true;
     const data = await prisma.beat.update({
         where: {
-          id: beatId,
+            id: beatId,
         },
         data: {
-          isClosed: true,
+            isClosed: changeIsClosed,
         },
-      });
+    });
     
-      return data;
-    };
+    return data;
+};
     
+<<<<<<< HEAD
 const getAllBeat = async() => {
 
     const allBeatData = await prisma.beat.findMany({
@@ -92,13 +177,61 @@ const getAllBeat = async() => {
     });
     
     return allBeats;
+=======
+const getClickedBeat = async(beatId: number, userId: number, tableName: string) => {
+  const beatData = await prisma.beat.findUnique({
+    where: { id: beatId }
+  });
+
+  if (!beatData) return null;
+
+  const producerData = await prisma.producer.findUnique({
+    where: { id: beatData.producerId },
+    select: {
+      name: true,
+      producerImage: true,
+      id: true,
+    }
+  });
+
+  if (!producerData) return null;
+
+  const isMe = (userId === producerData?.id) ? true: false;
+  const wavefileLength = await getAudioDurationInSeconds(beatData.beatFile);
+
+  const getClickBeatReturn: BeatClickedDTO = {
+
+    beatId: beatData.id,
+    jacketImage: beatData.beatImage,
+    beatWavFile: beatData.beatFile,
+    title: beatData.title,
+    producerName: producerData.name,
+    producerProfileImage: producerData.producerImage,
+    introduce: beatData.introduce || '',
+    keyword: beatData.keyword,
+    category: beatData.category,
+    isMe: isMe as boolean,
+    wavFileLength: wavefileLength,
+    isClosed: beatData.isClosed,
+
+  }
+
+  return getClickBeatReturn;
+
+>>>>>>> b667eab67d08736dc22b117b013240f562f72872
 }
 
 
 const tracksService = {
     createBeat,
-    updateBeatClosed,
+    getBeatLocation,
     getAllBeat,
+    updateBeatClosed,
+<<<<<<< HEAD
+    getAllBeat,
+=======
+    getClickedBeat,
+>>>>>>> b667eab67d08736dc22b117b013240f562f72872
 };
 
 export default tracksService;
