@@ -71,10 +71,10 @@ const getAllBeat = async() => {
     };
 
     
-    const allBeats = allBeatData.map((item, i) => {
+    const allBeats = allBeatData.map(async (item, i) => {
 
         const prd = producerNameData[i] as any;
-       const wavefileLength = getAudioDurationInSeconds(item.beatFile);
+        const wavefileLength = await getAudioDurationInSeconds(item.beatFile);
         
         const beatReturn: AllBeatDTO = {
             beatId: item.id,
