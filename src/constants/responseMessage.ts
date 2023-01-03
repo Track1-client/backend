@@ -41,6 +41,7 @@ export default {
     PRODUCER_PORTFOLIO_UPLOAD_FAIL: "프로듀서 포트폴리오 작성 실패",
     VOCAL_PORTFOLIO_UPLOAD_SUCCESS: "보컬 포트폴리오 작성 성공",
     VOCAL_PORTFOLIO_UPLOAD_FAIL: "보컬 포트폴리오 작성 실패",
+    READ_ALL_BEATS_SUCCESS: "전체 트랙 조회 성공",
 
     // 토큰
     CREATE_TOKEN_SUCCESS: "토큰 재발급 성공",

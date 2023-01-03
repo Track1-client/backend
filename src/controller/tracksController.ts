@@ -33,10 +33,17 @@ const createBeat = async(req: Request, res: Response) => {
 
 const getOneBeat = async(req: Request, res: Response) => {
 
-    const { tableName, userId, beatId } = req.body;    //! auth 미들웨어를 통해 토큰 검사 후 userId 받아옴.
-    
+    const { tableName, userId, beatId } = req.body;    //! auth 미들웨어를 통해 토큰 검사 후 userId 받아옴.    
 
+}
 
+//~ 트랙 검색 창 정보 제공
+const getAllBeat = async (req: Request, res: Response) => {
+
+   const data = await tracksService.getAllBeat();
+   if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+
+   return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_BEATS_SUCCESS, {"trackList": data})); 
 }
 
 const updateBeatClosed = async(req: Request, res: Response) => {
@@ -53,6 +60,7 @@ const tracksController = {
     createBeat,
     getOneBeat,
     updateBeatClosed,
+    getAllBeat,
 };
 
 export default tracksController;
