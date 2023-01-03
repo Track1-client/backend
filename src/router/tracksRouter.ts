@@ -19,6 +19,8 @@ router.post(
 );
 
 router.get('/:beatId', auth, tracksController.getOneBeat);
+router.get('/', auth, tracksController.getAllBeat);
+router.get('/:beatId/download', auth, tracksController.getBeatFile);
 router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
 
 

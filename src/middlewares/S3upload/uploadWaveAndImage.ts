@@ -8,10 +8,10 @@ import s3 from "../../config/s3Config";
 const fileFilter = (req: Express.Request, file: Express.MulterS3.File, cb: any ) => {
     var ext = file.mimetype.split('/')[1];    //! ex) image/jpg 에서 jpg 추출
     var type = file.mimetype;                 //! ex) image/jpg 전체 
-    
+    console.log(ext);
     (type.startsWith('image') && ['png', 'jpg', 'jpeg'].includes(ext)) ? cb(null, true)
-    : (type.startsWith('audio') && ( ext==='wav' || ext==='wave')) ? cb(null, true) //!TO-DO : mp3 파일도 나중에 추가
-    : (!['png', 'jpg', 'jpeg', 'wav', 'wave'].includes(ext)) ? cb(new Error('오디오파일 형식은 .wav/.wave, 이미지파일 형식은 .png/.jpg/.jpeg이어야함.'))
+    : (type.startsWith('audio') && ( ext==='wav' || ext==='wave' || ext==='mp3' || ext==='mpeg')) ? cb(null, true) 
+    : (!['png', 'jpg', 'jpeg', 'wav', 'wave', 'mp3', 'mpeg'].includes(ext)) ? cb(new Error('오디오파일 형식은 .wav/.mp3, 이미지파일 형식은 .png/.jpg/.jpeg이어야함.'))
     : cb(new Error('Only image files or audio files are allowed'));   //! 아예 오디오나 이미지가 아닌 경우 
 };
 
