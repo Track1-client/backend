@@ -24,7 +24,7 @@ const createProducerPortfolio = async(req: Request, res: Response) => {
     const data = await mypageService.postProducerPortfolio(portfolioDTO, jacketImageLocation as string, wavFilelocation as string);
     if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.PRODUCER_PORTFOLIO_UPLOAD_FAIL));
 
-    return res.status(sc.CREATED).send(success(sc.CREATED, rm.PRODUCER_PORTFOLIO_UPLOAD_SUCCESS, {"producerPortfolioId": data.id}));
+    return res.status(sc.CREATED).send(success(sc.CREATED, rm.PRODUCER_PORTFOLIO_UPLOAD_SUCCESS, data));
 };
 
 const createVocalPortfolio = async(req: Request, res: Response) => {
@@ -44,7 +44,7 @@ const createVocalPortfolio = async(req: Request, res: Response) => {
     const data = await mypageService.postVocalPortfolio(portfolioDTO, jacketImageLocation as string, wavFilelocation as string);
     if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.VOCAL_PORTFOLIO_UPLOAD_FAIL));
 
-    return res.status(sc.CREATED).send(success(sc.CREATED, rm.VOCAL_PORTFOLIO_UPLOAD_SUCCESS, {"vocalPortfolioId": data.id}));
+    return res.status(sc.CREATED).send(success(sc.CREATED, rm.VOCAL_PORTFOLIO_UPLOAD_SUCCESS, data));
 };
 
 const mypageController = {
