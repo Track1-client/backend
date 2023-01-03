@@ -37,6 +37,7 @@ export default {
     BEAT_UPLOAD_SUCCESS: "트랙 게시글 작성 성공",
     BEAT_UPLOAD_FAIL: "트랙 게시글 작성 실패",
     BEAT_CLOSED: "트랙 모집 완료 성공",
+    INVALID_BEAT_ID: "유효하지 않은 게시글입니다",
 
     // 포트폴리오 관련
     PRODUCER_PORTFOLIO_UPLOAD_SUCCESS: "프로듀서 포트폴리오 작성 성공",

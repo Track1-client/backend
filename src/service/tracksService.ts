@@ -93,17 +93,27 @@ const getAllBeat = async() => {
 }
 
 const updateBeatClosed = async(beatId: number) => {
+    const isClosedBeat = await prisma.beat.findUnique({
+        where: {
+            id: beatId,
+        },
+        select: {
+            isClosed: true,
+        }
+    });
+
+    const changeIsClosed = isClosedBeat ? false: true;
     const data = await prisma.beat.update({
         where: {
-          id: beatId,
+            id: beatId,
         },
         data: {
-          isClosed: true,
+            isClosed: changeIsClosed,
         },
-      });
+    });
     
-      return data;
-    };
+    return data;
+};
     
 
 
