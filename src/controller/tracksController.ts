@@ -3,9 +3,12 @@ import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
 import config from '../config';
-import { BeatCreateDTO } from '../interfaces/tracks';
+import { BeatCreateDTO, BeatDownloadReturnDTO } from '../interfaces/tracks';
 import { tracksService } from '../service';
 import convertCategory from '../modules/convertCategory';
+import downloadBeatFile from '../modules/downloadBeatFile';
+const fs = require('fs')
+
 
 
 const createBeat = async(req: Request, res: Response) => {
@@ -28,21 +31,54 @@ const createBeat = async(req: Request, res: Response) => {
     if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BEAT_UPLOAD_FAIL));
 
     return res.status(sc.CREATED).send(success(sc.CREATED, rm.IMAGE_UPLOAD_SUCCESS, {"beatId": data.id}));
-
-}
+};
 
 const getOneBeat = async(req: Request, res: Response) => {
-
-    const { tableName, userId, beatId } = req.body;    //! auth 미들웨어를 통해 토큰 검사 후 userId 받아옴.
     
 
 
-}
+};
+
+const getAllBeat = async (req: Request, res: Response) => {
+
+    const data = await tracksService.getAllBeat();
+    if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_USERS_SUCCESS, {"trackList": data})); 
+};
+
+const getBeatFile = async(req: Request, res: Response) => {
+
+    try {
+        const { beatId } = req.params;
+
+        const beatObject = await tracksService.getBeatLocation(+beatId);  //* beat url 가져오기
+        if(!beatObject) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_FILE_ID));
+
+        const fileId = beatObject?.id;
+        //const beatFile = await downloadBeatFile(beatObject?.beatFile, config.bothWavImageBucketName);
+        
+        const beatFileLength = await getAudioDurationInSeconds(beatObject.beatFile);
+        
+        const beatReturnDTO: BeatDownloadReturnDTO = {
+            beatId: fileId,
+            wavFile: beatObject.beatFile,
+            wavFileLength: beatFileLength
+        }
+        return res.status(sc.OK).send(success(sc.OK, rm.GET_FILE_SUCCESS, beatReturnDTO));
+    } 
+    catch(error) {
+        console.error(error);
+        return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+    };
+};
 
 
 const tracksController = {
     createBeat,
     getOneBeat,
+    getAllBeat,
+    getBeatFile,
 };
 
 export default tracksController;

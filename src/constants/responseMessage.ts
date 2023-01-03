@@ -29,6 +29,8 @@ export default {
 
     // wav file 
     NO_WAV_FILE: "파일이 없습니다",
+    INVALID_FILE_ID: "유효하지 않은 파일입니다",
+    GET_FILE_SUCCESS: "게시글 다운로드 성공",
 
     // 게시물 관련
     ONLY_PRODUCER_CREATE: "프로듀서만 게시글을 작성할 수 있습니다.",
