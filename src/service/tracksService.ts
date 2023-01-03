@@ -1,13 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-<<<<<<< HEAD
 import bcrypt from "bcryptjs";
 import { sc } from '../constants';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
-import { BeatCreateDTO, BeatClickedDTO } from '../interfaces/tracks';
-=======
-import { BeatCreateDTO, AllBeatDTO } from '../interfaces/tracks';
-import { getAudioDurationInSeconds } from 'get-audio-duration';
->>>>>>> 187e448c6a50d7e2c71fddac22db37fd71273edc
+import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO } from '../interfaces/tracks';
 
 const prisma = new PrismaClient();
 

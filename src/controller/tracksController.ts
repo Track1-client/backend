@@ -33,13 +33,6 @@ const createBeat = async(req: Request, res: Response) => {
     return res.status(sc.CREATED).send(success(sc.CREATED, rm.IMAGE_UPLOAD_SUCCESS, {"beatId": data.id}));
 };
 
-<<<<<<< HEAD
-=======
-const getOneBeat = async(req: Request, res: Response) => {
-    
-
-
-};
 
 const getAllBeat = async (req: Request, res: Response) => {
 
@@ -74,7 +67,7 @@ const getBeatFile = async(req: Request, res: Response) => {
         return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
     };
 };
->>>>>>> 187e448c6a50d7e2c71fddac22db37fd71273edc
+
 
 const updateBeatClosed = async(req: Request, res: Response) => {
 
@@ -98,12 +91,8 @@ const getClickedBeat = async(req:Request, res:Response) => {
 
 const tracksController = {
     createBeat,
-<<<<<<< HEAD
-=======
-    getOneBeat,
     getAllBeat,
     getBeatFile,
->>>>>>> 187e448c6a50d7e2c71fddac22db37fd71273edc
     updateBeatClosed,
     getClickedBeat,
 };
