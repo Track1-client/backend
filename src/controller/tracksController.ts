@@ -39,7 +39,7 @@ const getAllBeat = async (req: Request, res: Response) => {
     const data = await tracksService.getAllBeat();
     if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
 
-    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_USERS_SUCCESS, {"trackList": data})); 
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_BEAT_SUCCESS, {"trackList": data})); 
 };
 
 const getBeatFile = async(req: Request, res: Response) => {
