@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { sc } from '../constants';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
-import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO } from '../interfaces/tracks';
+import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO } from '../interfaces/tracks';
 
 const prisma = new PrismaClient();
 
@@ -157,6 +157,20 @@ const getClickedBeat = async(beatId: number, userId: number, tableName: string) 
 
 }
 
+const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavLocation: string,)=> {
+
+    const data = await prisma.comment.create({
+        data: {
+            beatId: beatId,
+            vocalId: commentDTO.userId,
+            commentFile: wavLocation,
+            content:commentDTO.comment
+        },
+    });
+
+    return data;
+}
+
 
 const tracksService = {
     createBeat,
@@ -164,6 +178,7 @@ const tracksService = {
     getAllBeat,
     updateBeatClosed,
     getClickedBeat,
+    postBeatComment,
 };
 
 export default tracksService;
