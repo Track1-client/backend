@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import getAudioDurationInSeconds from 'get-audio-duration';
 import { title } from 'process';
 import { ProducerPortfolioDTO, VocalPortfolioDTO, ProducerPortfolioReturnDTO, VocalPortfolioReturnDTO } from '../interfaces/mypage';
 
@@ -16,6 +17,11 @@ const postProducerPortfolio = async(portfolioDTO: ProducerPortfolioDTO, jacketLo
             content: portfolioDTO.introduce,
             keyword: portfolioDTO.keyword,
             producerId: portfolioDTO.userId,
+            ProducerPortfolioDuration: {
+                create: {
+                    duration: await getAudioDurationInSeconds(wavLocation)
+                }
+            }
         },
     });
 
