@@ -1,0 +1,1 @@
+export { default as AllVocalReturnDTO } from './AllVocalReturnDTO';

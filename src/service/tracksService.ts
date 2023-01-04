@@ -56,8 +56,8 @@ const getAllBeat = async() => {
                 select: {
                     duration: true
                 }
-            }
-        }
+            },
+        },
     });
     
     let producerNameData: object[] = [];
