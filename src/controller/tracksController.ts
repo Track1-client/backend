@@ -3,7 +3,7 @@ import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
 import config from '../config';
-import { AllBeatDTO, BeatCreateDTO, BeatDownloadReturnDTO, CommentCreateDTO } from '../interfaces/tracks';
+import { AllBeatDTO, BeatCreateDTO, BeatDownloadReturnDTO } from '../interfaces/tracks';
 import { tracksService } from '../service';
 import convertCategory from '../modules/convertCategory';
 
