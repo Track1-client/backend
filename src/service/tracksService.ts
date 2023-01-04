@@ -173,13 +173,20 @@ const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavL
             beatId: beatId,
             vocalId: commentDTO.userId,
             commentFile: wavLocation,
-            content:commentDTO.comment
+            content:commentDTO.comment,
         },
     });
 
-    return data;
-}
+    const createVocalOrder = await prisma.vocalOrder.create({
+        data: {
+            vocalId: commentDTO.userId,
+            orderStandardTableName: 'comment',
+            orderStandardTableId: data.id,
+        }
+    });
 
+    return data;
+};   
 
 const tracksService = {
     createBeat,
