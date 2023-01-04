@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Beat {
-  id               Int               @id @default(autoincrement())
+  id               Int               @id @unique @default(autoincrement())
   title            String            @db.VarChar(20000)
   category         String[]          @db.VarChar
   beatFile         String            @db.VarChar(10000)
@@ -34,7 +34,7 @@ model Comment {
 }
 
 model Producer {
-  id                Int                 @id @default(autoincrement())
+  id                Int                 @id @unique @default(autoincrement())
   name              String              @unique @db.VarChar(200)
   contact           String              @db.VarChar(200)
   category          String[]            @db.VarChar
@@ -45,11 +45,11 @@ model Producer {
   producerPW        String              @db.VarChar(200)
   Beat              Beat[]
   ProducerPortfolio ProducerPortfolio[]
-  ProducerTitle     ProducerTitle[]
+  ProducerTitle     ProducerTitle?
 }
 
 model ProducerPortfolio {
-  id                        Int                        @id(map: "producerPF_pkey") @default(autoincrement())
+  id                        Int                        @id(map: "producerPF_pkey") @unique @default(autoincrement())
   ppfImage                  String                     @db.VarChar(20000)
   title                     String                     @db.VarChar(20000)
   ppfFile                   String                     @db.VarChar(10000)
@@ -59,19 +59,19 @@ model ProducerPortfolio {
   producerId                Int
   Producer                  Producer                   @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producerpf_producer_id_fk")
   ProducerPortfolioDuration ProducerPortfolioDuration?
-  ProducerTitle             ProducerTitle[]
+  ProducerTitle             ProducerTitle?
 }
 
 model ProducerTitle {
-  id                  Int               @id(map: "producerTitle_pkey") @default(autoincrement())
-  producerId          Int
-  producerPortfolioId Int
+  id                  Int               @id(map: "producerTitle_pkey") @unique @default(autoincrement())
+  producerId          Int               @unique
+  producerPortfolioId Int               @unique
   ProducerPortfolio   ProducerPortfolio @relation(fields: [producerPortfolioId], references: [id], onDelete: Cascade, map: "producertitle_ppf_id_fk")
   Producer            Producer          @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producertitle_producer_id_fk")
 }
 
 model Vocal {
-  id             Int              @id @default(autoincrement())
+  id             Int              @id @unique @default(autoincrement())
   name           String           @unique @db.VarChar(200)
   contact        String           @db.VarChar(200)
   category       String[]         @db.VarChar
@@ -84,19 +84,19 @@ model Vocal {
   Comment        Comment[]
   VocalOrder     VocalOrder[]
   vocalPortfolio VocalPortfolio[]
-  VocalTitle     VocalTitle[]
+  VocalTitle     VocalTitle?
 }
 
 model VocalTitle {
-  id               Int            @id @default(autoincrement())
-  vocalId          Int
-  vocalPortfolioId Int
+  id               Int            @id @unique @default(autoincrement())
+  vocalId          Int            @unique
+  vocalPortfolioId Int            @unique
   Vocal            Vocal          @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocaltitle_vocal_id_fk")
   vocalPortfolio   VocalPortfolio @relation(fields: [vocalPortfolioId], references: [id], onDelete: Cascade, map: "vocaltitle_vpf_id_fk")
 }
 
 model VocalPortfolio {
-  id                     Int                     @id @default(autoincrement())
+  id                     Int                     @id @unique @default(autoincrement())
   vpfImage               String                  @db.VarChar(20000)
   title                  String                  @db.VarChar(20000)
   vpfFile                String                  @db.VarChar(10000)
@@ -106,11 +106,11 @@ model VocalPortfolio {
   vocalId                Int
   Vocal                  Vocal                   @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocalpf_vocal_id_fk")
   VocalPortfolioDuration VocalPortfolioDuration?
-  VocalTitle             VocalTitle[]
+  VocalTitle             VocalTitle?
 }
 
 model BeatFileDuration {
-  id       Int   @id(map: "beatFileDuration_pkey") @default(autoincrement())
+  id       Int   @id(map: "beatFileDuration_pkey") @unique @default(autoincrement())
   beatId   Int   @unique
   duration Float
   Beat     Beat  @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "beatfileduration_beat_id_fk")
@@ -131,14 +131,14 @@ model ProducerPortfolioDuration {
 }
 
 model VocalPortfolioDuration {
-  id               Int            @id @default(autoincrement())
+  id               Int            @id @unique @default(autoincrement())
   vocalPortfolioId Int            @unique
   duration         Float?
   VocalPortfolio   VocalPortfolio @relation(fields: [vocalPortfolioId], references: [id], onDelete: Cascade, map: "vocalportfolioduration_vocalPortfolio_id_fk")
 }
 
 model VocalOrder {
-  id                     Int      @id @default(autoincrement())
+  id                     Int      @id @unique @default(autoincrement())
   vocalId                Int
   orderStandardTableName String   @db.VarChar(100)
   orderStandardTableId   Int
