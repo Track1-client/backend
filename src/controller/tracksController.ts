@@ -3,7 +3,7 @@ import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
 import config from '../config';
-import { AllBeatDTO, BeatCreateDTO, BeatDownloadReturnDTO } from '../interfaces/tracks';
+import { AllBeatDTO, BeatCreateDTO, BeatDownloadReturnDTO, CommentCreateDTO } from '../interfaces/tracks';
 import { tracksService } from '../service';
 import convertCategory from '../modules/convertCategory';
 
@@ -84,6 +84,7 @@ const getClickedBeat = async(req:Request, res:Response) => {
 
     return res.status(sc.OK).send(success(sc.OK, rm.GET_CLICKED_BEAT_SUCCESS, data)); 
 }
+
 
 const tracksController = {
     createBeat,

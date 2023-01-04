@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { sc } from '../constants';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
-import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO } from '../interfaces/tracks';
+import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO } from '../interfaces/tracks';
 import config from '../config';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
