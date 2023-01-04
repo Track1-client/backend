@@ -1,9 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { getAudioDurationInSeconds } from 'get-audio-duration';
-import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO } from '../interfaces/tracks';
-
-
-
+import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO, AllCommentDTO } from '../interfaces/tracks';
 
 const prisma = new PrismaClient();
 
@@ -151,7 +148,7 @@ const getAllComment = async(beatId: number, userId: number, tableName: string) =
             vocalProfileImage : crd['vocalImage'],
             comment : item.content || '',
             isMe : isMe,
-            vocalWavFileLength : item.CommentFileDuration[0].duration
+            vocalWavFileLength : item.CommentFileDuration?.duration as number
         };
         
         return commentReturn;
