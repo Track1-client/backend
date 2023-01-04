@@ -19,6 +19,7 @@ const createBeat = async(beatDTO: BeatCreateDTO, jacketLocation: string, wavLoca
             producerId: beatDTO.userId,
             isClosed: false,
         },
+
     });
 
     return data;
@@ -38,6 +39,31 @@ const getBeatLocation = async(beatId: number) => {
 
     return data;
 };
+
+
+const updateBeatClosed = async(beatId: number) => {
+    const isClosedBeat = await prisma.beat.findUnique({
+        where: {
+            id: beatId,
+        },
+        select: {
+            isClosed: true,
+        }
+    });
+
+    const changeIsClosed = isClosedBeat ? false: true;
+    const data = await prisma.beat.update({
+        where: {
+            id: beatId,
+        },
+        data: {
+            isClosed: changeIsClosed,
+        },
+    });
+    
+    return data;
+};
+    
 
 const getAllBeat = async() => {
 
@@ -64,18 +90,16 @@ const getAllBeat = async() => {
                 name: true
             }
         });
-        
+
         producerNameData.push(temp as object);
     };
 
-
+    
     const allBeats = allBeatData.map((item, i) => {
-        //const beatObject = Object.assign({}, item, producerNameData[i]);
+
         const prd = producerNameData[i] as any;
-        const wavefileLength = getAudioDurationInSeconds(item.beatFile);
-        const a = getAudioDurationInSeconds(item.beatFile).then((duration) => {
-            return duration;
-        });
+        //const wavFileLength = getAudioDurationInSeconds(item.beatFile);
+        
         const beatReturn: AllBeatDTO = {
             beatId: item.id,
             jacketImage: item.beatImage,
@@ -84,39 +108,16 @@ const getAllBeat = async() => {
             producerName: prd['name'],
             keyword: item.keyword,
             category: item.category,
-            wavFileLength: wavefileLength
+            //wavFileLength: wavFileLength
         };
+        
         console.log(beatReturn);
         return beatReturn;
     });
-    
-    return allBeats;
 
+    return allBeats;
 }
 
-const updateBeatClosed = async(beatId: number) => {
-    const isClosedBeat = await prisma.beat.findUnique({
-        where: {
-            id: beatId,
-        },
-        select: {
-            isClosed: true,
-        }
-    });
-
-    const changeIsClosed = isClosedBeat ? false: true;
-    const data = await prisma.beat.update({
-        where: {
-            id: beatId,
-        },
-        data: {
-            isClosed: changeIsClosed,
-        },
-    });
-    
-    return data;
-};
-    
 const getClickedBeat = async(beatId: number, userId: number, tableName: string) => {
   const beatData = await prisma.beat.findUnique({
     where: { id: beatId }
