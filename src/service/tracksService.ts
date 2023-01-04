@@ -1,12 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
-import { sc } from '../constants';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
 import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO } from '../interfaces/tracks';
-import config from '../config';
-import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import s3 from '../config/s3Config';
+
 
 
 const prisma = new PrismaClient();
@@ -66,7 +61,7 @@ const getAllBeat = async() => {
             }
         }
     });
-    console.log(allBeatData[0].BeatFileDuration[0].duration);
+    
     let producerNameData: object[] = [];
 
     for(const data of allBeatData) {
@@ -93,7 +88,7 @@ const getAllBeat = async() => {
             producerName: prd['name'],
             keyword: item.keyword,
             category: item.category,
-            wavFileLength: item.BeatFileDuration[0]?.duration
+            wavFileLength: item.BeatFileDuration?.duration as number
         };
         
         return beatReturn;
@@ -166,7 +161,7 @@ const getClickedBeat = async(beatId: number, userId: number, tableName: string) 
 
 }
 
-const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavLocation: string,)=> {
+const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavLocation: string)=> {
 
     const data = await prisma.comment.create({
         data: {
@@ -174,6 +169,11 @@ const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavL
             vocalId: commentDTO.userId,
             commentFile: wavLocation,
             content:commentDTO.comment,
+            CommentFileDuration: {
+                create: {
+                    duration: await getAudioDurationInSeconds(wavLocation)
+                }
+            }
         },
     });
 
