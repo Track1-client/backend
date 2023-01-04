@@ -68,7 +68,9 @@ const getVocals = async() => {
     return result;
 };
 
-const getFilteredVocals = async(categList: string[]) => {
+const getFilteredVocals = async(categList: string[], isSelected: string) => {
+
+    var isTrueSet = (isSelected === 'true');
 
     //! 작업물 최신순 정렬
     const vocalList = await prisma.vocalOrder.findMany({
@@ -107,9 +109,16 @@ const getFilteredVocals = async(categList: string[]) => {
         },
         where: {
             Vocal: {
-                category: {
-                    hasSome: categList   //! 필터링
-                }
+                AND: [
+                    {
+                        category: {
+                            hasSome: categList   //! 카테고리 필터링
+                        },
+                    },
+                    {
+                        isSelected: isTrueSet    //! 구직중 필터링
+                    }
+                ],
             }
         },
         orderBy: {
