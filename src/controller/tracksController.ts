@@ -36,24 +36,10 @@ const createBeat = async(req: Request, res: Response) => {
 
 const getAllBeat = async (req: Request, res: Response) => {
 
-<<<<<<< HEAD
-    const { tableName, userId, beatId } = req.body;    //! auth 미들웨어를 통해 토큰 검사 후 userId 받아옴.    
-
-}
-
-//~ 트랙 검색 창 정보 제공
-const getAllBeat = async (req: Request, res: Response) => {
-
-   const data = await tracksService.getAllBeat();
-   if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
-
-   return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_BEATS_SUCCESS, {"trackList": data})); 
-}
-=======
     const data = await tracksService.getAllBeat();
     if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
 
-    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_USERS_SUCCESS, {"trackList": data})); 
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_BEAT_SUCCESS, {"trackList": data})); 
 };
 
 const getBeatFile = async(req: Request, res: Response) => {
@@ -82,7 +68,6 @@ const getBeatFile = async(req: Request, res: Response) => {
     };
 };
 
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 
 const updateBeatClosed = async(req: Request, res: Response) => {
 
@@ -109,11 +94,7 @@ const tracksController = {
     getAllBeat,
     getBeatFile,
     updateBeatClosed,
-<<<<<<< HEAD
-    getAllBeat,
-=======
     getClickedBeat,
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 };
 
 export default tracksController;

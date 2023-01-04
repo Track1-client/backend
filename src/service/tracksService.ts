@@ -2,12 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { sc } from '../constants';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
-<<<<<<< HEAD
-import { BeatCreateDTO } from '../interfaces/tracks';
-import { AllBeatDTO } from '../interfaces/tracks';
-=======
 import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO } from '../interfaces/tracks';
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 
 const prisma = new PrismaClient();
 
@@ -45,60 +40,6 @@ const getBeatLocation = async(beatId: number) => {
     return data;
 };
 
-const getAllBeat = async() => {
-
-    const allBeatData = await prisma.beat.findMany({
-        select: {
-            id: true,
-            beatImage: true,
-            beatFile: true,
-            title: true,
-            keyword: true,
-            category: true,
-            producerId: true
-        }
-    });
-
-    let producerNameData: object[] = [];
-
-    for(const data of allBeatData) {
-        const temp = await prisma.producer.findUnique({
-            where: {
-                id: data.producerId
-            },
-            select: {
-                name: true
-            }
-        });
-        
-        producerNameData.push(temp as object);
-    };
-
-
-    const allBeats = allBeatData.map((item, i) => {
-        //const beatObject = Object.assign({}, item, producerNameData[i]);
-        const prd = producerNameData[i] as any;
-        const wavefileLength = getAudioDurationInSeconds(item.beatFile);
-        const a = getAudioDurationInSeconds(item.beatFile).then((duration) => {
-            return duration;
-        });
-        const beatReturn: AllBeatDTO = {
-            beatId: item.id,
-            jacketImage: item.beatImage,
-            wavFile: item.beatFile,
-            title: item.title,
-            producerName: prd['name'],
-            keyword: item.keyword,
-            category: item.category,
-            wavFileLength: wavefileLength
-        };
-        console.log(beatReturn);
-        return beatReturn;
-    });
-    
-    return allBeats;
-
-}
 
 const updateBeatClosed = async(beatId: number) => {
     const isClosedBeat = await prisma.beat.findUnique({
@@ -123,7 +64,7 @@ const updateBeatClosed = async(beatId: number) => {
     return data;
 };
     
-<<<<<<< HEAD
+
 const getAllBeat = async() => {
 
     const allBeatData = await prisma.beat.findMany({
@@ -137,8 +78,6 @@ const getAllBeat = async() => {
             producerId: true
         }
     });
-    //console.log(allBeatData);
-
 
     let producerNameData: object[] = [];
 
@@ -156,10 +95,10 @@ const getAllBeat = async() => {
     };
 
     
-    const allBeats = allBeatData.map(async (item, i) => {
+    const allBeats = allBeatData.map((item, i) => {
 
         const prd = producerNameData[i] as any;
-        const wavefileLength = await getAudioDurationInSeconds(item.beatFile);
+        //const wavFileLength = getAudioDurationInSeconds(item.beatFile);
         
         const beatReturn: AllBeatDTO = {
             beatId: item.id,
@@ -169,15 +108,16 @@ const getAllBeat = async() => {
             producerName: prd['name'],
             keyword: item.keyword,
             category: item.category,
-            wavFileLength: wavefileLength
+            //wavFileLength: wavFileLength
         };
         
         console.log(beatReturn);
         return beatReturn;
     });
-    
+
     return allBeats;
-=======
+}
+
 const getClickedBeat = async(beatId: number, userId: number, tableName: string) => {
   const beatData = await prisma.beat.findUnique({
     where: { id: beatId }
@@ -218,7 +158,6 @@ const getClickedBeat = async(beatId: number, userId: number, tableName: string) 
 
   return getClickBeatReturn;
 
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 }
 
 
@@ -227,11 +166,7 @@ const tracksService = {
     getBeatLocation,
     getAllBeat,
     updateBeatClosed,
-<<<<<<< HEAD
-    getAllBeat,
-=======
     getClickedBeat,
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 };
 
 export default tracksService;
