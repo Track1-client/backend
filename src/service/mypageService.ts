@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import getAudioDurationInSeconds from 'get-audio-duration';
 import { title } from 'process';
 import { ProducerPortfolioDTO, VocalPortfolioDTO, ProducerPortfolioReturnDTO, VocalPortfolioReturnDTO } from '../interfaces/mypage';
 
@@ -16,6 +17,11 @@ const postProducerPortfolio = async(portfolioDTO: ProducerPortfolioDTO, jacketLo
             content: portfolioDTO.introduce,
             keyword: portfolioDTO.keyword,
             producerId: portfolioDTO.userId,
+            ProducerPortfolioDuration: {
+                create: {
+                    duration: await getAudioDurationInSeconds(wavLocation)
+                }
+            }
         },
     });
 
@@ -68,6 +74,11 @@ const postVocalPortfolio = async(portfolioDTO: VocalPortfolioDTO, jacketLocation
             content: portfolioDTO.introduce,
             keyword: portfolioDTO.keyword,
             vocalId: portfolioDTO.userId,
+            VocalPortfolioDuration: {
+                create: {
+                    duration: await getAudioDurationInSeconds(wavLocation)
+                }
+            }
         },
     });
 
@@ -76,10 +87,19 @@ const postVocalPortfolio = async(portfolioDTO: VocalPortfolioDTO, jacketLocation
 
     const titleId = await createVocalTitle(vocalPortfolioId, vocalId);
 
+    //! vocalOrder 생성
+    const createVocalOrder = await prisma.vocalOrder.create({
+        data: {
+            vocalId: vocalId,
+            orderStandardTableName: 'portfolio',
+            orderStandardTableId: data.id,
+        }
+    });
+
     const result: VocalPortfolioReturnDTO = {
         vocalPortfolioId: data.id,
         vocalTitleId: titleId as number
-    }
+    };
 
     return result;
 };

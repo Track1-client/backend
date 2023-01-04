@@ -41,6 +41,12 @@ export default {
     INVALID_BEAT_ID: "유효하지 않은 게시글입니다",
     READ_ALL_BEAT_SUCCESS: "전체 트랙 조회 성공",
 
+    // 댓글 관련
+    COMMENT_UPLOAD_FAIL: "트랙 댓글 작성 실패",
+    COMMENT_UPLOAD_SUCCESS: "트랙 댓글 작성 성공",
+    ONLY_VOCAL_CREATE: "보컬만 댓글을 작성할 수 있습니다.",
+    READ_ALL_COMMENT_SUCCESS: "게시글 댓글 조회 성공",
+
     // 포트폴리오 관련
     PRODUCER_PORTFOLIO_UPLOAD_SUCCESS: "프로듀서 포트폴리오 작성 성공",
     PRODUCER_PORTFOLIO_UPLOAD_FAIL: "프로듀서 포트폴리오 작성 실패",
@@ -54,6 +60,10 @@ export default {
     INVALID_TOKEN: "유효하지 않은 토큰입니다.",
     VALID_TOKEN: "유효한 토큰입니다.",
     EMPTY_TOKEN: "토큰 값이 없습니다.",
+
+    // 보컬 관련
+    GET_VOCAL_LIST_FAIL: "보컬 검색 창 조회 실패",
+    GET_VOCAL_LIST_SUCCESS: "보컬 검색 창 조회 성공",
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: "서버 내 오류",
