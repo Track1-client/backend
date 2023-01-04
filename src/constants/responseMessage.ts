@@ -41,6 +41,11 @@ export default {
     INVALID_BEAT_ID: "유효하지 않은 게시글입니다",
     READ_ALL_BEAT_SUCCESS: "전체 트랙 조회 성공",
 
+    // 댓글 관련
+    COMMENT_UPLOAD_FAIL: "트랙 댓글 작성 실패",
+    COMMENT_UPLOAD_SUCCESS: "트랙 댓글 작성 성공",
+    ONLY_VOCAL_CREATE: "보컬만 댓글을 작성할 수 있습니다.",
+
     // 포트폴리오 관련
     PRODUCER_PORTFOLIO_UPLOAD_SUCCESS: "프로듀서 포트폴리오 작성 성공",
     PRODUCER_PORTFOLIO_UPLOAD_FAIL: "프로듀서 포트폴리오 작성 실패",

@@ -3,7 +3,7 @@ import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
 import config from '../config';
-import { AllBeatDTO, BeatCreateDTO, BeatDownloadReturnDTO } from '../interfaces/tracks';
+import { BeatCreateDTO, BeatDownloadReturnDTO, CommentCreateDTO } from '../interfaces/tracks';
 import { tracksService } from '../service';
 import convertCategory from '../modules/convertCategory';
 
@@ -85,6 +85,23 @@ const getClickedBeat = async(req:Request, res:Response) => {
     return res.status(sc.OK).send(success(sc.OK, rm.GET_CLICKED_BEAT_SUCCESS, data)); 
 }
 
+const postBeatComment = async(req:Request, res:Response) => {
+    const { beatId } = req.params;
+    
+    const myfiles: Express.MulterS3.File = req.file as Express.MulterS3.File;
+    const { location } = myfiles;
+    //* wavFile 없는 경우 -> 오류 반환
+    if(!myfiles) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_WAV_FILE));
+
+    const commentCreateDTO: CommentCreateDTO = req.body;
+    if (commentCreateDTO.tableName !== 'vocal') return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.ONLY_VOCAL_CREATE)); //! 보컬만 댓글 작성 가능 
+
+    const data = await tracksService.postBeatComment(+beatId, commentCreateDTO, location as string);
+    if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
+
+    return res.status(sc.CREATED).send(success(sc.CREATED, rm.COMMENT_UPLOAD_SUCCESS, {"commentId": data.id}));
+
+}
 
 const tracksController = {
     createBeat,
@@ -92,6 +109,7 @@ const tracksController = {
     getBeatFile,
     updateBeatClosed,
     getClickedBeat,
+    postBeatComment,
 };
 
 export default tracksController;

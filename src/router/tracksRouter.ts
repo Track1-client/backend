@@ -23,4 +23,16 @@ router.get('/', auth, tracksController.getAllBeat);
 router.get('/:beatId/download', auth, tracksController.getBeatFile);
 router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
 
+router.post(
+    '/:beatId', 
+    (req: Request, res: Response, next: NextFunction) => {
+        Comment_wav_file(req, res, err => {  
+            if (err) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, err.message));
+            next();
+        })
+    },
+    auth, 
+    tracksController.postBeatComment
+);
+
 export default router;
