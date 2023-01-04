@@ -77,7 +77,7 @@ const getAllBeat = async() => {
                 name: true
             }
         });
-        
+
         producerNameData.push(temp as object);
     };
     

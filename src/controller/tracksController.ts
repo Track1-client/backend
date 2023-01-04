@@ -36,7 +36,7 @@ const getAllBeat = async (req: Request, res: Response) => {
     const data = await tracksService.getAllBeat();
     if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_BEAT_ID));
 
-    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_USERS_SUCCESS, {"trackList": data})); 
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_BEAT_SUCCESS, {"trackList": data})); 
 };
 
 
