@@ -62,10 +62,13 @@ const getAllBeat = async() => {
                 select: {
                     duration: true
                 }
-            }
+
+            },
+        },
+        orderBy: {
+            createdAt: 'desc',
         }
     });
-    console.log(allBeatData[0].BeatFileDuration[0].duration);
     let producerNameData: object[] = [];
 
     for(const data of allBeatData) {

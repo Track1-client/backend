@@ -8,17 +8,19 @@ datasource db {
 }
 
 model Beat {
-  id               Int                @id @default(autoincrement())
+  id               Int                @id @unique @default(autoincrement())
   title            String             @db.VarChar(20000)
   category         String[]           @db.VarChar
   beatFile         String             @db.VarChar(10000)
   introduce        String?
   keyword          String[]           @db.VarChar
   producerId       Int
-  isClosed         Boolean            @default(false)
-  beatImage        String             @db.VarChar(10000)
-  Producer         Producer           @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "beat_producer_id_fk")
-  BeatFileDuration BeatFileDuration[]
+  isClosed         Boolean           @default(false)
+  beatImage        String            @db.VarChar(10000)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  Producer         Producer          @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "beat_producer_id_fk")
+  BeatFileDuration BeatFileDuration?
   Comment          Comment[]
 }
 
@@ -110,7 +112,7 @@ model VocalPortfolio {
 
 model BeatFileDuration {
   id       Int   @id(map: "beatFileDuration_pkey") @default(autoincrement())
-  beatId   Int
+  beatId   Int @unique
   duration Float
   Beat     Beat  @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "beatfileduration_beat_id_fk")
 }
