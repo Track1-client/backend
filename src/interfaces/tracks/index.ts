@@ -6,4 +6,3 @@ export { default as CommentCreateDTO } from './commentCreateDTO';
 
 
 
-

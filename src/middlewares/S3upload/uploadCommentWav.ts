@@ -23,7 +23,7 @@ const Comment_wav_file = multer({
     acl: "public-read", // Access control for the file
     key: function (req: Express.Request, file: Express.MulterS3.File, cb) {
         if (!file) cb(new Error('audio 파일이 존재하지 않습니다'));
-
+        
         var  newFileName = Date.now() + "-" + file.originalname;
         var fullPath = 'comment/'+ newFileName;
         cb(null, fullPath);
