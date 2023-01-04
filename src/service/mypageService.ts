@@ -87,10 +87,19 @@ const postVocalPortfolio = async(portfolioDTO: VocalPortfolioDTO, jacketLocation
 
     const titleId = await createVocalTitle(vocalPortfolioId, vocalId);
 
+    //! vocalOrder 생성
+    const createVocalOrder = await prisma.vocalOrder.create({
+        data: {
+            vocalId: vocalId,
+            orderStandardTableName: 'portfolio',
+            orderStandardTableId: data.id,
+        }
+    });
+
     const result: VocalPortfolioReturnDTO = {
         vocalPortfolioId: data.id,
         vocalTitleId: titleId as number
-    }
+    };
 
     return result;
 };
