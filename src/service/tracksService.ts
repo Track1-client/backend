@@ -56,7 +56,6 @@ const getAllBeat = async() => {
                 select: {
                     duration: true
                 }
-<<<<<<< HEAD
 
             },
         },
@@ -64,12 +63,6 @@ const getAllBeat = async() => {
             createdAt: 'desc',
         }
     });
-=======
-            },
-        },
-    });
-    
->>>>>>> 817b42e8016b95f90f0ee0a4b75b41a908f43da7
     let producerNameData: object[] = [];
 
     for(const data of allBeatData) {
@@ -123,6 +116,9 @@ const getAllComment = async(beatId: number, userId: number, tableName: string) =
                     duration: true
                 }
             }
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     });
 

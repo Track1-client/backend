@@ -54,12 +54,12 @@ const getVocals = async() => {
         const returnDTO:AllVocalReturnDTO = {
             vocalId: getVocal.id,
             vocalProfileImage: getVocal.vocalImage,
-            vocalTitleFile: getVocal.vocalPortfolio[0].vpfFile,
+            vocalTitleFile: getVocal.vocalPortfolio[0]?.vpfFile,
             vocalName: getVocal.name,
             category: getVocal.category,
             keyword: getVocal.keyword,
             totalCategNum: getVocal._count.vocalPortfolio - 1,
-            wavFileLength: getVocal.vocalPortfolio[0].VocalPortfolioDuration?.duration as number,
+            wavFileLength: getVocal.vocalPortfolio[0]?.VocalPortfolioDuration?.duration as number,
             isSelected: getVocal.isSelected
         }
         return returnDTO;
@@ -71,7 +71,7 @@ const getVocals = async() => {
 const getFilteredVocals = async(categList: string[], isSelected: string) => {
 
     var isTrueSet = (isSelected === 'true');
-
+    
     //! 작업물 최신순 정렬
     const vocalList = await prisma.vocalOrder.findMany({
         select: {
@@ -108,37 +108,29 @@ const getFilteredVocals = async(categList: string[], isSelected: string) => {
             },
         },
         where: {
-            Vocal: {
-                AND: [
-                    {
-                        category: {
-                            hasSome: categList   //! 카테고리 필터링
-                        },
-                    },
-                    {
-                        isSelected: isTrueSet    //! 구직중 필터링
-                    }
-                ],
-            }
+            AND: [
+                { Vocal: { category: { hasSome: categList } } },
+                { Vocal: { isSelected: isTrueSet } },
+            ],
         },
         orderBy: {
             createdAt: "desc"  //~ 최신순 정렬
         },
         distinct: ['vocalId']  //~ 인덱스 0의(최신의) vocalId를 기준으로 부터 중복된 vocalId는 가져오지 않음. 
     });
-    
+
     const result = await Promise.all(vocalList.map((vocal) => {
         const getVocal = vocal.Vocal;
 
         const returnDTO:AllVocalReturnDTO = {
             vocalId: getVocal.id,
             vocalProfileImage: getVocal.vocalImage,
-            vocalTitleFile: getVocal.vocalPortfolio[0].vpfFile,
+            vocalTitleFile: getVocal.vocalPortfolio[0]?.vpfFile,
             vocalName: getVocal.name,
             category: getVocal.category,
             keyword: getVocal.keyword,
             totalCategNum: getVocal._count.vocalPortfolio - 1,
-            wavFileLength: getVocal.vocalPortfolio[0].VocalPortfolioDuration?.duration as number,
+            wavFileLength: getVocal.vocalPortfolio[0]?.VocalPortfolioDuration?.duration as number,
             isSelected: getVocal.isSelected
         }
         return returnDTO;
