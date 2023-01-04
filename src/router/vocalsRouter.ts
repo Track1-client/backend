@@ -8,5 +8,6 @@ const router: Router = Router();
 
 
 router.get('/', auth, vocalsController.getAllVocals);
+router.get('/filter', auth, vocalsController.getFilteringVocals);
 
 export default router;
