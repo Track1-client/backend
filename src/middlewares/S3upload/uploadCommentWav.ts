@@ -9,8 +9,8 @@ const fileFilter = (req: Express.Request, file: Express.MulterS3.File, cb: any )
   var ext = file.mimetype.split('/')[1];    //! ex) image/jpg 에서 jpg 추출
   var type = file.mimetype;                 //! ex) image/jpg 전체 
 
-  (type.startsWith('audio') && ['wav', 'wave', 'mp3'].includes(ext)) ? cb(null, true)
-  : (!['wav', 'wave', 'mp3'].includes(ext)) ? cb(new Error('오디오파일 형식은 .wav/.mp3이어야함.'))  //! 오디오 파일 형식이 옳지 않은 경우
+  (type.startsWith('audio') && ['wav', 'wave', 'mp3', 'mpeg'].includes(ext)) ? cb(null, true)
+  : (!['wav', 'wave', 'mp3', 'mpeg'].includes(ext)) ? cb(new Error('오디오파일 형식은 .wav/.mp3이어야함.'))  //! 오디오 파일 형식이 옳지 않은 경우
   : cb(new Error('Only audio files are allowed'));   //! 아예 오디오가 아닌 경우 
 };
 
