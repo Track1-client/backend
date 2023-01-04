@@ -3,7 +3,7 @@ import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
 import config from '../config';
-import { BeatCreateDTO, BeatDownloadReturnDTO } from '../interfaces/tracks';
+import { AllBeatDTO, BeatCreateDTO, BeatDownloadReturnDTO } from '../interfaces/tracks';
 import { tracksService } from '../service';
 import convertCategory from '../modules/convertCategory';
 import downloadBeatFile from '../modules/downloadBeatFile';
@@ -37,10 +37,12 @@ const createBeat = async(req: Request, res: Response) => {
 const getAllBeat = async (req: Request, res: Response) => {
 
     const data = await tracksService.getAllBeat();
-    if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+    console.log(data)
+    if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_BEAT_ID));
 
     return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_USERS_SUCCESS, {"trackList": data})); 
 };
+
 
 const getBeatFile = async(req: Request, res: Response) => {
 
@@ -52,7 +54,6 @@ const getBeatFile = async(req: Request, res: Response) => {
 
         const fileId = beatObject?.id;
         //const beatFile = await downloadBeatFile(beatObject?.beatFile, config.bothWavImageBucketName);
-        
         const beatFileLength = await getAudioDurationInSeconds(beatObject.beatFile);
         
         const beatReturnDTO: BeatDownloadReturnDTO = {
@@ -85,7 +86,7 @@ const getClickedBeat = async(req:Request, res:Response) => {
 
     const data = await tracksService.getClickedBeat(+beatId, +userId, tableName);
     if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
-     
+
     return res.status(sc.OK).send(success(sc.OK, rm.GET_CLICKED_BEAT_SUCCESS, data)); 
 }
 
