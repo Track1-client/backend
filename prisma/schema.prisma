@@ -8,27 +8,29 @@ datasource db {
 }
 
 model Beat {
-  id         Int       @id @default(autoincrement())
-  beatImage  String    @db.VarChar(10000)
-  title      String    @db.VarChar(20000)
-  category   String[]  @db.VarChar
-  beatFile   String    @db.VarChar(10000)
-  introduce  String?
-  keyword    String[]  @db.VarChar
-  producerId Int
-  isClosed   Boolean   @default(false)
-  Producer   Producer  @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "beat_producer_id_fk")
-  Comment    Comment[]
+  id               Int                @id @default(autoincrement())
+  title            String             @db.VarChar(20000)
+  category         String[]           @db.VarChar
+  beatFile         String             @db.VarChar(10000)
+  introduce        String?
+  keyword          String[]           @db.VarChar
+  producerId       Int
+  isClosed         Boolean            @default(false)
+  beatImage        String             @db.VarChar(10000)
+  Producer         Producer           @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "beat_producer_id_fk")
+  BeatFileDuration BeatFileDuration[]
+  Comment          Comment[]
 }
 
 model Comment {
-  id          Int     @id @default(autoincrement())
-  beatId      Int
-  vocalId     Int
-  commentFile String   @db.VarChar(10000)
-  content     String?
-  Beat        Beat    @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "comment_beat_id_fk")
-  Vocal       Vocal   @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "comment_vocal_id_fk")
+  id                  Int                   @id @default(autoincrement())
+  beatId              Int
+  vocalId             Int
+  commentFile         String                @db.VarChar(10000)
+  content             String?
+  Beat                Beat                  @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "comment_beat_id_fk")
+  Vocal               Vocal                 @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "comment_vocal_id_fk")
+  CommentFileDuration CommentFileDuration[]
 }
 
 model Producer {
@@ -47,16 +49,17 @@ model Producer {
 }
 
 model ProducerPortfolio {
-  id            Int             @id(map: "producerPF_pkey") @default(autoincrement())
-  ppfImage      String          @db.VarChar(20000)
-  title         String          @db.VarChar(20000)
-  ppfFile       String          @db.VarChar(10000)
-  category      String[]        @db.VarChar
-  content       String?
-  keyword       String[]        @db.VarChar
-  producerId    Int
-  Producer      Producer        @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producerpf_producer_id_fk")
-  ProducerTitle ProducerTitle[]
+  id                        Int                         @id(map: "producerPF_pkey") @default(autoincrement())
+  ppfImage                  String                      @db.VarChar(20000)
+  title                     String                      @db.VarChar(20000)
+  ppfFile                   String                      @db.VarChar(10000)
+  category                  String[]                    @db.VarChar
+  content                   String?
+  keyword                   String[]                    @db.VarChar
+  producerId                Int
+  Producer                  Producer                    @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producerpf_producer_id_fk")
+  ProducerPortfolioDuration ProducerPortfolioDuration[]
+  ProducerTitle             ProducerTitle[]
 }
 
 model ProducerTitle {
@@ -79,8 +82,8 @@ model Vocal {
   vocalID        String           @unique @db.VarChar(200)
   vocalPW        String           @db.VarChar(200)
   Comment        Comment[]
-  VocalTitle     VocalTitle[]
   vocalPortfolio VocalPortfolio[]
+  VocalTitle     VocalTitle[]
 }
 
 model VocalTitle {
@@ -92,14 +95,43 @@ model VocalTitle {
 }
 
 model VocalPortfolio {
-  id         Int          @id @default(autoincrement())
-  vpfImage   String       @db.VarChar(20000)
-  title      String       @db.VarChar(20000)
-  vpfFile    String       @db.VarChar(10000)
-  category   String[]     @db.VarChar
-  content    String?
-  keyword    String[]     @db.VarChar
-  vocalId    Int
-  VocalTitle VocalTitle[]
-  Vocal      Vocal        @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocalpf_vocal_id_fk")
+  id                     Int                      @id @default(autoincrement())
+  vpfImage               String                   @db.VarChar(20000)
+  title                  String                   @db.VarChar(20000)
+  vpfFile                String                   @db.VarChar(10000)
+  category               String[]                 @db.VarChar
+  content                String?
+  keyword                String[]                 @db.VarChar
+  vocalId                Int
+  Vocal                  Vocal                    @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocalpf_vocal_id_fk")
+  VocalPortfolioDuration VocalPortfolioDuration[]
+  VocalTitle             VocalTitle[]
+}
+
+model BeatFileDuration {
+  id       Int   @id(map: "beatFileDuration_pkey") @default(autoincrement())
+  beatId   Int
+  duration Float
+  Beat     Beat  @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "beatfileduration_beat_id_fk")
+}
+
+model CommentFileDuration {
+  id        Int     @id @unique @default(autoincrement())
+  commentId Int
+  duration  Float
+  Comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade, map: "commentfileduration_comment_id_fk")
+}
+
+model ProducerPortfolioDuration {
+  id                  Int               @id @unique @default(autoincrement())
+  producerPortfolioId Int
+  duration            Float
+  ProducerPortfolio   ProducerPortfolio @relation(fields: [producerPortfolioId], references: [id], onDelete: Cascade, map: "producerportfolioduration_producerportfolio_id_fk")
+}
+
+model VocalPortfolioDuration {
+  id               Int            @id @default(autoincrement())
+  vocalPortfolioId Int
+  duration         Float?
+  VocalPortfolio   VocalPortfolio @relation(fields: [vocalPortfolioId], references: [id], onDelete: Cascade, map: "vocalportfolioduration_vocalPortfolio_id_fk")
 }

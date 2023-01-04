@@ -5,4 +5,3 @@ export { default as BeatClickedDTO } from './BeatClickedDTO';
 
 
 
-

@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { tracksController } from '../controller';
-import { auth, Beat_WavAndImage } from '../middlewares';
+import { auth, Beat_WavAndImage, Comment_wav_file } from '../middlewares';
 import { sc } from '../constants';
 import { fail } from '../constants/response';
 
