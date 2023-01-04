@@ -35,4 +35,6 @@ router.post(
     tracksController.postBeatComment
 );
 
+router.get('/comments/:beatId', auth, tracksController.getAllComment);
+
 export default router;
