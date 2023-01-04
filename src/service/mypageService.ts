@@ -74,6 +74,11 @@ const postVocalPortfolio = async(portfolioDTO: VocalPortfolioDTO, jacketLocation
             content: portfolioDTO.introduce,
             keyword: portfolioDTO.keyword,
             vocalId: portfolioDTO.userId,
+            VocalPortfolioDuration: {
+                create: {
+                    duration: await getAudioDurationInSeconds(wavLocation)
+                }
+            }
         },
     });
 
