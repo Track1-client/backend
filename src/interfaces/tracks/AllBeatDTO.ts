@@ -6,5 +6,5 @@ export default interface AllBeatDTO {
     producerName: string;
     keyword: string[];
     category: string[];
-    //wavFileLength: number;
+    wavFileLength: Promise<number>;
 };

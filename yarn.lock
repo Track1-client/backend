@@ -755,8 +755,6 @@
   version "3.226.0"
   resolved "https://registry.npmjs.org/@aws-sdk/querystring-parser/-/querystring-parser-3.226.0.tgz"
   integrity sha512-FzB+VrQ47KAFxiPt2YXrKZ8AOLZQqGTLCKHzx4bjxGmwgsjV8yIbtJiJhZLMcUQV4LtGeIY9ixIqQhGvnZHE4A==
-<<<<<<< HEAD
-=======
   dependencies:
     "@aws-sdk/types" "3.226.0"
     tslib "^2.3.1"
@@ -765,7 +763,6 @@
   version "3.241.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/s3-request-presigner/-/s3-request-presigner-3.241.0.tgz#1d92fd0c729e26bcb87eaefbb7a510f544e25d96"
   integrity sha512-8W9F/do9ufnDVZ7hEL7VwTyqN6FLNv1p8h8XmMUbvJvb0iASsly5s2BgMcMVuQNiH1olUPmZQsfL6upqItGecg==
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
   dependencies:
     "@aws-sdk/middleware-endpoint" "3.226.0"
     "@aws-sdk/middleware-sdk-s3" "3.231.0"
@@ -773,11 +770,8 @@
     "@aws-sdk/signature-v4-multi-region" "3.226.0"
     "@aws-sdk/smithy-client" "3.234.0"
     "@aws-sdk/types" "3.226.0"
-<<<<<<< HEAD
-=======
     "@aws-sdk/util-create-request" "3.234.0"
     "@aws-sdk/util-format-url" "3.226.0"
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
     tslib "^2.3.1"
 
 "@aws-sdk/service-error-classification@3.229.0":
@@ -895,8 +889,6 @@
   integrity sha512-DSRqwrERUsT34ug+anlMBIFooBEGwM8GejC7q00Y/9IPrQy50KnG5PW2NiTjuLKNi7pdEOlwTSEocJE15eDZIg==
   dependencies:
     tslib "^2.3.1"
-<<<<<<< HEAD
-=======
 
 "@aws-sdk/util-create-request@3.234.0":
   version "3.234.0"
@@ -907,7 +899,6 @@
     "@aws-sdk/smithy-client" "3.234.0"
     "@aws-sdk/types" "3.226.0"
     tslib "^2.3.1"
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 
 "@aws-sdk/util-defaults-mode-browser@3.234.0":
   version "3.234.0"
@@ -938,8 +929,6 @@
   dependencies:
     "@aws-sdk/types" "3.226.0"
     tslib "^2.3.1"
-<<<<<<< HEAD
-=======
 
 "@aws-sdk/util-format-url@3.226.0":
   version "3.226.0"
@@ -949,7 +938,6 @@
     "@aws-sdk/querystring-builder" "3.226.0"
     "@aws-sdk/types" "3.226.0"
     tslib "^2.3.1"
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 
 "@aws-sdk/util-hex-encoding@3.201.0":
   version "3.201.0"
@@ -2006,8 +1994,6 @@ negotiator@0.6.3:
   resolved "https://registry.npmjs.org/negotiator/-/negotiator-0.6.3.tgz"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
 
-<<<<<<< HEAD
-=======
 node-fetch@2:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
@@ -2015,7 +2001,6 @@ node-fetch@2:
   dependencies:
     whatwg-url "^5.0.0"
 
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 nodemon@^2.0.20:
   version "2.0.20"
   resolved "https://registry.npmjs.org/nodemon/-/nodemon-2.0.20.tgz"
@@ -2386,14 +2371,11 @@ touch@^3.1.0:
   dependencies:
     nopt "~1.0.10"
 
-<<<<<<< HEAD
-=======
 tr46@~0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
   integrity sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==
 
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 tslib@^1.11.1:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
@@ -2452,8 +2434,6 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-<<<<<<< HEAD
-=======
 webidl-conversions@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
@@ -2467,7 +2447,6 @@ whatwg-url@^5.0.0:
     tr46 "~0.0.3"
     webidl-conversions "^3.0.0"
 
->>>>>>> b667eab67d08736dc22b117b013240f562f72872
 which@^2.0.1:
   version "2.0.2"
   resolved "https://registry.npmjs.org/which/-/which-2.0.2.tgz"
