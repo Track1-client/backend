@@ -17,7 +17,7 @@ async function convertCategory(categoryList: any) {
     const convertResult = categList.replace(re, function(matched){
         return mapObj[matched];
     });
-
+    
     return JSON.parse(convertResult);
 };
 

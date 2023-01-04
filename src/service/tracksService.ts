@@ -56,10 +56,13 @@ const getAllBeat = async() => {
                 select: {
                     duration: true
                 }
+
             },
         },
+        orderBy: {
+            createdAt: 'desc',
+        }
     });
-    
     let producerNameData: object[] = [];
 
     for(const data of allBeatData) {
@@ -113,6 +116,9 @@ const getAllComment = async(beatId: number, userId: number, tableName: string) =
                     duration: true
                 }
             }
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     });
 

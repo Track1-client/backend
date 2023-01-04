@@ -17,6 +17,8 @@ model Beat {
   producerId       Int
   isClosed         Boolean           @default(false)
   beatImage        String            @db.VarChar(10000)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
   Producer         Producer          @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "beat_producer_id_fk")
   BeatFileDuration BeatFileDuration?
   Comment          Comment[]
@@ -28,6 +30,8 @@ model Comment {
   vocalId             Int
   commentFile         String               @db.VarChar(10000)
   content             String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
   Beat                Beat                 @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "comment_beat_id_fk")
   Vocal               Vocal                @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "comment_vocal_id_fk")
   CommentFileDuration CommentFileDuration?
@@ -57,6 +61,8 @@ model ProducerPortfolio {
   content                   String?
   keyword                   String[]                   @db.VarChar
   producerId                Int
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @updatedAt
   Producer                  Producer                   @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producerpf_producer_id_fk")
   ProducerPortfolioDuration ProducerPortfolioDuration?
   ProducerTitle             ProducerTitle?
@@ -104,6 +110,8 @@ model VocalPortfolio {
   content                String?
   keyword                String[]                @db.VarChar
   vocalId                Int
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
   Vocal                  Vocal                   @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocalpf_vocal_id_fk")
   VocalPortfolioDuration VocalPortfolioDuration?
   VocalTitle             VocalTitle?

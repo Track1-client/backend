@@ -27,7 +27,7 @@ const createBeat = async(req: Request, res: Response) => {
     const data = await tracksService.createBeat(beatDTO, jacketImageLocation as string, wavFilelocation as string);
     if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BEAT_UPLOAD_FAIL));
 
-    return res.status(sc.CREATED).send(success(sc.CREATED, rm.IMAGE_UPLOAD_SUCCESS, {"beatId": data.id}));
+    return res.status(sc.CREATED).send(success(sc.CREATED, rm.BEAT_UPLOAD_SUCCESS, {"beatId": data.id}));
 };
 
 
