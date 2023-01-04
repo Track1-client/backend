@@ -6,9 +6,6 @@ import config from '../config';
 import { AllBeatDTO, BeatCreateDTO, BeatDownloadReturnDTO } from '../interfaces/tracks';
 import { tracksService } from '../service';
 import convertCategory from '../modules/convertCategory';
-import downloadBeatFile from '../modules/downloadBeatFile';
-const fs = require('fs')
-
 
 
 const createBeat = async(req: Request, res: Response) => {
@@ -37,7 +34,6 @@ const createBeat = async(req: Request, res: Response) => {
 const getAllBeat = async (req: Request, res: Response) => {
 
     const data = await tracksService.getAllBeat();
-    console.log(data)
     if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_BEAT_ID));
 
     return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_USERS_SUCCESS, {"trackList": data})); 
@@ -53,7 +49,6 @@ const getBeatFile = async(req: Request, res: Response) => {
         if(!beatObject) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_FILE_ID));
 
         const fileId = beatObject?.id;
-        //const beatFile = await downloadBeatFile(beatObject?.beatFile, config.bothWavImageBucketName);
         const beatFileLength = await getAudioDurationInSeconds(beatObject.beatFile);
         
         const beatReturnDTO: BeatDownloadReturnDTO = {

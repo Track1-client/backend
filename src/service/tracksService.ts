@@ -124,44 +124,44 @@ const updateBeatClosed = async(beatId: number) => {
 };
     
 const getClickedBeat = async(beatId: number, userId: number, tableName: string) => {
-  const beatData = await prisma.beat.findUnique({
-    where: { id: beatId }
-  });
+    const beatData = await prisma.beat.findUnique({
+        where: { id: beatId }
+    });
 
-  if (!beatData) return null;
+    if (!beatData) return null;
 
-  const producerData = await prisma.producer.findUnique({
-    where: { id: beatData.producerId },
-    select: {
-      name: true,
-      producerImage: true,
-      id: true,
+    const producerData = await prisma.producer.findUnique({
+        where: { id: beatData.producerId },
+        select: {
+        name: true,
+        producerImage: true,
+        id: true,
+        }
+    });
+
+    if (!producerData) return null;
+
+    const isMe = (userId === producerData?.id) ? true: false;
+    const wavefileLength = await getAudioDurationInSeconds(beatData.beatFile);
+
+    const getClickBeatReturn: BeatClickedDTO = {
+
+        beatId: beatData.id,
+        jacketImage: beatData.beatImage,
+        beatWavFile: beatData.beatFile,
+        title: beatData.title,
+        producerName: producerData.name,
+        producerProfileImage: producerData.producerImage,
+        introduce: beatData.introduce || '',
+        keyword: beatData.keyword,
+        category: beatData.category,
+        isMe: isMe as boolean,
+        wavFileLength: wavefileLength,
+        isClosed: beatData.isClosed,
+
     }
-  });
 
-  if (!producerData) return null;
-
-  const isMe = (userId === producerData?.id) ? true: false;
-  const wavefileLength = await getAudioDurationInSeconds(beatData.beatFile);
-
-  const getClickBeatReturn: BeatClickedDTO = {
-
-    beatId: beatData.id,
-    jacketImage: beatData.beatImage,
-    beatWavFile: beatData.beatFile,
-    title: beatData.title,
-    producerName: producerData.name,
-    producerProfileImage: producerData.producerImage,
-    introduce: beatData.introduce || '',
-    keyword: beatData.keyword,
-    category: beatData.category,
-    isMe: isMe as boolean,
-    wavFileLength: wavefileLength,
-    isClosed: beatData.isClosed,
-
-  }
-
-  return getClickBeatReturn;
+    return getClickBeatReturn;
 
 }
 
