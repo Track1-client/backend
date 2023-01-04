@@ -4,6 +4,7 @@ import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO } from '../
 
 
 
+
 const prisma = new PrismaClient();
 
 const createBeat = async(beatDTO: BeatCreateDTO, jacketLocation: string, wavLocation: string) => {
@@ -94,6 +95,69 @@ const getAllBeat = async() => {
         return beatReturn;
     }));
     return allBeats;
+}
+
+const getAllComment = async(beatId: number, userId: number, tableName: string) => {
+
+    //beatid에 해당하는 코멘트들 싹 가져오기
+    //(코멘트고유id/보컬id/코멘트id/댓글wav파일/내용/재생길이
+    const allCommentData = await prisma.comment.findMany({
+        where:{
+            beatId: beatId,
+        },
+        select:{
+            id: true,
+            beatId: true,
+            vocalId: true,
+            commentFile: true,
+            content: true,
+            CommentFileDuration: {
+                select: {
+                    duration: true
+                }
+            }
+        }
+    });
+
+    if(!allCommentData) return null;
+
+    let commentVocalData: object[] = [];
+
+    for(const data of allCommentData){ // 코멘트 하나당 돌면서
+        // name/profileImage
+        const temp = await prisma.vocal.findUnique({
+            where:{
+                id: data.vocalId
+            },
+            select:{
+                name: true,
+                vocalImage: true // 보컬 프로필 이미지
+            }
+        });
+
+        commentVocalData.push(temp as object);
+        //console.log(commentVocalData);
+
+    }
+    
+    const allComments = await Promise.all(allCommentData.map(async (item, i) => {
+        const crd = commentVocalData[i] as any;
+        const isMe = (userId == item.vocalId) ? true: false;
+        console.log(item)
+        const commentReturn: AllCommentDTO = {
+            commentId : item.id,
+	        vocalWavFile : item.commentFile,
+	        vocalName : crd['name'],
+            vocalProfileImage : crd['vocalImage'],
+            comment : item.content || '',
+            isMe : isMe,
+            vocalWavFileLength : item.CommentFileDuration[0].duration
+        };
+        
+        return commentReturn;
+    }));
+    return allComments;
+    
 }
 
 const updateBeatClosed = async(beatId: number) => {
@@ -195,6 +259,7 @@ const tracksService = {
     updateBeatClosed,
     getClickedBeat,
     postBeatComment,
+    getAllComment,
 };
 
 export default tracksService;

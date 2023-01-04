@@ -39,6 +39,17 @@ const getAllBeat = async (req: Request, res: Response) => {
     return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_BEAT_SUCCESS, {"trackList": data})); 
 };
 
+const getAllComment = async(req: Request, res: Response) => {
+
+    const { beatId } = req.params;
+    const { userId, tableName } = req.body;
+
+    const data = await tracksService.getAllComment(+beatId,+userId, tableName);
+    if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INVALID_BEAT_ID));
+
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_COMMENT_SUCCESS, {"commentList": data})); 
+}
+
 
 const getBeatFile = async(req: Request, res: Response) => {
 
@@ -103,6 +114,7 @@ const postBeatComment = async(req:Request, res:Response) => {
 
 }
 
+
 const tracksController = {
     createBeat,
     getAllBeat,
@@ -110,6 +122,7 @@ const tracksController = {
     updateBeatClosed,
     getClickedBeat,
     postBeatComment,
+    getAllComment,
 };
 
 export default tracksController;
