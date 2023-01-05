@@ -1,4 +1,3 @@
-import { ProducerPortfolioDTO } from "../mypage";
 import ProducerPortfolio from "./ProducerPortfolioDTO";
 
 export default interface ProducerProfileReturnDTO {

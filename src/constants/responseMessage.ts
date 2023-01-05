@@ -66,11 +66,13 @@ export default {
     INVALID_PRODUCER_ID: "존재하지 않는 프로듀서입니다",
 
     // 보컬 관련
+    INVALID_VOCAL_ID:"존재하지 않는 보컬입니다",
     GET_VOCAL_LIST_FAIL: "보컬 검색 창 조회 실패",
     GET_VOCAL_LIST_SUCCESS: "보컬 검색 창 조회 성공",
 
     // 프로필 관련
     READ_PRODUCER_PROFILE_SUCCESS: "프로듀서 프로필 조회 성공",
+    READ_VOCAL_PROFILE_SUCCESS: "보컬 프로필 조회 성공",
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: "서버 내 오류",
