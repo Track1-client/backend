@@ -75,7 +75,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
     const title = producerProfileData.Producer.ProducerPortfolio[0];  //! 타이틀 포트폴리오
 
     const producerPortfolioTitle: ProducerPortfolioReturnDTO = { //! 타이틀 포트폴리오 DTO
-        producerPortfolioId: title.id,
+        id: title.id,
         jacketImage: title.ppfImage,
         beatWavFile: title.ppfFile,
         title: title.title,
@@ -88,7 +88,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
     //! 타이틀 아닌 포트폴리오들 DTO
     const notTitleList = await Promise.all(producerPortfolioData.map((portfolio) => {
         const returnDTO: ProducerPortfolioReturnDTO = {
-            producerPortfolioId: portfolio.id,
+            id: portfolio.id,
             jacketImage: portfolio.ppfImage,
             beatWavFile: portfolio.ppfFile,
             title: portfolio.title,
