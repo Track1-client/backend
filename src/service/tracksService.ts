@@ -56,34 +56,29 @@ const getAllBeat = async() => {
                 select: {
                     duration: true
                 }
+
+            },
+            //!  ============ 설명 =============
+            Producer: {
+                select: {
+                    name: true,
+                }
             },
         },
+        orderBy: {
+            createdAt: 'desc',
+        }
     });
     
-    let producerNameData: object[] = [];
-
-    for(const data of allBeatData) {
-        const temp = await prisma.producer.findUnique({
-            where: {
-                id: data.producerId
-            },
-            select: {
-                name: true
-            }
-        });
-
-        producerNameData.push(temp as object);
-    };
     
     const allBeats = await Promise.all(allBeatData.map(async (item, i) => {
-        const prd = producerNameData[i] as any;
-        console.log(item)
+        
         const beatReturn: AllBeatDTO = {
             beatId: item.id,
             jacketImage: item.beatImage,
             wavFile: item.beatFile,
             title: item.title,
-            producerName: prd['name'],
+            producerName: item.Producer.name,
             keyword: item.keyword,
             category: item.category,
             wavFileLength: item.BeatFileDuration?.duration as number
@@ -112,10 +107,19 @@ const getAllComment = async(beatId: number, userId: number, tableName: string) =
                 select: {
                     duration: true
                 }
+            },
+            Vocal: {    //! 요기서 바로가져오기 가능
+                select: {
+                    name: true,
+                    vocalImage: true,
+                }
             }
-        }
+        },
+        orderBy: {
+            createdAt: 'desc'
+        },
     });
-
+ /* ============ 생략 start
     if(!allCommentData) return null;
 
     let commentVocalData: object[] = [];
@@ -135,17 +139,18 @@ const getAllComment = async(beatId: number, userId: number, tableName: string) =
         commentVocalData.push(temp as object);
         //console.log(commentVocalData);
 
-    }
-    
+    } 
+  */
     const allComments = await Promise.all(allCommentData.map(async (item, i) => {
-        const crd = commentVocalData[i] as any;
+        //const crd = commentVocalData[i] as any;
         const isMe = (userId == item.vocalId) ? true: false;
-        console.log(item)
+        
         const commentReturn: AllCommentDTO = {
             commentId : item.id,
 	        vocalWavFile : item.commentFile,
-	        vocalName : crd['name'],
-            vocalProfileImage : crd['vocalImage'],
+	        vocalName : item.Vocal.name,
+            //vocalProfileImage : crd['vocalImage'],
+            vocalProfileImage : item.Vocal.vocalImage,  //! 요렇게 사용
             comment : item.content || '',
             isMe : isMe,
             vocalWavFileLength : item.CommentFileDuration?.duration as number

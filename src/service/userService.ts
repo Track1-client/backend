@@ -3,6 +3,7 @@ import { producerJoinDTO, userLogInDTO, vocalJoinDTO } from '../interfaces';
 import bcrypt from "bcryptjs";
 import { sc } from '../constants';
 import { UserLogInReturnDTO } from '../interfaces/user';
+import convertCategory from '../modules/convertCategory';
 
 
 const prisma = new PrismaClient();
@@ -59,7 +60,7 @@ const createProducer = async(producerCreateDto: producerJoinDTO, location: strin
                 producerPW: password,
                 name: producerCreateDto.name,
                 contact: producerCreateDto.contact,
-                category: producerCreateDto.category,
+                category: await convertCategory(producerCreateDto.category),
                 keyword: producerCreateDto.keyword,
                 introduce: producerCreateDto.introduce,
                 producerImage: location,
@@ -91,7 +92,7 @@ const createVocal = async(vocalCreateDto: vocalJoinDTO, location: string) => {
                 vocalPW: password,
                 name: vocalCreateDto.name,
                 contact: vocalCreateDto.contact,
-                category: vocalCreateDto.category,
+                category: await convertCategory(vocalCreateDto.category),
                 keyword: vocalCreateDto.keyword,
                 introduce: vocalCreateDto.introduce,
                 isSelected: isTrueSet,

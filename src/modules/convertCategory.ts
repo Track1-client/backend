@@ -1,4 +1,4 @@
-function convertCategory(categoryList: string) {
+async function convertCategory(categoryList: any) {
     var mapObj: {[x: string]: string} = {
         0: "R&B",
         1: "Hiphop",
@@ -17,7 +17,7 @@ function convertCategory(categoryList: string) {
     const convertResult = categList.replace(re, function(matched){
         return mapObj[matched];
     });
-
+    
     return JSON.parse(convertResult);
 };
 
