@@ -30,6 +30,7 @@ router.post(
     mypageController.createVocalPortfolio,
 );
 
-router.patch('/producer', auth, mypageController.updateTitlePortfolio);
+router.patch('/producer', auth, mypageController.updateProducerTitlePortfolio);
+router.patch('/vocal', auth, mypageController.updateVocalTitlePortfolio);
 
 export default router;

@@ -145,7 +145,7 @@ const updateProducerTitle = async(oldTitlePortfolioId: number, newTitlePortfolio
         },
     });
     
-    if ( Object.keys(isValidProducerPortfolioId).length != 2) return null;
+    if ( Object.keys(isValidProducerPortfolioId).length < 2) return null;  //! oldId, newId가 프로듀서 포폴 아니면 예외처리 
 
     const data = await prisma.producerTitle.update({
         data: {
@@ -165,17 +165,38 @@ const updateProducerTitle = async(oldTitlePortfolioId: number, newTitlePortfolio
 };
 
 //* 보컬 포트폴리오 타이틀 변경
-const updateVocalTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId: number) => {
+const updateVocalTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId: number, userId: number) => {
+    //! 프로듀서의 포트폴리오가 맞는지 확인
+    const isValidVocalPortfolioId = await prisma.vocal.findMany({
+        where: {
+            vocalPortfolio: {
+                every: {
+                    AND: [
+                        { vocalId: userId },
+                        { id: { in: [ oldTitlePortfolioId, newTitlePortfolioId ] } },
+                    ],
+                },
+            }
+        },
+    });
+    
+    if ( Object.keys(isValidVocalPortfolioId).length < 2) return null;
+    
     const data = await prisma.vocalTitle.update({
         data: {
-            vocalPortfolioId: newTitlePortfolioId,
+            vocalPortfolioId: newTitlePortfolioId as number,
         },
         where: {
-            vocalPortfolioId: oldTitlePortfolioId,
-        }
+            vocalPortfolioId: oldTitlePortfolioId as number,
+        },
     });
 
-    return data;
+    const returnResult:TitleUpdateReturnDTO = {
+        oldTitleId: oldTitlePortfolioId,
+        newTitleId: data.vocalPortfolioId,  
+    };
+
+    return returnResult;
 };
 
 const mypageService = {
