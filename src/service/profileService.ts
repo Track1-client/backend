@@ -68,7 +68,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
         where: {
             AND: [
                 { ProducerTitle: { is: null} },
-                { producerId },
+                { producerId : producerId },
             ],
         },
     });
