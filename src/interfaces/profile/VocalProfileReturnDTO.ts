@@ -1,5 +1,4 @@
-
-import VocalPortfolio from "./vocalPortfolioDTO";
+import VocalPortfolio from "./VocalPortfolioDTO";
 
 export default interface VocalProfileReturnDTO {
     isMe: boolean;

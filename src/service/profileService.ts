@@ -233,10 +233,11 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
             },
         },
         where: {
-            vocalId: vocalId,
-            VocalTitle: {
-                is: null,
-            },
+            AND: [
+                { VocalTitle: { is: null} },
+                { vocalId : vocalId },
+            ],
+
         },
     });
 
