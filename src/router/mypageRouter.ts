@@ -33,4 +33,6 @@ router.post(
 router.patch('/producer', auth, mypageController.updateProducerTitlePortfolio);
 router.patch('/vocal', auth, mypageController.updateVocalTitlePortfolio);
 
+router.get('/', auth, mypageController.getMypage);
+
 export default router;

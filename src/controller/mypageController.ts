@@ -5,7 +5,7 @@ import { getAudioDurationInSeconds } from 'get-audio-duration';
 import config from '../config';
 import { ProducerPortfolioDTO, VocalPortfolioDTO } from '../interfaces/mypage';
 import convertCategory from '../modules/convertCategory';
-import { mypageService } from '../service';
+import { mypageService, profileService } from '../service';
 
 const createProducerPortfolio = async(req: Request, res: Response) => {
     const myfiles = JSON.parse(JSON.stringify(req.files));
@@ -77,11 +77,31 @@ const updateVocalTitlePortfolio = async(req: Request, res: Response) => {
     };
 };
 
+const getMypage = async(req:Request, res: Response) => {
+
+    const { userId, tableName } = req.body;
+
+    if(tableName == 'producer'){
+        const data = await profileService.getProducerProfileData(+userId, +userId, tableName);
+        if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_PRODUCER_ID));
+
+        return res.status(sc.OK).send(success(sc.OK, rm.READ_PRODUCER_PROFILE_SUCCESS, data ));
+    }
+
+    if(tableName == 'vocal'){
+        const data = await profileService.getVocalProfileData(+userId, +userId, tableName);
+        if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_VOCAL_ID));
+
+        return res.status(sc.OK).send(success(sc.OK, rm.READ_VOCAL_PROFILE_SUCCESS, data));
+    }
+}
+
 const mypageController = {
     createProducerPortfolio,
     createVocalPortfolio,
     updateProducerTitlePortfolio,
     updateVocalTitlePortfolio,
+    getMypage,
 };
 
 export default mypageController;
