@@ -16,11 +16,13 @@ const getProducerProfile = async(req: Request, res: Response) => {
 
 const getOpenedBeats = async(req: Request, res: Response) => {
     
+    const { userId, tableName } = req.body;
     const { producerId } = req.params;
 
     const data = await profileService.getOpenedBeatsList(+producerId);
+    if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_PRODUCER_ID));
 
-
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_SROTED_BEAT_SUCCESS, {"beatList": data}));
 };
 
 const profileController = {

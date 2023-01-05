@@ -40,6 +40,7 @@ export default {
     GET_CLICKED_BEAT_SUCCESS: "게시글 조회 성공",
     INVALID_BEAT_ID: "유효하지 않은 게시글입니다",
     READ_ALL_BEAT_SUCCESS: "전체 트랙 조회 성공",
+    READ_SROTED_BEAT_SUCCESS: "보컬 구하는 중 탭 조회 성공",
 
     // 댓글 관련
     COMMENT_UPLOAD_FAIL: "트랙 댓글 작성 실패",
@@ -60,6 +61,9 @@ export default {
     INVALID_TOKEN: "유효하지 않은 토큰입니다.",
     VALID_TOKEN: "유효한 토큰입니다.",
     EMPTY_TOKEN: "토큰 값이 없습니다.",
+
+    // 프로듀서 관련
+    INVALID_PRODUCER_ID: "존재하지 않는 프로듀서입니다",
 
     // 보컬 관련
     GET_VOCAL_LIST_FAIL: "보컬 검색 창 조회 실패",

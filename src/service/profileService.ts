@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { ProducerProfileReturnDTO, ProducerPortfolioReturnDTO } from "../interfaces/profile";
+import { ProducerProfileReturnDTO, ProducerPortfolioReturnDTO, GetSortedBeatsDTO } from "../interfaces/profile";
 
 const prisma = new PrismaClient();
 
@@ -119,10 +119,52 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
     return returnDTO;
 };
 
-//* 리스트 : 보컬 구하는 중 (0) ~ 마감한 게시글(n) 순서로 반환 
+//* 리스트 : 보컬 구하는 중인 게시글 (0) ~ 마감한 게시글(n) 순서로 반환 
 //* 보컬 구하는 중/마감한 글 내부에서는 최신순 정렬  
 const getOpenedBeatsList = async(producerId: number) => {
 
+    const sortedBeats = await prisma.beat.findMany({
+        where: {
+            producerId
+        },
+        orderBy: [
+            { isClosed: 'asc' },   //!  false -> true 순서 정렬 (우선순위 1)
+            { createdAt: 'desc'},   //!  만들어진 시간 순서 정렬 (우선순위 2)
+        ],
+        select: {
+            id: true,
+            beatImage: true,
+            beatFile: true,
+            title: true,
+            introduce: true,
+            keyword: true,
+            category: true,
+            isClosed: true,
+            BeatFileDuration: {
+                select: {
+                    duration: true
+                },
+            },
+        }
+    });
+    
+    const resultList = await Promise.all(sortedBeats.map((beat) => {
+        const result: GetSortedBeatsDTO = {
+            beatId: beat.id,
+            jacketImage: beat.beatImage,
+            beatWavFile: beat.beatFile,
+            title: beat.title,
+            introduce: beat.introduce as string,
+            keyword: beat.keyword,
+            category: beat.category[0] as string,
+            wavFileLength: beat.BeatFileDuration?.duration as number,
+            isSelected: beat.isClosed
+        };
+
+        return result;
+    }));
+
+    return resultList;
 };
 
 const profileService = {
