@@ -14,7 +14,7 @@ const getAllVocals = async(req: Request, res: Response) => {
 
 const getFilteringVocals = async(req: Request, res: Response) => {
     const { categ, isSelected } = req.query;
-
+    
     const data = await vocalsService.getFilteredVocals(await convertCategory(categ), isSelected as string);
     if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.GET_VOCAL_LIST_FAIL)); 
     

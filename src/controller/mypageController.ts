@@ -47,9 +47,21 @@ const createVocalPortfolio = async(req: Request, res: Response) => {
     return res.status(sc.CREATED).send(success(sc.CREATED, rm.VOCAL_PORTFOLIO_UPLOAD_SUCCESS, data));
 };
 
+const updateTitlePortfolio = async(req: Request, res: Response) => {
+
+    const { oldId, newId } = req.query;
+    const { userId, tableName } = req.body;
+    
+    const data = await mypageService.updateProducerTitle(Number(oldId), Number(newId), Number(userId));
+    if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.PRODUCER_PORTFOLIO_TITLE_UPDATE_FAIL));
+
+    return res.status(sc.OK).send(success(sc.OK, rm.PRODUCER_PORTFOLIO_TITLE_UPDATE_SUCCESS, data));
+};
+
 const mypageController = {
     createProducerPortfolio,
     createVocalPortfolio,
+    updateTitlePortfolio,
 };
 
 export default mypageController;

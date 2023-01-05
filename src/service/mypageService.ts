@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import getAudioDurationInSeconds from 'get-audio-duration';
 import { title } from 'process';
-import { ProducerPortfolioDTO, VocalPortfolioDTO, ProducerPortfolioReturnDTO, VocalPortfolioReturnDTO } from '../interfaces/mypage';
+import { ProducerPortfolioDTO, VocalPortfolioDTO, ProducerPortfolioReturnDTO, VocalPortfolioReturnDTO, TitleUpdateReturnDTO } from '../interfaces/mypage';
 
 const prisma = new PrismaClient();
 
@@ -128,9 +128,61 @@ const createVocalTitle = async(vocalPortfolioId: number, vocalId: number) => {
     else return isTitleExists.id;   //! 타이틀 존재하는 경우 타이틀 아이디 반환 
 };
 
+
+//* 프로듀서 포트폴리오 타이틀 변경 
+const updateProducerTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId: number, userId: number) => {
+    //! 프로듀서의 포트폴리오가 맞는지 확인
+    const isValidProducerPortfolioId = await prisma.producer.findMany({
+        where: {
+            ProducerPortfolio: {
+                every: {
+                    AND: [
+                        { producerId: userId },
+                        { id: { in: [ oldTitlePortfolioId, newTitlePortfolioId ] } },
+                    ],
+                },
+            },
+        },
+    });
+    
+    if ( Object.keys(isValidProducerPortfolioId).length != 2) return null;
+
+    const data = await prisma.producerTitle.update({
+        data: {
+            producerPortfolioId: newTitlePortfolioId as number,
+        },
+        where: {
+            producerPortfolioId: oldTitlePortfolioId as number,
+        },
+    });
+
+    const returnResult:TitleUpdateReturnDTO = {
+        oldTitleId: oldTitlePortfolioId,
+        newTitleId: data.producerPortfolioId,  
+    };
+
+    return returnResult;
+};
+
+//* 보컬 포트폴리오 타이틀 변경
+const updateVocalTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId: number) => {
+    const data = await prisma.vocalTitle.update({
+        data: {
+            vocalPortfolioId: newTitlePortfolioId,
+        },
+        where: {
+            vocalPortfolioId: oldTitlePortfolioId,
+        }
+    });
+
+    return data;
+};
+
 const mypageService = {
     postProducerPortfolio,
     postVocalPortfolio,
+    updateProducerTitle,
+    updateVocalTitle,
 };
 
 export default mypageService;
