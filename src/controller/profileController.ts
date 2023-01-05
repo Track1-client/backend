@@ -16,7 +16,10 @@ const getProducerProfile = async(req: Request, res: Response) => {
 
 const getOpenedBeats = async(req: Request, res: Response) => {
     
-    const { beatId } = req.params;
+    const { producerId } = req.params;
+
+    const data = await profileService.getOpenedBeatsList(+producerId);
+
 
 };
 
