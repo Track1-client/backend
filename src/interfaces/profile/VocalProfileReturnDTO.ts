@@ -1,3 +1,4 @@
+
 import VocalPortfolio from "./vocalPortfolioDTO";
 
 export default interface VocalProfileReturnDTO {
