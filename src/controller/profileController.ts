@@ -10,9 +10,9 @@ const getProducerProfile= async(req:Request, res:Response) => {
     const { userId, tableName } = req.body;
 
     const data = await profileService.getProducerProfileData(+producerId,+userId, tableName);
-    if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INVALID_BEAT_ID));
+    if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
 
-    return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_COMMENT_SUCCESS, {"commentList": data}));
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_PRODUCER_PROFILE_SUCCESS, data));
 }
 
 const profileController = {
