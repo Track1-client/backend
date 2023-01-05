@@ -58,11 +58,10 @@ const getAllBeat = async() => {
                 }
 
             },
-            //!  ============ 설명 =============
             Producer: {
                 select: {
                     name: true,
-                }
+                },
             },
         },
         orderBy: {
@@ -119,28 +118,7 @@ const getAllComment = async(beatId: number, userId: number, tableName: string) =
             createdAt: 'desc'
         },
     });
- /* ============ 생략 start
-    if(!allCommentData) return null;
 
-    let commentVocalData: object[] = [];
-
-    for(const data of allCommentData){ // 코멘트 하나당 돌면서
-        // name/profileImage
-        const temp = await prisma.vocal.findUnique({
-            where:{
-                id: data.vocalId
-            },
-            select:{
-                name: true,
-                vocalImage: true // 보컬 프로필 이미지
-            }
-        });
-
-        commentVocalData.push(temp as object);
-        //console.log(commentVocalData);
-
-    } 
-  */
     const allComments = await Promise.all(allCommentData.map(async (item, i) => {
         //const crd = commentVocalData[i] as any;
         const isMe = (userId == item.vocalId) ? true: false;
@@ -149,7 +127,6 @@ const getAllComment = async(beatId: number, userId: number, tableName: string) =
             commentId : item.id,
 	        vocalWavFile : item.commentFile,
 	        vocalName : item.Vocal.name,
-            //vocalProfileImage : crd['vocalImage'],
             vocalProfileImage : item.Vocal.vocalImage,  //! 요렇게 사용
             comment : item.content || '',
             isMe : isMe,

@@ -7,5 +7,7 @@ import { auth, Beat_WavAndImage, Comment_wav_file } from '../middlewares';
 const router: Router = Router();
 
 router.get('/producer/:producerId', auth, profileController.getProducerProfile);
+router.get('/producer/:producerId/beats', auth, profileController.getOpenedBeats);
+
 
 export default router;

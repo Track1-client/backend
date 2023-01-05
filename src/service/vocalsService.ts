@@ -26,8 +26,8 @@ const getVocals = async() => {
                         where: {
                             VocalTitle: {
                                 isNot: null  //~ 타이틀 테이블 가지고 있는 포트폴리오 (즉, 타이틀인 포트폴리오 가져오기)
-                            }
-                        }
+                            },
+                        },
                     },
                     vocalImage: true,
                     name: true,
