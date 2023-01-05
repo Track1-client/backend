@@ -51,8 +51,12 @@ export default {
     // 포트폴리오 관련
     PRODUCER_PORTFOLIO_UPLOAD_SUCCESS: "프로듀서 포트폴리오 작성 성공",
     PRODUCER_PORTFOLIO_UPLOAD_FAIL: "프로듀서 포트폴리오 작성 실패",
+    PRODUCER_PORTFOLIO_TITLE_UPDATE_SUCCESS: "프로듀서 포트폴리오 타이틀 변경 성공",
+    PRODUCER_PORTFOLIO_TITLE_UPDATE_FAIL: "프로듀서 포트폴리오 타이틀 변경 실패",
     VOCAL_PORTFOLIO_UPLOAD_SUCCESS: "보컬 포트폴리오 작성 성공",
     VOCAL_PORTFOLIO_UPLOAD_FAIL: "보컬 포트폴리오 작성 실패",
+    VOCAL_PORTFOLIO_TITLE_UPDATE_SUCCESS: "보컬 포트폴리오 타이틀 변경 성공",
+    VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL: "보컬 포트폴리오 타이틀 변경 실패",
 
     // 토큰
     CREATE_TOKEN_SUCCESS: "토큰 재발급 성공",
