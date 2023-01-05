@@ -3,7 +3,7 @@
 ### <strong> 💻 ERD </strong>
 
 <br/>
-<img width="637" alt="스크린샷 2022-12-31 오후 2 35 29" src="https://user-images.githubusercontent.com/86148470/210127180-52a41baa-71dd-481c-ba87-f218c101b03b.png">
+<img width="786" alt="스크린샷 2023-01-05 오후 6 22 16" src="https://user-images.githubusercontent.com/75441684/210745543-e9939509-1a2f-4675-ab22-c2707f196a28.png">
 <br/>
 <br/>
 
