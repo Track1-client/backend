@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { ProducerProfileReturnDTO, ProducerPortfolioReturnDTO, GetSortedBeatsDTO } from "../interfaces/profile";
+import { ProducerProfileReturnDTO, ProducerPortfolioReturnDTO, GetSortedBeatsDTO, VocalPortfolioReturnDTO, VocalProfileReturnDTO } from "../interfaces/profile";
 
 const prisma = new PrismaClient();
 
@@ -168,9 +168,134 @@ const getOpenedBeatsList = async(producerId: number) => {
     return resultList;
 };
 
+
+//* 포트폴리오 get (타이틀을 0번 인덱스로 반환하기)
+const getVocalProfileData = async(vocalId: number, userId: number, tableName: string) => {
+    //! 타이틀인 포트폴리오 + 보컬 정보 
+    const vocalProfileData = await prisma.vocalPortfolio.findFirst({
+
+        where:{
+            vocalId: vocalId
+        },
+        select:{
+            vpfImage: true,
+            Vocal:{
+                select:{
+                    name: true,
+                    contact: true,
+                    category: true,
+                    keyword: true,
+                    introduce: true,
+                    vocalImage: true,
+                    isSelected: true,
+                    vocalPortfolio: {  //! 타이틀 포트폴리오 받아오기 
+                        select: {
+                            id: true,
+                            vpfImage: true,
+                            vpfFile: true,
+                            title: true,
+                            content: true,
+                            keyword: true,
+                            category: true,
+                            VocalPortfolioDuration:{
+                                select: {
+                                    duration: true,
+                                }
+                            },
+                        },
+                        where: {
+                            VocalTitle: {
+                                isNot: null,
+                            }
+                        }
+                    },
+                },
+            }
+        }
+
+    });
+
+    if (!vocalProfileData) return null;
+
+    //! 타이틀 아닌 포트폴리오들 리스트
+    const vocalPortfolioData = await prisma.vocalPortfolio.findMany({
+        select:{
+            id: true,
+            vpfImage: true,
+            vpfFile: true,
+            title: true,
+            content: true,
+            keyword: true,
+            category: true,
+            VocalPortfolioDuration:{
+                select: {
+                    duration: true,
+                }
+            },
+        },
+        where: {
+            AND: [
+                { VocalTitle: { is: null} },
+                { vocalId : vocalId },
+            ],
+
+        },
+    });
+
+    const title = vocalProfileData.Vocal.vocalPortfolio[0];  //! 타이틀 포트폴리오
+
+    const vocalPortfolioTitle: VocalPortfolioReturnDTO = { //! 타이틀 포트폴리오 DTO
+        vocalPortfolioId: title.id,
+        jacketImage: title.vpfImage,
+        beatWavFile: title.vpfFile,
+        title: title.title,
+        content: title.content as string,
+        keyword: title.keyword,
+        category: title.category[0] as string,
+        wavFileLength: title.VocalPortfolioDuration?.duration as number,
+    };
+    
+    //! 타이틀 아닌 포트폴리오들 DTO
+    const notTitleList = await Promise.all(vocalPortfolioData.map((portfolio) => {
+        const returnDTO: VocalPortfolioReturnDTO = {
+            vocalPortfolioId: portfolio.id,
+            jacketImage: portfolio.vpfImage,
+            beatWavFile: portfolio.vpfFile,
+            title: portfolio.title,
+            content: portfolio.content as string,
+            keyword: portfolio.keyword,
+            category: portfolio.category[0] as string,
+            wavFileLength: portfolio.VocalPortfolioDuration?.duration as number,
+        }
+
+        return returnDTO;
+    }));
+
+    notTitleList.unshift(vocalPortfolioTitle);  //! 타이틀 포트폴리오를 리스트 0번으로 넣기 (전체포트폴리오 리스트)
+
+    const returnDTO: VocalProfileReturnDTO = {  
+        isMe : (vocalId == userId)? true: false,
+        vocalProfile: {
+            profileImge: vocalProfileData.Vocal.vocalImage,
+            name: vocalProfileData.Vocal.name,
+            contact: vocalProfileData.Vocal.contact,
+            keyword: vocalProfileData.Vocal.keyword,
+            category: vocalProfileData.Vocal.category,
+            introduce: vocalProfileData.Vocal.introduce as string,
+            isSelected: vocalProfileData.Vocal.isSelected,
+        },
+        vocalPortfolio: notTitleList,
+    };
+
+    return returnDTO;
+};
+
+
+
 const profileService = {
     getProducerProfileData,
     getOpenedBeatsList,
+    getVocalProfileData
 }
 
 export default profileService;

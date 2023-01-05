@@ -4,7 +4,6 @@ import { fail, success } from '../constants/response';
 import { profileService } from "../service";
 
 const getProducerProfile = async(req: Request, res: Response) => {
-
     const { producerId } = req.params;
     const { userId, tableName } = req.body;
 
@@ -25,9 +24,21 @@ const getOpenedBeats = async(req: Request, res: Response) => {
     return res.status(sc.OK).send(success(sc.OK, rm.READ_SROTED_BEAT_SUCCESS, {"beatList": data}));
 };
 
+const getVocalProfile = async(req:Request, res:Response) => {
+
+    const { vocalId } = req.params;
+    const { userId, tableName } = req.body;
+
+    const data = await profileService.getVocalProfileData(+vocalId,+userId, tableName);
+    if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_VOCAL_ID));
+
+    return res.status(sc.OK).send(success(sc.OK, rm.READ_VOCAL_PROFILE_SUCCESS, data));
+}
+
 const profileController = {
     getProducerProfile,
     getOpenedBeats,
+    getVocalProfile,
 };
 
 export default profileController;
