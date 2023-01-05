@@ -8,6 +8,6 @@ const router: Router = Router();
 
 router.get('/producer/:producerId', auth, profileController.getProducerProfile);
 router.get('/producer/:producerId/beats', auth, profileController.getOpenedBeats);
-
+router.get('/vocal/:vocalId', auth, profileController.getVocalProfile);
 
 export default router;
