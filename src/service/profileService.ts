@@ -4,10 +4,9 @@ import { ProducerProfileReturnDTO, ProducerPortfolioReturnDTO, GetSortedBeatsDTO
 const prisma = new PrismaClient();
 
 //* 포트폴리오 get (타이틀을 0번 인덱스로 반환하기)
-const getProducerProfileData = async(producerId: number, userId: number, tableName: string) => {
+const getProducerProfileData = async(producerId: number, userId: number, tableName: string, page: number, limit: number) => {
     //! 타이틀인 포트폴리오 + 프로듀서 정보 
     const producerProfileData = await prisma.producerPortfolio.findFirst({
-
         where:{
             producerId: producerId
         },
@@ -43,8 +42,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
                     },
                 },
             }
-        }
-
+        },
     });
 
     if (!producerProfileData) return null;
@@ -71,8 +69,10 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
                 { producerId : producerId },
             ],
         },
+        skip: (page-1)*limit,
+        take: limit,
     });
-
+    
     const title = producerProfileData.Producer.ProducerPortfolio[0];  //! 타이틀 포트폴리오
 
     const producerPortfolioTitle: ProducerPortfolioReturnDTO = { //! 타이틀 포트폴리오 DTO

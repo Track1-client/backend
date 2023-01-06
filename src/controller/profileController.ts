@@ -4,10 +4,12 @@ import { fail, success } from '../constants/response';
 import { profileService } from "../service";
 
 const getProducerProfile = async(req: Request, res: Response) => {
+
     const { producerId } = req.params;
     const { userId, tableName } = req.body;
+    const { page, limit } = req.query;
 
-    const data = await profileService.getProducerProfileData(+producerId,+userId, tableName);
+    const data = await profileService.getProducerProfileData(+producerId,+userId, tableName, Number(page), Number(limit));
     if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_PRODUCER_ID));
 
     return res.status(sc.OK).send(success(sc.OK, rm.READ_PRODUCER_PROFILE_SUCCESS, data ));
