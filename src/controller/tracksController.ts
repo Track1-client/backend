@@ -114,6 +114,15 @@ const postBeatComment = async(req:Request, res:Response) => {
 
 }
 
+const getFilteringTracks = async(req: Request, res: Response) => {
+    const { categ } = req.query;
+    
+    const data = await tracksService.getFilteredTracks(await convertCategory(categ));
+    if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.GET_FILTERING_FAIL)); 
+    
+    return res.status(sc.OK).send(success(sc.OK, rm.GET_FILTERING_SUCCESS, {"trackList": data}));
+
+};
 
 const tracksController = {
     createBeat,
@@ -123,6 +132,7 @@ const tracksController = {
     getClickedBeat,
     postBeatComment,
     getAllComment,
+    getFilteringTracks,
 };
 
 export default tracksController;

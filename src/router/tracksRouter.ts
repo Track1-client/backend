@@ -36,5 +36,6 @@ router.post(
 );
 
 router.get('/comments/:beatId', auth, tracksController.getAllComment);
+router.get('/filter', auth, tracksController.getFilteringTracks);
 
 export default router;

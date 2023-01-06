@@ -42,6 +42,10 @@ export default {
     READ_ALL_BEAT_SUCCESS: "전체 트랙 조회 성공",
     READ_SROTED_BEAT_SUCCESS: "보컬 구하는 중 탭 조회 성공",
 
+    // 필터링 관련
+    GET_FILTERING_SUCCESS: "필터링 조회 성공",
+    GET_FILTERING_FAIL: "필터링 조회 실패",
+
     // 댓글 관련
     COMMENT_UPLOAD_FAIL: "트랙 댓글 작성 실패",
     COMMENT_UPLOAD_SUCCESS: "트랙 댓글 작성 성공",
