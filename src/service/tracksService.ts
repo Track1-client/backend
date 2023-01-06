@@ -233,7 +233,7 @@ const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavL
     return data;
 };   
 
-const getFilteredTracks = async(categList: string[]) => {
+const getFilteredTracks = async(categList: string[], page: number, limit: number) => {
 
     //! 작업물 최신순 정렬
     const trackList = await prisma.beat.findMany({
@@ -264,7 +264,9 @@ const getFilteredTracks = async(categList: string[]) => {
         orderBy: {
             createdAt: 'desc',
         },
-        distinct: ['id']
+        distinct: ['id'],
+        skip: (page-1)*limit,
+        take: limit,
     });   
 
     const result = await Promise.all(trackList.map((track) => {

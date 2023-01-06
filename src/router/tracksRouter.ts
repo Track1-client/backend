@@ -8,7 +8,7 @@ const router: Router = Router();
 
 
 router.get('/', auth, Check_Pagination_Value, tracksController.getAllBeat);
-router.get('/filter', auth, tracksController.getFilteringTracks);
+router.get('/filter', auth, Check_Pagination_Value, tracksController.getFilteringTracks);
 router.get('/:beatId', auth, tracksController.getClickedBeat);
 router.get('/:beatId/download', auth, tracksController.getBeatFile);
 router.get('/comments/:beatId', auth, tracksController.getAllComment);
