@@ -172,10 +172,9 @@ const getOpenedBeatsList = async(producerId: number, page: number, limit: number
 
 
 //* 포트폴리오 get (타이틀을 0번 인덱스로 반환하기)
-const getVocalProfileData = async(vocalId: number, userId: number, tableName: string) => {
+const getVocalProfileData = async(vocalId: number, userId: number, tableName: string, page: number, limit: number) => {
     //! 타이틀인 포트폴리오 + 보컬 정보 
     const vocalProfileData = await prisma.vocalPortfolio.findFirst({
-
         where:{
             vocalId: vocalId
         },
@@ -213,8 +212,7 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
                     },
                 },
             }
-        }
-
+        },
     });
 
     if (!vocalProfileData) return null;
@@ -242,8 +240,10 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
             ],
 
         },
+        skip: (page-1)*limit,
+        take: limit,
     });
-
+    
     const title = vocalProfileData.Vocal.vocalPortfolio[0];  //! 타이틀 포트폴리오
 
     const vocalPortfolioTitle: VocalPortfolioReturnDTO = { //! 타이틀 포트폴리오 DTO
