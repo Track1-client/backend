@@ -4,10 +4,9 @@ import { ProducerProfileReturnDTO, ProducerPortfolioReturnDTO, GetSortedBeatsDTO
 const prisma = new PrismaClient();
 
 //* 포트폴리오 get (타이틀을 0번 인덱스로 반환하기)
-const getProducerProfileData = async(producerId: number, userId: number, tableName: string) => {
+const getProducerProfileData = async(producerId: number, userId: number, tableName: string, page: number, limit: number) => {
     //! 타이틀인 포트폴리오 + 프로듀서 정보 
     const producerProfileData = await prisma.producerPortfolio.findFirst({
-
         where:{
             producerId: producerId
         },
@@ -43,8 +42,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
                     },
                 },
             }
-        }
-
+        },
     });
 
     if (!producerProfileData) return null;
@@ -71,8 +69,10 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
                 { producerId : producerId },
             ],
         },
+        skip: (page-1)*limit,
+        take: limit,
     });
-
+    
     const title = producerProfileData.Producer.ProducerPortfolio[0];  //! 타이틀 포트폴리오
 
     const producerPortfolioTitle: ProducerPortfolioReturnDTO = { //! 타이틀 포트폴리오 DTO
@@ -122,7 +122,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
 
 //* 리스트 : 보컬 구하는 중인 게시글 (0) ~ 마감한 게시글(n) 순서로 반환 
 //* 보컬 구하는 중/마감한 글 내부에서는 최신순 정렬  
-const getOpenedBeatsList = async(producerId: number) => {
+const getOpenedBeatsList = async(producerId: number, page: number, limit: number) => {
 
     const sortedBeats = await prisma.beat.findMany({
         where: {
@@ -146,7 +146,9 @@ const getOpenedBeatsList = async(producerId: number) => {
                     duration: true
                 },
             },
-        }
+        },
+        skip: (page-1)*limit,
+        take: limit,
     });
     
     const resultList = await Promise.all(sortedBeats.map((beat) => {
@@ -170,10 +172,9 @@ const getOpenedBeatsList = async(producerId: number) => {
 
 
 //* 포트폴리오 get (타이틀을 0번 인덱스로 반환하기)
-const getVocalProfileData = async(vocalId: number, userId: number, tableName: string) => {
+const getVocalProfileData = async(vocalId: number, userId: number, tableName: string, page: number, limit: number) => {
     //! 타이틀인 포트폴리오 + 보컬 정보 
     const vocalProfileData = await prisma.vocalPortfolio.findFirst({
-
         where:{
             vocalId: vocalId
         },
@@ -211,8 +212,7 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
                     },
                 },
             }
-        }
-
+        },
     });
 
     if (!vocalProfileData) return null;
@@ -240,8 +240,10 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
             ],
 
         },
+        skip: (page-1)*limit,
+        take: limit,
     });
-
+    
     const title = vocalProfileData.Vocal.vocalPortfolio[0];  //! 타이틀 포트폴리오
 
     const vocalPortfolioTitle: VocalPortfolioReturnDTO = { //! 타이틀 포트폴리오 DTO

@@ -5,7 +5,7 @@ import _, { forEach } from 'lodash';
 import { AllVocalReturnDTO } from '../interfaces/vocals';
 const prisma = new PrismaClient();
 
-const getVocals = async() => {
+const getVocals = async(page: number, limit: number) => {
 
     //! 작업물 최신순 정렬
     const vocalList = await prisma.vocalOrder.findMany({
@@ -45,7 +45,9 @@ const getVocals = async() => {
         orderBy: {
             createdAt: "desc"  //~ 최신순 정렬
         },
-        distinct: ['vocalId']  //~ 인덱스 0의(최신의) vocalId를 기준으로 부터 중복된 vocalId는 가져오지 않음. 
+        distinct: ['vocalId'],  //~ 인덱스 0의(최신의) vocalId를 기준으로 부터 중복된 vocalId는 가져오지 않음. 
+        skip: (page-1)*limit,
+        take: limit,
     });
 
     const result = await Promise.all(vocalList.map((vocal) => {
@@ -68,7 +70,7 @@ const getVocals = async() => {
     return result;
 };
 
-const getFilteredVocals = async(categList: string[], isSelected: string) => {
+const getFilteredVocals = async(categList: string[], isSelected: string, page: number, limit: number) => {
 
     var isTrueSet = (isSelected === 'true');
     
@@ -116,7 +118,9 @@ const getFilteredVocals = async(categList: string[], isSelected: string) => {
         orderBy: {
             createdAt: "desc"  //~ 최신순 정렬
         },
-        distinct: ['vocalId']  //~ 인덱스 0의(최신의) vocalId를 기준으로 부터 중복된 vocalId는 가져오지 않음. 
+        distinct: ['vocalId'],  //~ 인덱스 0의(최신의) vocalId를 기준으로 부터 중복된 vocalId는 가져오지 않음. 
+        skip: (page-1)*limit,
+        take: limit,
     });
 
     const result = await Promise.all(vocalList.map((vocal) => {

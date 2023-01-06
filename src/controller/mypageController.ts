@@ -80,16 +80,17 @@ const updateVocalTitlePortfolio = async(req: Request, res: Response) => {
 const getMypage = async(req:Request, res: Response) => {
 
     const { userId, tableName } = req.body;
+    const { page, limit } = req.query;
 
     if(tableName == 'producer'){
-        const data = await profileService.getProducerProfileData(+userId, +userId, tableName);
+        const data = await profileService.getProducerProfileData(+userId, +userId, tableName, Number(page), Number(limit));
         if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_PRODUCER_ID));
 
         return res.status(sc.OK).send(success(sc.OK, rm.READ_PRODUCER_PROFILE_SUCCESS, data ));
     }
 
     if(tableName == 'vocal'){
-        const data = await profileService.getVocalProfileData(+userId, +userId, tableName);
+        const data = await profileService.getVocalProfileData(+userId, +userId, tableName, Number(page), Number(limit));
         if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_VOCAL_ID));
 
         return res.status(sc.OK).send(success(sc.OK, rm.READ_VOCAL_PROFILE_SUCCESS, data));

@@ -45,8 +45,9 @@ const getAllComment = async(req: Request, res: Response) => {
 
     const { beatId } = req.params;
     const { userId, tableName } = req.body;
+    const { page, limit } = req.query;
 
-    const data = await tracksService.getAllComment(+beatId,+userId, tableName);
+    const data = await tracksService.getAllComment(+beatId,+userId, tableName, Number(page), Number(limit));
     if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INVALID_BEAT_ID));
 
     return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_COMMENT_SUCCESS, {"commentList": data})); 
@@ -118,9 +119,9 @@ const postBeatComment = async(req:Request, res:Response) => {
 
 const getFilteringTracks = async(req: Request, res: Response) => {
     
-    const { categ } = req.query;
+    const { categ, page, limit } = req.query;
 
-    const data = await tracksService.getFilteredTracks(await convertCategory(categ));
+    const data = await tracksService.getFilteredTracks(await convertCategory(categ), Number(page), Number(limit));
     if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.GET_FILTERING_FAIL)); 
 
     return res.status(sc.OK).send(success(sc.OK, rm.GET_FILTERING_SUCCESS, {"trackList": data}));
