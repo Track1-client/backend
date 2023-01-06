@@ -45,8 +45,9 @@ const getAllComment = async(req: Request, res: Response) => {
 
     const { beatId } = req.params;
     const { userId, tableName } = req.body;
+    const { page, limit } = req.query;
 
-    const data = await tracksService.getAllComment(+beatId,+userId, tableName);
+    const data = await tracksService.getAllComment(+beatId,+userId, tableName, Number(page), Number(limit));
     if(!data) return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INVALID_BEAT_ID));
 
     return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_COMMENT_SUCCESS, {"commentList": data})); 

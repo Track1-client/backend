@@ -90,7 +90,7 @@ const getAllBeat = async(page: number, limit: number) => {
     return allBeats;
 }
 
-const getAllComment = async(beatId: number, userId: number, tableName: string) => {
+const getAllComment = async(beatId: number, userId: number, tableName: string, page: number, limit: number) => {
 
     //beatid에 해당하는 코멘트들 싹 가져오기
     //(코멘트고유id/보컬id/코멘트id/댓글wav파일/내용/재생길이
@@ -119,6 +119,8 @@ const getAllComment = async(beatId: number, userId: number, tableName: string) =
         orderBy: {
             createdAt: 'desc'
         },
+        skip: (page-1)*limit,
+        take: limit,
     });
 
     const allComments = await Promise.all(allCommentData.map(async (item, i) => {
