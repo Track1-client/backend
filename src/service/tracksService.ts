@@ -41,7 +41,7 @@ const getBeatLocation = async(beatId: number) => {
     return data;
 };
 
-const getAllBeat = async() => {
+const getAllBeat = async(page: number, limit: number) => {
 
     const allBeatData = await prisma.beat.findMany({
         select: {
@@ -66,7 +66,9 @@ const getAllBeat = async() => {
         },
         orderBy: {
             createdAt: 'desc',
-        }
+        },
+        skip: (page-1)*limit,
+        take: limit,
     });
     
     
@@ -231,6 +233,59 @@ const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavL
     return data;
 };   
 
+const getFilteredTracks = async(categList: string[]) => {
+
+    //! 작업물 최신순 정렬
+    const trackList = await prisma.beat.findMany({
+        select:{
+            id: true,
+            beatImage: true,
+            beatFile: true,
+            title: true,
+            Producer: {
+                select: {
+                    name: true,
+                },
+            },
+            keyword: true,
+            category: true,
+            BeatFileDuration: {
+                select: {
+                    duration: true
+                }
+            },
+        },
+        where: {
+            AND: [
+            {category : { hasSome: categList }},
+            {isClosed: false}
+            ],
+        },
+        orderBy: {
+            createdAt: 'desc',
+        },
+        distinct: ['id']
+    });   
+
+    const result = await Promise.all(trackList.map((track) => {
+
+        const returnDTO:AllBeatDTO = {
+            beatId: track.id,
+            jacketImage: track.beatImage,
+            wavFile: track.beatFile,
+            title: track.title,
+            producerName: track.Producer.name,
+            keyword: track.keyword,
+            category: track.category,
+            wavFileLength: track.BeatFileDuration?.duration as number,
+        }
+        return returnDTO;
+    }));
+
+    return result;
+
+};
+
 const tracksService = {
     createBeat,
     getBeatLocation,
@@ -239,6 +294,7 @@ const tracksService = {
     getClickedBeat,
     postBeatComment,
     getAllComment,
+    getFilteredTracks,
 };
 
 export default tracksService;

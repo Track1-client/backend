@@ -1,10 +1,19 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { tracksController } from '../controller';
-import { auth, Beat_WavAndImage, Comment_wav_file } from '../middlewares';
+import { auth, Beat_WavAndImage, Check_Pagination_Value, Comment_wav_file } from '../middlewares';
 import { sc } from '../constants';
 import { fail } from '../constants/response';
 
 const router: Router = Router();
+
+
+
+router.get('/', Check_Pagination_Value, tracksController.getAllBeat);
+router.get('/filter', auth, tracksController.getFilteringTracks);
+router.get('/:beatId', auth, tracksController.getClickedBeat);
+router.get('/:beatId/download', auth, tracksController.getBeatFile);
+router.get('/comments/:beatId', auth, tracksController.getAllComment);
+
 
 router.post(
     '/', 
@@ -17,12 +26,6 @@ router.post(
     auth, 
     tracksController.createBeat
 );
-
-router.get('/:beatId', auth, tracksController.getClickedBeat);
-router.get('/', auth, tracksController.getAllBeat);
-router.get('/:beatId/download', auth, tracksController.getBeatFile);
-router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
-
 router.post(
     '/:beatId', 
     (req: Request, res: Response, next: NextFunction) => {
@@ -35,6 +38,8 @@ router.post(
     tracksController.postBeatComment
 );
 
-router.get('/comments/:beatId', auth, tracksController.getAllComment);
+
+router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
+
 
 export default router;
