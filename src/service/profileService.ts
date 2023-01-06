@@ -122,7 +122,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
 
 //* 리스트 : 보컬 구하는 중인 게시글 (0) ~ 마감한 게시글(n) 순서로 반환 
 //* 보컬 구하는 중/마감한 글 내부에서는 최신순 정렬  
-const getOpenedBeatsList = async(producerId: number) => {
+const getOpenedBeatsList = async(producerId: number, page: number, limit: number) => {
 
     const sortedBeats = await prisma.beat.findMany({
         where: {
@@ -146,7 +146,9 @@ const getOpenedBeatsList = async(producerId: number) => {
                     duration: true
                 },
             },
-        }
+        },
+        skip: (page-1)*limit,
+        take: limit,
     });
     
     const resultList = await Promise.all(sortedBeats.map((beat) => {
