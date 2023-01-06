@@ -33,7 +33,9 @@ const createBeat = async(req: Request, res: Response) => {
 
 const getAllBeat = async (req: Request, res: Response) => {
 
-    const data = await tracksService.getAllBeat();
+    const { page, limit } = req.query;  //! for pagination - infinite scroll
+    
+    const data = await tracksService.getAllBeat(Number(page), Number(limit));
     if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_BEAT_ID));
 
     return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_BEAT_SUCCESS, {"trackList": data})); 
@@ -86,7 +88,7 @@ const updateBeatClosed = async(req: Request, res: Response) => {
     return res.status(sc.OK).send(success(sc.OK, rm.BEAT_CLOSED))
 }
 
-const getClickedBeat = async(req:Request, res:Response) => {
+const getClickedBeat = async(req: Request, res: Response) => {
     const { userId, tableName } = req.body;
     const { beatId } = req.params;
 
@@ -112,7 +114,18 @@ const postBeatComment = async(req:Request, res:Response) => {
 
     return res.status(sc.CREATED).send(success(sc.CREATED, rm.COMMENT_UPLOAD_SUCCESS, {"commentId": data.id}));
 
-}
+};
+
+const getFilteringTracks = async(req: Request, res: Response) => {
+    
+    const { categ } = req.query;
+
+    const data = await tracksService.getFilteredTracks(await convertCategory(categ));
+    if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.GET_FILTERING_FAIL)); 
+
+    return res.status(sc.OK).send(success(sc.OK, rm.GET_FILTERING_SUCCESS, {"trackList": data}));
+
+};
 
 
 const tracksController = {
@@ -123,6 +136,7 @@ const tracksController = {
     getClickedBeat,
     postBeatComment,
     getAllComment,
+    getFilteringTracks,
 };
 
 export default tracksController;
