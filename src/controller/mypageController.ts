@@ -65,20 +65,18 @@ const updateProducerTitlePortfolio = async(req: Request, res: Response) => {
 };
 
 const updateVocalTitlePortfolio = async(req: Request, res: Response) => {
-    try {
-        const oldId = req.query.oldId;
-        const newId = req.query.newId;
-        
+  //  try {
+        const { oldId, newId } = req.query;
         const { userId, tableName } = req.body;
         
         const data = await mypageService.updateVocalTitle(Number(oldId), Number(newId), Number(userId));
         if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL));
 
         return res.status(sc.OK).send(success(sc.OK, rm.VOCAL_PORTFOLIO_TITLE_UPDATE_SUCCESS, data));
-    }
-    catch{
-        return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
-    };
+  //  }
+  //  catch{
+   //     return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+   // };
 };
 
 const getMypage = async(req:Request, res: Response) => {
