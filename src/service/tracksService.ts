@@ -153,7 +153,7 @@ const updateBeatClosed = async(beatId: number) => {
         }
     });
 
-    const changeIsClosed = isClosedBeat ? false: true;
+    const changeIsClosed = (isClosedBeat?.isClosed) ? false: true;
     const data = await prisma.beat.update({
         where: {
             id: beatId,
