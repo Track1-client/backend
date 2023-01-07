@@ -32,7 +32,7 @@ const getVocalProfile = async(req:Request, res:Response) => {
     const { vocalId } = req.params;
     const { userId, tableName } = req.body;
     const { page, limit } = req.query;
-
+    
     const data = await profileService.getVocalProfileData(+vocalId,+userId, tableName, Number(page), Number(limit));
     if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.INVALID_VOCAL_ID));
 

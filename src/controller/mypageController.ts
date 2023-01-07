@@ -70,7 +70,7 @@ const updateVocalTitlePortfolio = async(req: Request, res: Response) => {
         const newId = req.query.newId;
         
         const { userId, tableName } = req.body;
-        
+        console.log(tableName);
         const data = await mypageService.updateVocalTitle(Number(oldId), Number(newId), Number(userId));
         if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL));
 
