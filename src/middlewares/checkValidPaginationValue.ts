@@ -6,7 +6,8 @@ import { fail } from '../constants/response';
 export default async (req: Request, res: Response, next: NextFunction) => {
     
     const { page, limit } = req.query;
-    
+    console.log(page);
+    console.log(limit);
     let numPage = Number(page);
     let numLimit = Number(limit);
     
