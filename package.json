@@ -27,7 +27,8 @@
     "build": "tsc && node dist",
     "create:distFolder": "tsc",
     "db:pull": "npx prisma db pull && npx prisma generate",
-    "db:push": "npx prisma db push && npx prisma generate"
+    "db:push": "npx prisma db push && npx prisma generate",
+    "test": "mocha ./test/"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -39,7 +40,10 @@
     "@types/multer": "^1.4.7",
     "@types/multer-s3": "^3.0.0",
     "@types/node": "^18.11.17",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.20",
+    "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.6.0"
   }

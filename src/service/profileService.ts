@@ -153,11 +153,11 @@ const getOpenedBeatsList = async(producerId: number, page: number, limit: number
     
     const resultList = await Promise.all(sortedBeats.map((beat) => {
         const result: GetSortedBeatsDTO = {
-            beatId: beat.id,
+            id: beat.id,
             jacketImage: beat.beatImage,
             beatWavFile: beat.beatFile,
             title: beat.title,
-            introduce: beat.introduce as string,
+            content: beat.introduce as string,
             keyword: beat.keyword,
             category: beat.category[0] as string,
             wavFileLength: beat.BeatFileDuration?.duration as number,

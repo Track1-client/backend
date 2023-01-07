@@ -1,9 +1,9 @@
 export default interface GetSortedBeats {
-    beatId: number;
+    id: number;
     jacketImage: string;
     beatWavFile: string;
     title: string;
-    introduce: string;
+    content: string;
     keyword: string[];
     category: string;
     wavFileLength: number;
