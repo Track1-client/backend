@@ -7,7 +7,8 @@ import { PaginationDTO } from '../interfaces';
 export default async (req: Request, res: Response, next: NextFunction) => {
     
     const paginationDTO: PaginationDTO = req.query as any;
-
+    const page = req.query.page;
+    console.log(page);
     console.log(paginationDTO.page);
     let numPage = Number(paginationDTO.page);
     let numLimit = Number(paginationDTO.limit);
