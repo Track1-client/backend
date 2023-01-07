@@ -7,7 +7,7 @@ import jwtHandler from "../../modules/jwtHandler";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(" ").reverse()[0]; //? Bearer ~~ 에서 토큰만 파싱
-  console.log(token);
+  console.log(req.headers);
   if (!token) return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.EMPTY_TOKEN));
   
   try {
