@@ -7,7 +7,7 @@ import { auth, Check_Pagination_Value } from '../middlewares';
 const router: Router = Router();
 
 
-router.get('/', auth, Check_Pagination_Value, vocalsController.getAllVocals);
-router.get('/filter', auth, Check_Pagination_Value, vocalsController.getFilteringVocals);
+router.get('/', Check_Pagination_Value, auth, vocalsController.getAllVocals);
+router.get('/filter', Check_Pagination_Value, auth, vocalsController.getFilteringVocals);
 
 export default router;

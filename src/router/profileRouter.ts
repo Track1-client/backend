@@ -6,8 +6,8 @@ import { auth, Check_Pagination_Value } from '../middlewares';
 
 const router: Router = Router();
 
-router.get('/producer/:producerId', auth, Check_Pagination_Value, profileController.getProducerProfile);
-router.get('/producer/:producerId/beats', auth, Check_Pagination_Value, profileController.getOpenedBeats);
-router.get('/vocal/:vocalId', auth, Check_Pagination_Value, profileController.getVocalProfile);
+router.get('/producer/:producerId', Check_Pagination_Value, auth, profileController.getProducerProfile);
+router.get('/producer/:producerId/beats', Check_Pagination_Value, auth, profileController.getOpenedBeats);
+router.get('/vocal/:vocalId', Check_Pagination_Value, auth, profileController.getVocalProfile);
 
 export default router;
