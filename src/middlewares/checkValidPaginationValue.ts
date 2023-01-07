@@ -6,7 +6,12 @@ import { PaginationDTO } from '../interfaces';
 //~ 무한스크롤을 위한 페이지네이션 변수 조건 확인
 export default async (req: Request, res: Response, next: NextFunction) => {
     
-    const { page, limit } = req.body;
+    const page = req.query.page;
+    const limit = req.query.limit;
+
+    console.log(page);
+    console.log(limit);
+    
     let numPage = Number(page);
     let numLimit = Number(limit);
     
