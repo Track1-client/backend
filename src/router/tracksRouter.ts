@@ -13,6 +13,11 @@ router.get('/:beatId', auth, tracksController.getClickedBeat);
 router.get('/:beatId/download', auth, tracksController.getBeatFile);
 router.get('/comments/:beatId', Check_Pagination_Value, auth, tracksController.getAllComment);
 
+router.get('/:beatId/download', 
+(req: Request, res: Response, next: NextFunction) => {
+    auth(req, res, next);
+},
+tracksController.getBeatFile);
 
 router.post(
     '/', 
