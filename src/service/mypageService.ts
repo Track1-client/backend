@@ -179,9 +179,9 @@ const updateVocalTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId:
             }
         },
     });
-    
+    console.log(isValidVocalPortfolioId);
     if ( Object.keys(isValidVocalPortfolioId).length < 2) return null;
-    
+    console.log(Object.keys(isValidVocalPortfolioId).length );
     const data = await prisma.vocalTitle.update({
         data: {
             vocalPortfolioId: newTitlePortfolioId as number,
@@ -190,7 +190,7 @@ const updateVocalTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId:
             vocalPortfolioId: oldTitlePortfolioId as number,
         },
     });
-
+    console.log(data);
     const returnResult:TitleUpdateReturnDTO = {
         oldTitleId: oldTitlePortfolioId,
         newTitleId: data.vocalPortfolioId,  
