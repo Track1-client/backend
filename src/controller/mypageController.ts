@@ -49,8 +49,9 @@ const createVocalPortfolio = async(req: Request, res: Response) => {
 
 const updateProducerTitlePortfolio = async(req: Request, res: Response) => {
     try {
-        const { oldId, newId } = req.query;
-        console.log(oldId);
+        const oldId = req.query.oldId;
+        const newId = req.query.newId;
+
         const { userId, tableName } = req.body;
         
         const data = await mypageService.updateProducerTitle(Number(oldId), Number(newId), Number(userId));
@@ -65,10 +66,11 @@ const updateProducerTitlePortfolio = async(req: Request, res: Response) => {
 
 const updateVocalTitlePortfolio = async(req: Request, res: Response) => {
     try {
-        const { oldId, newId } = req.query;
-        console.log(oldId);
+        const oldId = req.query.oldId;
+        const newId = req.query.newId;
+        
         const { userId, tableName } = req.body;
-        console.log(userId);
+        
         const data = await mypageService.updateVocalTitle(Number(oldId), Number(newId), Number(userId));
         if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL));
 

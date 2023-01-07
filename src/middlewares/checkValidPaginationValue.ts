@@ -5,9 +5,9 @@ import { fail } from '../constants/response';
 //~ 무한스크롤을 위한 페이지네이션 변수 조건 확인
 export default async (req: Request, res: Response, next: NextFunction) => {
     
-    const { page, limit } = req.query;
-    console.log(page);
-    console.log(limit);
+    const page = req.query.page;
+    const limit = req.query.limit;
+    
     let numPage = Number(page);
     let numLimit = Number(limit);
     
