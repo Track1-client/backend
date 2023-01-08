@@ -60,6 +60,7 @@ const getAllBeat = async(page: number, limit: number) => {
             },
             Producer: {
                 select: {
+                    id: true,
                     name: true,
                 },
             },
@@ -79,6 +80,7 @@ const getAllBeat = async(page: number, limit: number) => {
             jacketImage: item.beatImage,
             wavFile: item.beatFile,
             title: item.title,
+            producerId: item.Producer.id,
             producerName: item.Producer.name,
             keyword: item.keyword,
             category: item.category,
@@ -246,6 +248,7 @@ const getFilteredTracks = async(categList: string[], page: number, limit: number
             title: true,
             Producer: {
                 select: {
+                    id: true,
                     name: true,
                 },
             },
@@ -278,6 +281,7 @@ const getFilteredTracks = async(categList: string[], page: number, limit: number
             jacketImage: track.beatImage,
             wavFile: track.beatFile,
             title: track.title,
+            producerId: track.Producer.id,
             producerName: track.Producer.name,
             keyword: track.keyword,
             category: track.category,
