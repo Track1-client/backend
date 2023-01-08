@@ -261,10 +261,11 @@ const getFilteredTracks = async(categList: string[], page: number, limit: number
             },
         },
         where: {
-            AND: [
-            {category : { hasSome: categList }},
-            {isClosed: false}
-            ],
+            AND: 
+                [
+                    {category : { hasSome: categList }},
+                    {isClosed: false}
+                ],
         },
         orderBy: {
             createdAt: 'desc',
@@ -273,6 +274,7 @@ const getFilteredTracks = async(categList: string[], page: number, limit: number
         skip: (page-1)*limit,
         take: limit,
     });   
+
 
     const result = await Promise.all(trackList.map((track) => {
 

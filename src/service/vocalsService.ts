@@ -34,13 +34,9 @@ const getVocals = async(page: number, limit: number) => {
                     category: true,
                     keyword: true,
                     isSelected: true,
-                    _count: {
-                        select: {
-                            vocalPortfolio: true,  //! 나중에 -1해서 넘겨주기!!!!!
-                        }
-                    }
+                    
                 },
-            }
+            },
         },
         orderBy: {
             createdAt: "desc"  //~ 최신순 정렬
@@ -51,7 +47,9 @@ const getVocals = async(page: number, limit: number) => {
     });
 
     const result = await Promise.all(vocalList.map((vocal) => {
+
         const getVocal = vocal.Vocal;
+        const categNum = (getVocal.category.length - 1 < 0) ? 0 : getVocal.category.length - 1;
 
         const returnDTO:AllVocalReturnDTO = {
             vocalId: getVocal.id,
@@ -60,7 +58,7 @@ const getVocals = async(page: number, limit: number) => {
             vocalName: getVocal.name,
             category: getVocal.category,
             keyword: getVocal.keyword,
-            totalCategNum: getVocal._count.vocalPortfolio - 1,
+            totalCategNum: categNum,
             wavFileLength: getVocal.vocalPortfolio[0]?.VocalPortfolioDuration?.duration as number,
             isSelected: getVocal.isSelected
         }
@@ -101,11 +99,6 @@ const getFilteredVocals = async(categList: string[], isSelected: string, page: n
                     category: true,
                     keyword: true,
                     isSelected: true,
-                    _count: {
-                        select: {
-                            vocalPortfolio: true,  
-                        }
-                    }
                 },
             },
         },
@@ -124,7 +117,9 @@ const getFilteredVocals = async(categList: string[], isSelected: string, page: n
     });
 
     const result = await Promise.all(vocalList.map((vocal) => {
+
         const getVocal = vocal.Vocal;
+        const categNum = (getVocal.category.length - 1 < 0) ? 0 : getVocal.category.length - 1;
 
         const returnDTO:AllVocalReturnDTO = {
             vocalId: getVocal.id,
@@ -133,7 +128,7 @@ const getFilteredVocals = async(categList: string[], isSelected: string, page: n
             vocalName: getVocal.name,
             category: getVocal.category,
             keyword: getVocal.keyword,
-            totalCategNum: getVocal._count.vocalPortfolio - 1,
+            totalCategNum: categNum,
             wavFileLength: getVocal.vocalPortfolio[0]?.VocalPortfolioDuration?.duration as number,
             isSelected: getVocal.isSelected
         }
