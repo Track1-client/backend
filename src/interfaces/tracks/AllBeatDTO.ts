@@ -3,6 +3,7 @@ export default interface AllBeatDTO {
     jacketImage: string;
     wavFile: string;
     title: string;
+    producerId: number;
     producerName: string;
     keyword: string[];
     category: string[];
