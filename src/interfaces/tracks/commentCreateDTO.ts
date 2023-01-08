@@ -1,5 +1,5 @@
 export default interface CommentCreateDTO {
-    tableName: string,
-    userId: number,
-    comment: string
+    tableName: string;
+    userId: number;
+    content: string;
 };

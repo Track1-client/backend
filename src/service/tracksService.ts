@@ -217,7 +217,7 @@ const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavL
             beatId: beatId,
             vocalId: commentDTO.userId,
             commentFile: wavLocation,
-            content:commentDTO.comment,
+            content:commentDTO.content,
             CommentFileDuration: {
                 create: {
                     duration: await getAudioDurationInSeconds(wavLocation)
