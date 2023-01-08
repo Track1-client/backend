@@ -61,6 +61,7 @@ const getAllBeat = async(page: number, limit: number) => {
             Producer: {
                 select: {
                     name: true,
+                    id: true,
                 },
             },
         },
@@ -79,9 +80,10 @@ const getAllBeat = async(page: number, limit: number) => {
             jacketImage: item.beatImage,
             wavFile: item.beatFile,
             title: item.title,
+            producerId: item.producerId,
             producerName: item.Producer.name,
             keyword: item.keyword,
-            category: item.category,
+            category: item.category[0],
             wavFileLength: item.BeatFileDuration?.duration as number
         };
         
@@ -176,9 +178,10 @@ const getClickedBeat = async(beatId: number, userId: number, tableName: string) 
     const producerData = await prisma.producer.findUnique({
         where: { id: beatData.producerId },
         select: {
-        name: true,
-        producerImage: true,
-        id: true,
+            name: true,
+            producerImage: true,
+            producerID: true,
+            id: true,
         }
     });
 
@@ -186,26 +189,25 @@ const getClickedBeat = async(beatId: number, userId: number, tableName: string) 
 
     const isMe = (userId === producerData?.id) ? true: false;
     const wavefileLength = await getAudioDurationInSeconds(beatData.beatFile);
-
+    
     const getClickBeatReturn: BeatClickedDTO = {
 
         beatId: beatData.id,
         jacketImage: beatData.beatImage,
         beatWavFile: beatData.beatFile,
         title: beatData.title,
+        producerId: producerData.id,
         producerName: producerData.name,
         producerProfileImage: producerData.producerImage,
         introduce: beatData.introduce || '',
         keyword: beatData.keyword,
-        category: beatData.category,
+        category: beatData.category[0],
         isMe: isMe as boolean,
         wavFileLength: wavefileLength,
         isClosed: beatData.isClosed,
-
-    }
+    };
 
     return getClickBeatReturn;
-
 }
 
 const postBeatComment = async(beatId: number, commentDTO: CommentCreateDTO, wavLocation: string)=> {
@@ -247,6 +249,7 @@ const getFilteredTracks = async(categList: string[], page: number, limit: number
             Producer: {
                 select: {
                     name: true,
+                    id: true,
                 },
             },
             keyword: true,
@@ -278,9 +281,10 @@ const getFilteredTracks = async(categList: string[], page: number, limit: number
             jacketImage: track.beatImage,
             wavFile: track.beatFile,
             title: track.title,
+            producerId: track.Producer.id,
             producerName: track.Producer.name,
             keyword: track.keyword,
-            category: track.category,
+            category: track.category[0],
             wavFileLength: track.BeatFileDuration?.duration as number,
         }
         return returnDTO;
