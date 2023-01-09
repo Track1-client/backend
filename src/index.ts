@@ -8,14 +8,35 @@ import { globalErrorHandler } from './middlewares/error';
 
 const app = express();
 const PORT = 3000; 
+
+const corsOriginList = [
+
+  'http://localhost:3000',
+  'https://www.track-1.link',
+]
 const corsOptions = {
-  origin: [ 'http://localhost:3000'],
+  origin: corsOriginList,
   credential: true,
   optionsSuccessStatus: 200,
 }
 
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  const origin: string = req.headers.origin as string;
+  if (corsOriginList.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'X-Requested-With, content-type, x-access-token',
+  );
+  next();
+});
+
+
+
+app.use(express.json());
 app.use("/", router); 
 app.use(globalErrorHandler);
 
