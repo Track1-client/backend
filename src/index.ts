@@ -9,8 +9,9 @@ import { globalErrorHandler } from './middlewares/error';
 const app = express();
 const PORT = 3000; 
 const corsOptions = {
-  origin: '*',
+  origin: [ 'http://localhost:3000'],
   credential: true,
+  optionsSuccessStatus: 200,
 }
 
 app.use(express.json());
