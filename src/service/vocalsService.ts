@@ -5,8 +5,8 @@ import _, { forEach } from 'lodash';
 import { AllVocalReturnDTO } from '../interfaces/vocals';
 const prisma = new PrismaClient();
 
-const getVocals = async(page: number, limit: number) => {
-
+const getFilterVocals = async(page: number, limit: number, categList: string[]) => {
+    console.log(categList);
     //! 작업물 최신순 정렬
     const vocalList = await prisma.vocalOrder.findMany({
         select: {
@@ -37,6 +37,11 @@ const getVocals = async(page: number, limit: number) => {
                     
                 },
             },
+        },
+        where: {
+            Vocal: {
+                category: { hasSome: categList }
+            } 
         },
         orderBy: {
             createdAt: "desc"  //~ 최신순 정렬
@@ -72,9 +77,13 @@ const getFilteredVocals = async(categList: string[], isSelected: string, page: n
 
     var isTrueSet = (isSelected === 'true');  //~ true이면 활동중인 사람 isselected = true , false이면 전부 다 
     
-    //! 작업물 최신순 정렬
-    if (!isTrueSet) return await getVocals(page, limit);   //! false이면 전부 다 리턴 
-    console.log(categList);
+    //! 작업물 최신순 정렬인데, 구직중 관계 없이 필터링만 
+    if ( !isTrueSet ) {
+        return await getFilterVocals(page, limit, categList);
+    };
+
+
+    //! 작업물 최신순 정렬인데, 구직중 true + 필터링
     const vocalList = await prisma.vocalOrder.findMany({
         select: {
             Vocal: {
@@ -138,13 +147,13 @@ const getFilteredVocals = async(categList: string[], isSelected: string, page: n
         }
         return returnDTO;
     }));
-    console.log(result);
+    
     return result;
 
 };
 
 const vocalsService = {
-    getVocals,
+    getFilterVocals,
     getFilteredVocals,
 };
 
