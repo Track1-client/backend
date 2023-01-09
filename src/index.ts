@@ -1,9 +1,6 @@
 import express, { NextFunction, Request, Response,  } from "express";
 import router from "./router";
 import cors from "cors";
-
-import { rm, sc } from './constants';
-import { fail } from './constants/response';
 import { globalErrorHandler } from './middlewares/error';
 
 const app = express();

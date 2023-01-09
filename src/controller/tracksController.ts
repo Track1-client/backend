@@ -22,7 +22,7 @@ const createBeat = async(req: Request, res: Response) => {
     const beatDTO: BeatCreateDTO = req.body;
     if (beatDTO.tableName !== 'producer') return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.ONLY_PRODUCER_CREATE)); //! 프로듀서만 글 작성 가능 
 
-    beatDTO.category = await convertCategory(beatDTO.category);
+    beatDTO.category = await beatDTO.category;
 
     const data = await tracksService.createBeat(beatDTO, jacketImageLocation as string, wavFilelocation as string);
     if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BEAT_UPLOAD_FAIL));
