@@ -10,7 +10,7 @@ async function convertCategory(categoryList: any) {
         7: "House",
         8: "Funk"
     };
-    console.log(JSON.stringify(categoryList));
+    
     const categList: string = (JSON.stringify(categoryList)).replace(" ","");
     var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
     
