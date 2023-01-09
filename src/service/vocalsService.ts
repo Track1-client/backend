@@ -74,7 +74,7 @@ const getFilteredVocals = async(categList: string[], isSelected: string, page: n
     
     //! 작업물 최신순 정렬
     if (!isTrueSet) return await getVocals(page, limit);   //! false이면 전부 다 리턴 
-
+    console.log(categList);
     const vocalList = await prisma.vocalOrder.findMany({
         select: {
             Vocal: {
@@ -105,10 +105,12 @@ const getFilteredVocals = async(categList: string[], isSelected: string, page: n
             },
         },
         where: {
-            AND: [
-                { Vocal: { category: { hasSome: categList } } },
-                { Vocal: { isSelected: isTrueSet } },
-            ],
+                Vocal: {
+                    AND: [
+                        { category: { hasSome: categList } },
+                        { isSelected: isTrueSet } ,
+                    ],
+                } 
         },
         orderBy: {
             createdAt: "desc"  //~ 최신순 정렬
