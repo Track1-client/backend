@@ -27,6 +27,7 @@ const Beat_WavAndImage = multer({
             var  newFileName = Date.now() + "-" + file.originalname;
             var fullPath = 'beat/'+ newFileName;
             cb(null, fullPath);
+            
         },
     }),
     fileFilter: fileFilter,
