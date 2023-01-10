@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6", //? 어떤 버전으로 컴파일
+    "target": "es2017", //? 어떤 버전으로 컴파일
     "allowSyntheticDefaultImports": true, //? default export가 없는 모듈에서 default imports를 허용
     "experimentalDecorators": true, //? decorator 실험적 허용
     "emitDecoratorMetadata": true, //? 데코레이터가 있는 선언에 대해 특정 타입의 메타 데이터를 내보내는 실험적인 지원
