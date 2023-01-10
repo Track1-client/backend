@@ -19,7 +19,7 @@ const createProducerPortfolio = async(req: Request, res: Response) => {
 
     const portfolioDTO: ProducerPortfolioDTO = req.body; 
 
-    portfolioDTO.category = await convertCategory(portfolioDTO.category);
+    //portfolioDTO.category = await convertCategory(portfolioDTO.category);
 
     const data = await mypageService.postProducerPortfolio(portfolioDTO, jacketImageLocation as string, wavFilelocation as string);
     if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.PRODUCER_PORTFOLIO_UPLOAD_FAIL));
@@ -39,7 +39,7 @@ const createVocalPortfolio = async(req: Request, res: Response) => {
 
     const portfolioDTO: VocalPortfolioDTO = req.body; 
 
-    portfolioDTO.category = await convertCategory(portfolioDTO.category);
+    //portfolioDTO.category = await convertCategory(portfolioDTO.category);
 
     const data = await mypageService.postVocalPortfolio(portfolioDTO, jacketImageLocation as string, wavFilelocation as string);
     if (!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.VOCAL_PORTFOLIO_UPLOAD_FAIL));
