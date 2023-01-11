@@ -158,7 +158,7 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 <br>
 <br>
 
-## <strong> API 명세서 초안 링크 </strong>
+## <strong> API 명세서 링크 </strong>
 
 [API 명세서](https://granite-allosaurus-84c.notion.site/API-Docs-76a02ccc9b4e4fe9bd4dc48335242ec5)
 
