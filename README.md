@@ -1,9 +1,35 @@
 <div align=center>
-  <img src="https://user-images.githubusercontent.com/70846061/211734675-ab9fb60b-58c6-4c99-b658-5e51cb26cb43.png">
-
-# _Discover Your Limitless Track_
+  <img src="https://user-images.githubusercontent.com/75441684/211895088-b446d63b-dc0a-4aec-8b96-407517f2806f.png">
+   _Discover Your Limitless Track_ <br><br> _🥁 음악 프로듀서 – 보컬 매칭 플랫폼 🎸_ 
 </div>
+<br><br>
 
+## <strong> 💫 Track-1 핵심기능  </strong>
+### <strong>1️⃣    녹음 댓글 기능 </strong><br>
+ 프로듀서가 스케치곡을 업로드하면 보컬들이 이를 다운로드 받아 각자 녹음 후 녹음 파일을 댓글로 업로드합니다. <br>
+ 곡을 올린 프로듀서는 이들의 녹음 파일을 들어보며 가장 마음에 드는 보컬에게 연락합니다.<br><br>
+### <strong>2️⃣    카테고리별 곡/보컬 필터 기능</strong> <br>
+ 보컬은 트랙 검색 페이지에서 자신이 부르고 싶은 장르의 곡을 필터링하여 들어볼 수 있습니다. <br>
+ 반대로 프로듀서는 보컬 검색 페이지에서 본인이 작업한 곡의 장르에 맞는 보컬들을 필터링하여 들어볼 수 있습니다. <br><br>
+### <strong>3️⃣    뮤지션 프로필 기능 </strong><br>
+ 보컬과 프로듀서는 본인이 작업한 작업물을 각자의 프로필 페이지에 포트폴리오의 형태로 업로드할 수 있습니다. <br>
+ 이 중 가장 자신있는 작업물을 타이틀 곡으로 설정할 수 있습니다. 보컬의 경우 보컬 검색 탭에서 타이틀 곡을 추가 depth 없이 바로 들어볼 수 있습니다. <br><br><br>
+ 
+
+## <strong> 💻  Server </strong>
+|<img src="https://user-images.githubusercontent.com/75441684/211896210-69dc0940-99af-46c2-b6d1-9be3729229f1.jpeg" width="300">|<img src="" width="300">|
+|:------:|:------:|
+|[김다현](https://github.com/dahyunnee)(Server)|[소예원]()(Server)|
+
+<br>
+### <strong>  ✏️ ERD </strong>
+<img width="786" alt="스크린샷 2023-01-05 오후 6 22 16" src="https://user-images.githubusercontent.com/75441684/210745543-e9939509-1a2f-4675-ab22-c2707f196a28.png">
+<br/>
+<br/>
+
+### <strong> 👩🏻‍💻 역할 분담 </strong>
+<img width="705" alt="스크린샷 2022-12-31 오후 3 20 58" src="https://user-images.githubusercontent.com/86148470/210127304-762814aa-6323-40ee-85b4-282d64c06931.png">
+<br>
 ### <strong> 💻 ERD </strong>
 
 <br/>
