@@ -103,9 +103,10 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
         return returnDTO;
     }));
 
+    const tempTitleList = notTitleList.slice();  //! page!==1일 때 사용 위해 
     notTitleList.unshift(producerPortfolioTitle);  //! 타이틀 포트폴리오를 리스트 0번으로 넣기 (전체포트폴리오 리스트)
 
-    const returnDTO: ProducerProfileReturnDTO = {  
+    const returnPageOneDTO: ProducerProfileReturnDTO = {  
         whoamI: 'producer',
         isMe : (producerId == userId) ? true: false,
         producerProfile: {
@@ -120,7 +121,25 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
         producerPortfolio: notTitleList,
     };
 
-    return returnDTO;
+    if (page === 1) return returnPageOneDTO;     //! page==1일때만 producerPortfolio[0]에 타이틀 넣어주기 
+    //! page !== 1인 경우 producerPortfolio[0]에 타이틀 빼기 
+
+    const returnNotpageOneDTO: ProducerProfileReturnDTO = {  
+        whoamI: 'producer',
+        isMe : (producerId == userId) ? true: false,
+        producerProfile: {
+            id: producerId,
+            profileImge: producerProfileData.ppfImage,
+            name: producerProfileData.Producer.name,
+            contact: producerProfileData.Producer.contact,
+            keyword: producerProfileData.Producer.keyword,
+            category: producerProfileData.Producer.category,
+            introduce: producerProfileData.Producer.introduce as string,
+        },
+        producerPortfolio: tempTitleList,
+    };
+
+    return returnNotpageOneDTO;
 };
 
 //* 리스트 : 보컬 구하는 중인 게시글 (0) ~ 마감한 게시글(n) 순서로 반환 
@@ -276,10 +295,10 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
 
         return returnDTO;
     }));
-
+    const tempTitleList = notTitleList.slice();  //! page!==1일 때 사용 위해 
     notTitleList.unshift(vocalPortfolioTitle);  //! 타이틀 포트폴리오를 리스트 0번으로 넣기 (전체포트폴리오 리스트)
 
-    const returnDTO: VocalProfileReturnDTO = {  
+    const returnPageOneDTO: VocalProfileReturnDTO = {  
         whoamI: 'vocal',
         isMe : (vocalId == userId)? true: false,
         vocalProfile: {
@@ -295,7 +314,27 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
         vocalPortfolio: notTitleList,
     };
 
-    return returnDTO;
+    if (page === 1) return returnPageOneDTO;  
+
+    const returnNotpageOneDTO: VocalProfileReturnDTO = {  
+        whoamI: 'vocal',
+        isMe : (vocalId == userId) ? true: false,
+        vocalProfile: {
+            id: vocalId,
+            profileImge: vocalProfileData.Vocal.vocalImage,
+            name: vocalProfileData.Vocal.name,
+            contact: vocalProfileData.Vocal.contact,
+            keyword: vocalProfileData.Vocal.keyword,
+            category: vocalProfileData.Vocal.category,
+            introduce: vocalProfileData.Vocal.introduce as string,
+            isSelected: vocalProfileData.Vocal.isSelected,
+        },
+        vocalPortfolio: tempTitleList,
+    };
+
+    return returnNotpageOneDTO;
+
+
 };
 
 
