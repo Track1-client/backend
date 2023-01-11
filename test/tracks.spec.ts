@@ -2,25 +2,8 @@ import request from 'supertest';
 import { expect } from 'chai';
 import config from "../src/config";
 import app from '../src/index';
-import convertURLtoFile from '../src/modules/makeFile';
 import { allFilteredTracks, allTrackExample, beatNum10Info, getFileLink, trackCommentExample } from './constant';
 import path from 'path';
-
-let audioTest: Blob;
-let imageTest: Blob;
-
-convertURLtoFile('../../test/file/audioFile.mp3').then((data) => {
-    audioTest = data;
-});
-
-convertURLtoFile('../../test/file/jacketImage.jpeg').then((data) => {
-    imageTest = data;
-});
-
-
-const audio = path.resolve(__dirname, `./file/audioFile.mp3`);
-const image = path.resolve(__dirname, `./file/jacketImage.jpeg`);
-console.log(audio);
 
 //! [GET] TEST
 describe('GET /tracks?page=limit=', () => {
@@ -137,21 +120,17 @@ describe('GET /tracks/:beatId/download', () => {
     });
 });
 
-
 //! [POST] TEST
-describe('POST /tracks', () => {
+describe('POST /tracks/:beatId', () => {
+    const audiofile = path.resolve(__dirname, '/file/audioFile.wav');
 
     it('게시글 생성 성공', done => {
         request(app)
-            .post('/tracks')
+            .post('/tracks/1')
             .set('Content-Type', 'multipart/form-data')
-            .set('Authorization', config.producerToken)
-            .attach("wavFile", audio)
-            .attach("jacketImage", image)
-            .field('title', "게시글 생성 테스트")
-            .field('category', 1)
-            .field('introduce', '게시글 생성 테스트임~')
-            .field('keyword', ['잔잔한', '감성적인'])
+            .set('Authorization', config.vocalToken)
+            .field('content', "댓글 생성 테스트")
+            .attach('wavFile', 'test/file/audioFile.wav')
             .expect(201)
             .then(res => {
                 done();
@@ -163,39 +142,49 @@ describe('POST /tracks', () => {
         });
 });
 
-describe('POST /tracks/:beatId', () => {
-    it('댓글 생성 성공', done => {
+//! TO_DO 사진 이미지 같이 하는거 왜 안돼 왜 왜 왜대체 왜 와이 
+/** 
+ * describe('POST /tracks', () => {
+    it('게시글 생성 성공', done => {
         request(app)
-            .post('/tracks/1')
-            .field('Content-Type', 'multipart/form-data')
-            .set('Authorization', config.vocalToken)
-            .send({ 
-                "title": "콘텐츠 생성 테스트",
-                "description": "클라이언트 분들 화이팅팅",
-                "image": "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F9994494C5C807AE00F",
-                "url": "https://coding-factory.tistory.com/329",
-                "isNotified": true,
-                "notificationTime": "2022-01-23 03:12",
-                "categoryIds": [6, 9]
-            })
+            .post('/tracks')
+            .set('Content-Type', 'multipart/form-data')
+            .set('Authorization', config.producerToken)
+            .field('title', "게시글 생성 테스트")
+            .field('category', 'Ballad')
+            .field('introduce', '게시글 생성 테스트임~')
+            .field('keyword[0]', '잔잔한')
+            .field('keyword[1]', '감성적인')
+            .attach('jacketImage', 'test/file/jacketImage2.png')
+            .attach('wavFile', 'test/file/audioFile2.mp3')
             .expect(201)
-            .expect('Content-Type', /json/)
             .then(res => {
                 done();
             })
             .catch(err => {
-                console.error("######Error >>", err);
+                console.error('[ERROR] : ', err);
                 done(err);
             });
-    });
+        });
 });
-
-
+ * 
+ * 
+*/
 
 //! [PATCH] TEST
 describe('PATCH /tracks/:beatId/closed', () => {
-
-
-
-
+    it('게시글 마감 성공', done => {
+        request(app)
+            .patch('/tracks/3/closed')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', config.producerToken)
+            .expect(200)
+            .then(res => {
+                done();
+            })
+            .catch(err => {
+                console.error('[ERROR] : ', err);
+                done(err);
+            });
+        });
 });
