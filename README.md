@@ -164,7 +164,7 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 
 <br>
 
-## <strong> Dependencies module (package.json) </strong>
+## <strong> 📁 Dependencies module (package.json) </strong>
 
 
 ```json
@@ -228,7 +228,7 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 <br>
 <br>
 
-## <strong> server architecture </strong>
+## <strong> ⚙️ server architecture </strong>
 ![KakaoTalk_Photo_2023-01-11-21-13-36](https://user-images.githubusercontent.com/86148470/211803771-39cfd867-9193-4564-9250-21c897193ea3.jpeg)
 
 
