@@ -107,7 +107,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
 
     const returnDTO: ProducerProfileReturnDTO = {  
         whoamI: 'producer',
-        isMe : (producerId == userId)? true: false,
+        isMe : (producerId == userId) ? true: false,
         producerProfile: {
             id: producerId,
             profileImge: producerProfileData.ppfImage,
