@@ -1,4 +1,8 @@
-# 💫 TRACK 1 SERVER
+<div align=center>
+  <img src="https://user-images.githubusercontent.com/70846061/211734675-ab9fb60b-58c6-4c99-b658-5e51cb26cb43.png">
+
+# _Discorver Your Limitless Track_
+</div>
 
 ### <strong> 💻 ERD </strong>
 
