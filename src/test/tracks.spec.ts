@@ -5,13 +5,17 @@ import app from '../index';
 import { allFilteredTracks, allTrackExample, beatNum10Info, getFileLink, trackCommentExample } from './constant';
 import path from 'path';
 
+const producerToken = process.env.PRODUCER_TOKEN as string;
+const vocalToken = process.env.VOCAL_TOKEN as string;
+
+
 //! [GET] TEST
 describe('GET /tracks?page=limit=', () => {
     it('전체 게시글 조회 성공', done => {
         request(app)
             .get('/tracks')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .query({
                 page: 1,
                 limit: 2,
@@ -37,7 +41,7 @@ describe('GET /tracks/filter?page=limit=categ=', () => {
         request(app)
             .get('/tracks/filter')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .query({
                 page: 1,
                 limit: 2,
@@ -64,7 +68,7 @@ describe('GET /tracks/:beatId', () => {
         request(app)
             .get('/tracks/10')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .then((res) => {
                 expect(res.status).to.eql(200);
                 expect(res.body.message).to.eql("게시글 조회 성공");
@@ -83,7 +87,7 @@ describe('GET /tracks/comments/:beatId?page=limit=', () => {
         request(app)
             .get('/tracks/comments/1')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .query({
                 page: 1,
                 limit: 2,
@@ -106,7 +110,7 @@ describe('GET /tracks/:beatId/download', () => {
         request(app)
             .get('/tracks/10/download')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .then((res) => {
                 expect(res.status).to.eql(200);
                 expect(res.body.message).to.eql("게시글 다운로드 성공");
@@ -128,7 +132,7 @@ describe('POST /tracks/:beatId', () => {
         request(app)
             .post('/tracks/1')
             .set('Content-Type', 'multipart/form-data')
-            .set('Authorization', config.vocalToken)
+            .set('Authorization', vocalToken)
             .field('content', "댓글 생성 테스트")
             .attach('wavFile', 'src/test/file/audioFile.wav')
             .expect(201)
@@ -149,7 +153,7 @@ describe('POST /tracks', () => {
         request(app)
             .post('/tracks')
             .set('Content-Type', 'multipart/form-data')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .field('title', "게시글 생성 테스트")
             .field('category', 'Ballad')
             .field('introduce', '게시글 생성 테스트임~')
@@ -175,7 +179,7 @@ describe('PATCH /tracks/:beatId/closed', () => {
         request(app)
             .patch('/tracks/3/closed')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .expect(200)
             .then(res => {
                 done();

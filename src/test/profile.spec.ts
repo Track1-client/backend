@@ -4,7 +4,8 @@ import config from "../config";
 import app from '../index';
 import { producerId10profile, producerId10vocalComponent, vocalId4profile } from './constant';
 
-
+const producerToken = process.env.PRODUCER_TOKEN as string;
+const vocalToken = process.env.VOCAL_TOKEN as string;
 
 //! [GET] TEST
 describe('GET /profile/producer/:producerId?page=limit=', () => {
@@ -12,7 +13,7 @@ describe('GET /profile/producer/:producerId?page=limit=', () => {
         request(app)
             .get('/profile/producer/10')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .query({
                 page: 1,
                 limit: 2,
@@ -36,7 +37,7 @@ describe('GET /profile/producer/:producerId/beats?page=limit=', () => {
         request(app)
             .get('/profile/producer/10/beats')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .query({
                 page: 1,
                 limit: 2,
@@ -62,7 +63,7 @@ describe('GET /profile/vocal/:vocalId?page=limit=', () => {
         request(app)
             .get('/profile/vocal/4')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.vocalToken)
+            .set('Authorization', vocalToken)
             .query({
                 page: 1,
                 limit: 2,

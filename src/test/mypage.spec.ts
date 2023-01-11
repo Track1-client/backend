@@ -4,14 +4,16 @@ import config from "../config";
 import app from '../index';
 import { getMypage } from './constant';
 
+const producerToken = process.env.PRODUCER_TOKEN as string;
+const vocalToken = process.env.VOCAL_TOKEN as string;
 
 //! [GET] TEST
 describe('GET /mypage?page=limit=', () => {
     it('마이페이지 조회 성공', done => {
         request(app)
-            .get('/mypage?')
+            .get('/mypage')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.vocalToken)
+            .set('Authorization', vocalToken)
             .query({
                 page: 1,
                 limit: 2,
@@ -37,7 +39,7 @@ describe('POST /mypage/producer', () => {
         request(app)
             .post('/mypage/producer')
             .set('Content-Type', 'multipart/form-data')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .field('title', "프로듀서 포트폴리오 생성 테스트")
             .field('category', 'Ballad')
             .field('introduce', '프로듀서 포트폴리오 생성 테스트임~')
@@ -54,7 +56,6 @@ describe('POST /mypage/producer', () => {
                 done(err);
             });
         });
-
 });
 
 
@@ -64,7 +65,7 @@ describe('POST /mypage/vocal', () => {
         request(app)
             .post('/mypage/vocal')
             .set('Content-Type', 'multipart/form-data')
-            .set('Authorization', config.vocalToken)
+            .set('Authorization', vocalToken)
             .field('title', "보컬 포트폴리오 생성 테스트")
             .field('category', 'Ballad')
             .field('introduce', '보컬 포트폴리오 생성 테스트임~')
@@ -91,7 +92,7 @@ describe('PATCH /mypage/producer?oldId=newId=', () => {
         request(app)
             .patch('/mypage/producer')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.producerToken)
+            .set('Authorization', producerToken)
             .query({
                 oldId: 2,
                 newId: 1,
@@ -113,7 +114,7 @@ describe('PATCH /mypage/vocal?oldId=newId=', () => {
         request(app)
             .patch('/mypage/vocal')
             .set('Content-Type', 'application/json')
-            .set('Authorization', config.vocalToken)
+            .set('Authorization', vocalToken)
             .query({
                 oldId: 2,
                 newId: 3,
