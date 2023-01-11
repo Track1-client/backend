@@ -1,7 +1,7 @@
 import request from 'supertest'; 
 import { expect } from 'chai';
-import config from "../src/config";
-import app from '../src/index';
+import config from "../config";
+import app from '../index';
 import { allFilteredTracks, allTrackExample, beatNum10Info, getFileLink, trackCommentExample } from './constant';
 import path from 'path';
 
@@ -122,7 +122,7 @@ describe('GET /tracks/:beatId/download', () => {
 
 //! [POST] TEST
 describe('POST /tracks/:beatId', () => {
-    const audiofile = path.resolve(__dirname, '/file/audioFile.wav');
+    const audiofile = path.resolve(__dirname, 'src/file/audioFile.wav');
 
     it('게시글 생성 성공', done => {
         request(app)
@@ -130,7 +130,7 @@ describe('POST /tracks/:beatId', () => {
             .set('Content-Type', 'multipart/form-data')
             .set('Authorization', config.vocalToken)
             .field('content', "댓글 생성 테스트")
-            .attach('wavFile', 'test/file/audioFile.wav')
+            .attach('wavFile', 'src/test/file/audioFile.wav')
             .expect(201)
             .then(res => {
                 done();

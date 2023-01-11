@@ -1,6 +1,6 @@
 import request from 'supertest'; 
 import expect from 'chai';
-const app = require('../src/index');
+import app from '../index';
 
 //! [POST] TEST
 describe('POST /user/join/producer', () => {

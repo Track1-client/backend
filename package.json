@@ -29,7 +29,7 @@
     "create:distFolder": "tsc",
     "db:pull": "npx prisma db pull && npx prisma generate",
     "db:push": "npx prisma db push && npx prisma generate",
-    "mocha": "mocha test/*.ts -r ts-node/register --exit --timeout 1000000"
+    "mocha": "mocha src/test/*.ts -r ts-node/register --exit --timeout 1000000"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
