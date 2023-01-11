@@ -1,7 +1,8 @@
 export default {
-
+    "whoamI": "producer",
     "isMe": false,
     "producerProfile": {
+        "id": 10,
         "profileImge": "https://track1-default.s3.ap-northeast-2.amazonaws.com/default_user.png",
         "name": "producerExample5",
         "contact": "010-1234-5678",
@@ -12,8 +13,8 @@ export default {
             "Hiphop,Ballad,JAZZ,House"
         ],
         "introduce": ""
-        },
-        "producerPortfolio": [
+    },
+    "producerPortfolio": [
         {
             "id": 10,
             "jacketImage": "https://track1-default.s3.ap-northeast-2.amazonaws.com/default_user.png",
@@ -21,7 +22,7 @@ export default {
             "title": "title2",
             "content": "",
             "keyword": [
-            "잔잔"
+                "잔잔"
             ],
             "category": "Rock",
             "wavFileLength": 2.005624
@@ -33,10 +34,10 @@ export default {
             "title": "title2",
             "content": "",
             "keyword": [
-            "잔잔"
+                "잔잔"
             ],
             "category": "EDM",
             "wavFileLength": 2.005624
         }
-        ]
-    }
+    ]
+}

@@ -41,7 +41,7 @@ describe('GET /tracks/filter?page=limit=categ=', () => {
             .query({
                 page: 1,
                 limit: 2,
-                categ: [0, 3],
+                categ: [0,3]
             })
             .then((res) => {
                 expect(res.status).to.eql(200);
@@ -143,8 +143,8 @@ describe('POST /tracks/:beatId', () => {
 });
 
 //! TO_DO 사진 이미지 같이 하는거 왜 안돼 왜 왜 왜대체 왜 와이 
-/** 
- * describe('POST /tracks', () => {
+
+describe('POST /tracks', () => {
     it('게시글 생성 성공', done => {
         request(app)
             .post('/tracks')
@@ -155,8 +155,8 @@ describe('POST /tracks/:beatId', () => {
             .field('introduce', '게시글 생성 테스트임~')
             .field('keyword[0]', '잔잔한')
             .field('keyword[1]', '감성적인')
-            .attach('jacketImage', 'test/file/jacketImage2.png')
-            .attach('wavFile', 'test/file/audioFile2.mp3')
+            .attach('jacketImage', 'src/test/file/jacketImage2.png')
+            .attach('wavFile', 'src/test/file/audioFile2.mp3')
             .expect(201)
             .then(res => {
                 done();
@@ -167,9 +167,7 @@ describe('POST /tracks/:beatId', () => {
             });
         });
 });
- * 
- * 
-*/
+
 
 //! [PATCH] TEST
 describe('PATCH /tracks/:beatId/closed', () => {

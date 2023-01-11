@@ -132,20 +132,16 @@ const createVocalTitle = async(vocalPortfolioId: number, vocalId: number) => {
 //* 프로듀서 포트폴리오 타이틀 변경 
 const updateProducerTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId: number, userId: number) => {
     //! 프로듀서의 포트폴리오가 맞는지 확인
-    const isValidProducerPortfolioId = await prisma.producer.findMany({
+    const isValidProducerPortfolioId = await prisma.producerPortfolio.findMany({
         where: {
-            ProducerPortfolio: {
-                every: {
-                    AND: [
-                        { producerId: userId },
-                        { id: { in: [ oldTitlePortfolioId, newTitlePortfolioId ] } },
-                    ],
-                },
-            },
+            AND: [
+                { Producer: { id: userId } },
+                { id: { in: [oldTitlePortfolioId, newTitlePortfolioId] } },
+            ]
         },
     });
     
-    if ( Object.keys(isValidProducerPortfolioId).length < 2) return null;  //! oldId, newId가 프로듀서 포폴 아니면 예외처리 
+    if ( Object.keys(isValidProducerPortfolioId).length !== 2) return null;  //! oldId, newId가 프로듀서 포폴 아니면 예외처리 
 
     await prisma.producerTitle.delete({  
         where: {
