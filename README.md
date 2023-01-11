@@ -164,7 +164,72 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 
 <br>
 
+## <strong> Dependencies module (package.json) </strong>
 
+
+```json
+{
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.218.0",
+    "@aws-sdk/s3-request-presigner": "^3.241.0",
+    "@prisma/client": "^4.6.0",
+    "@types/supertest": "^2.0.12",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "get-audio-duration": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "multer": "^1.4.5-lts.1",
+    "multer-s3": "^3.0.1",
+    "node-fetch": "2",
+    "prisma": "^4.6.0"
+  },
+  "name": "Track1-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Track1-client/backend.git",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc && node dist",
+    "create:distFolder": "tsc",
+    "db:pull": "npx prisma db pull && npx prisma generate",
+    "db:push": "npx prisma db push && npx prisma generate",
+    "mocha": "mocha src/test/*.ts -r ts-node/register --exit --timeout 1000000"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/chai": "^4.3.4",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/express-validator": "^3.0.0",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/lodash": "^4.14.191",
+    "@types/mocha": "^10.0.1",
+    "@types/multer": "^1.4.7",
+    "@types/multer-s3": "^3.0.0",
+    "@types/node": "^18.11.17",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.6.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
+```
+
+<br>
+<br>
+
+## <strong> server architecture </strong>
+![KakaoTalk_Photo_2023-01-11-21-13-36](https://user-images.githubusercontent.com/86148470/211803771-39cfd867-9193-4564-9250-21c897193ea3.jpeg)
 
 
 
