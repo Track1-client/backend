@@ -27,4 +27,8 @@ export default {
   bothWavImageBucketName: process.env.S3_BUCKET_WAV_AND_IMAGE as string,  //* both wav and image file into one object 
   defaultUserImage: process.env.S3_DEFAULT_USER_IMAGE as string,  //* default user image file
   defaultBeatJacketImage: process.env.S3_DEFAULT_BEAT_JACKETIMAGAE as string, //* default beat jacket image file
+
+  //? Token
+  producerToken: process.env.PRODUCER_TOKEN as string,
+  vocalToken: process.env.VOCAL_TOKEN as string,
 };

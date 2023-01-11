@@ -14,6 +14,7 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
             ppfImage: true,
             Producer:{
                 select:{
+                    id: true,
                     name: true,
                     contact: true,
                     category: true,
@@ -105,8 +106,10 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
     notTitleList.unshift(producerPortfolioTitle);  //! 타이틀 포트폴리오를 리스트 0번으로 넣기 (전체포트폴리오 리스트)
 
     const returnDTO: ProducerProfileReturnDTO = {  
+        whoamI: 'producer',
         isMe : (producerId == userId)? true: false,
         producerProfile: {
+            id: producerId,
             profileImge: producerProfileData.ppfImage,
             name: producerProfileData.Producer.name,
             contact: producerProfileData.Producer.contact,
@@ -182,6 +185,7 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
             vpfImage: true,
             Vocal:{
                 select:{
+                    id: true,
                     name: true,
                     contact: true,
                     category: true,
@@ -276,8 +280,10 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
     notTitleList.unshift(vocalPortfolioTitle);  //! 타이틀 포트폴리오를 리스트 0번으로 넣기 (전체포트폴리오 리스트)
 
     const returnDTO: VocalProfileReturnDTO = {  
+        whoamI: 'vocal',
         isMe : (vocalId == userId)? true: false,
         vocalProfile: {
+            id: vocalId,
             profileImge: vocalProfileData.Vocal.vocalImage,
             name: vocalProfileData.Vocal.name,
             contact: vocalProfileData.Vocal.contact,
