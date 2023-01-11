@@ -9,7 +9,8 @@ const PORT = 3000;
 const corsOriginList = [
   'http://localhost:3000',
   'https://www.track-1.link',
-  'http://3.37.69.246:3000',
+  'http://3.37.69.246:3000',  
+  'https://www.track1.site'
 ];
 const corsOptions = {
   origin: corsOriginList,
