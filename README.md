@@ -149,7 +149,6 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 - 브랜치는 뷰 단위로 생성합니다.
 - 브랜치 규칙 → feature/#이슈번호
 - `ex) feature/#1`
-- 탭이름 - yewon, minwook 
 - 공통적인 것 작업 - Global
     - feature/chore/fix/network
 
