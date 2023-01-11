@@ -5,17 +5,6 @@ import convertCategory from '../modules/convertCategory';
 import { vocalsService } from '../service';
 
 
-const getAllVocals = async(req: Request, res: Response) => {
-
-    const { page, limit } = req.query;
-    const { categList } = req.params;
-
-    const data = await vocalsService.getFilterVocals(Number(page), Number(limit), await convertCategory(categList));
-    if(!data) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.GET_VOCAL_LIST_FAIL)); 
-
-    return res.status(sc.OK).send(success(sc.OK, rm.GET_VOCAL_LIST_SUCCESS, {"vocalList": data}));
-};
-
 const getFilteringVocals = async(req: Request, res: Response) => {
 
     const { categ, isSelected, page, limit } = req.query;
@@ -28,7 +17,6 @@ const getFilteringVocals = async(req: Request, res: Response) => {
 };
 
 const vocalsController = {
-    getAllVocals,
     getFilteringVocals,
 };
 

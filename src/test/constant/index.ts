@@ -7,3 +7,4 @@ export { default as producerId10profile } from './producerId10profile';
 export { default as producerId10vocalComponent} from './producerId10vocalComponent';
 export { default as vocalId4profile } from './vocalId4profile';
 export { default as getMypage } from './getMypage';
+export { default as filteredVocals } from './vocalsFilteredExample';

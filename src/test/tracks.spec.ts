@@ -1,13 +1,11 @@
 import request from 'supertest'; 
 import { expect } from 'chai';
-import config from "../config";
 import app from '../index';
 import { allFilteredTracks, allTrackExample, beatNum10Info, getFileLink, trackCommentExample } from './constant';
 import path from 'path';
 
 const producerToken = process.env.PRODUCER_TOKEN as string;
 const vocalToken = process.env.VOCAL_TOKEN as string;
-
 
 //! [GET] TEST
 describe('GET /tracks?page=limit=', () => {
@@ -33,7 +31,6 @@ describe('GET /tracks?page=limit=', () => {
                 done(err);
             })
     });
-
 });
 
 describe('GET /tracks/filter?page=limit=categ=', () => {
@@ -60,7 +57,6 @@ describe('GET /tracks/filter?page=limit=categ=', () => {
                 done(err);
             })
     });
-
 });
 
 describe('GET /tracks/:beatId', () => {
