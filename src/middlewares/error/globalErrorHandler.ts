@@ -10,12 +10,9 @@ const globalErrorHandler: ErrorRequestHandler = (
     res: Response, 
     next: NextFunction
 ): void |  Response => {
-    //! 예상 가능한 에러 
-    console.log(err);
-    if (err instanceof AbstractError) { 
+    if (err instanceof AbstractError) {             //! 예상 가능한 에러 
         const { message, statusCode, code } = err;
-        //console.error(err);
-        //console.log('adsfasdfa dsafads');
+
         if (!statusCode || statusCode == 500) {
             // 500 에러 발생 시 슬랙 알림 울리도록 추가
             const message: SlackMessageFormat = {
@@ -35,7 +32,7 @@ const globalErrorHandler: ErrorRequestHandler = (
         
         return res.status(statusCode || 500).json({ message, code });
     } 
-    else {  //! 예상 불가능한 에러 
+    else {                                          //! 예상 불가능한 에러 
         console.error('[UNEXPECTED ERROR]: ' + err);
         return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
     };

@@ -12,7 +12,7 @@ const createProducer = async(req: Request, res: Response, next: NextFunction) =>
     try{
         const profileImage: Express.MulterS3.File = req.file as Express.MulterS3.File;  //! req.file -> single()로 받은 파일 
 
-        if (!profileImage) var location = config.defaultUserImage ;   //~ 파일 없는 경우 default image로 설정 
+        if (!profileImage) var location = config.defaultUserImage2 ;   //~ 파일 없는 경우 default image로 설정 
         //return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_IMAGE));  //~ 파일 없는 경우 그냥 오류로 줄 경우 
         else var { location } = profileImage;   
         
@@ -38,7 +38,7 @@ const createVocal = async(req: Request, res: Response, next: NextFunction) => {
     try{
         const profileImage: Express.MulterS3.File = req.file as Express.MulterS3.File;  //! req.file -> single()로 받은 파일 
 
-        if (!profileImage) var location = config.defaultUserImage ;   //~ 파일 없는 경우 default image로 설정 
+        if (!profileImage) var location = config.defaultUserImage2 ;   //~ 파일 없는 경우 default image로 설정 
         //return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_IMAGE));  //~ 파일 없는 경우 그냥 오류로 줄 경우 
         else var { location } = profileImage;
         

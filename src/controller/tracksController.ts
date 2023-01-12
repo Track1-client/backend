@@ -15,7 +15,7 @@ const createBeat = async(req: Request, res: Response, next: NextFunction) => {
         const myfiles = JSON.parse(JSON.stringify(req.files));
 
         //* 재킷이미지 없는 경우 -> default jacketImage로 설정
-        const jacketImageLocation = !("jacketImage" in myfiles) ? config.defaultBeatJacketImage : myfiles['jacketImage'][0]['location'] as string;
+        const jacketImageLocation = !("jacketImage" in myfiles) ? config.defaultJacketAndProducerPortfolioImage : myfiles['jacketImage'][0]['location'] as string;
 
         //* wavFile 없는 경우 -> 오류 반환
         if(!("wavFile" in myfiles)) throw new NoSoundFile(rm.NO_WAV_FILE);
