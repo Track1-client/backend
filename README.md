@@ -1,12 +1,15 @@
 <div align=center>
   <img src="https://user-images.githubusercontent.com/75441684/211895088-b446d63b-dc0a-4aec-8b96-407517f2806f.png">
-   <strong>_Discover Your Limitless Track_ </strong>
-   <br>
-   <br> 
-   🥁음악 프로듀서–보컬 매칭 플랫폼🎸
-   <br>
+ 
 </div>
 <br><br>
+
+<div align=center>
+	
+# _Discover Your Limitless Track_ <br><br>
+# _🥁음악 프로듀서–보컬 매칭 플랫폼🎸_ <br>
+<img width="653" alt="스크린샷 2023-01-13 오전 3 43 52" src="https://user-images.githubusercontent.com/75441684/212173740-188ebf62-3c53-44de-8aac-e8428537901c.png">
+</div> <br>
 
 ## <strong> 💫 Track-1 핵심기능  </strong>
 ### <strong>1️⃣    녹음 댓글 기능 </strong><br>
