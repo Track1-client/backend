@@ -6,3 +6,4 @@ export { UserDoesNotExists } from './userNotExists';
 export { UnauthorizedUser } from './unauthorizedUser';
 export { NoPortfolioData } from './noPortfolioData';
 export { NoProfileData } from './noProfileData';
+export { InvalidBeatIdError } from './invalidBeatId';

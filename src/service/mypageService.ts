@@ -260,9 +260,9 @@ const updateVocalTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId:
             oldTitleId: oldTitlePortfolioId,
             newTitleId: data.vocalPortfolioId,  
         };
-    
-    if ( !returnResult ) throw new ResultNotFound(rm.VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL);
-    return returnResult;
+        
+        if ( !returnResult ) throw new ResultNotFound(rm.VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL);
+        return returnResult;
 
     } catch (error) {
         throw error;
