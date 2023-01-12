@@ -72,24 +72,27 @@ const getFilterVocals = async(page: number, limit: number, vocalCondition: objec
 };
 
 const getFilteredVocals = async(categList: string[], isSelected: string, page: number, limit: number) => {
+    try{
+        var isTrueSet = (isSelected === 'true');  //~ true이면 활동중인 사람 isselected = true , false이면 전부 다 
 
-    var isTrueSet = (isSelected === 'true');  //~ true이면 활동중인 사람 isselected = true , false이면 전부 다 
-
-    const vocalTrueCondition = { 
-        AND: [
-            { category: { hasSome: categList } },
-            { isSelected: isTrueSet },
-        ] 
+        const vocalTrueCondition = { 
+            AND: [
+                { category: { hasSome: categList } },
+                { isSelected: isTrueSet },
+            ] 
+        };
+    
+        const vocalFalseCondition = {
+            category: { hasSome: categList }
+        };
+    
+        if ( !isTrueSet ) {  //! 작업물 최신순 정렬인데, 구직중 관계 없이 필터링만 
+            return await getFilterVocals(page, limit, vocalFalseCondition);
+        }
+        return await getFilterVocals(page, limit, vocalTrueCondition);  //! 작업물 최신순 정렬인데, 구직중 true + 필터링
+    } catch (error) {
+        throw error;
     };
-
-    const vocalFalseCondition = {
-        category: { hasSome: categList }
-    };
-
-    if ( !isTrueSet ) {  //! 작업물 최신순 정렬인데, 구직중 관계 없이 필터링만 
-        return await getFilterVocals(page, limit, vocalFalseCondition);
-    }
-    return await getFilterVocals(page, limit, vocalTrueCondition);  //! 작업물 최신순 정렬인데, 구직중 true + 필터링
 };
 
 const vocalsService = {

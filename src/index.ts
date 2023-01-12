@@ -1,14 +1,13 @@
 import express, { NextFunction, Request, Response,  } from "express";
 import router from "./router";
 import cors from "cors";
-import { globalErrorHandler } from './middlewares/error';
+import { globalErrorHandler } from './middlewares';
 
 const app = express();
 const PORT = 3000; 
 
 const corsOriginList = [
   'http://localhost:3000',
-  'https://www.track-1.link',
   'http://3.37.69.246:3000',  
   'https://www.track1.site'
 ];

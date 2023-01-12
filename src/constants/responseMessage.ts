@@ -37,10 +37,13 @@ export default {
     BEAT_UPLOAD_SUCCESS: "트랙 게시글 작성 성공",
     BEAT_UPLOAD_FAIL: "트랙 게시글 작성 실패",
     BEAT_CLOSED: "트랙 모집 완료 성공",
+    BEAT_CLOSED_FAIL: "트랙 모집 완료 실패",
     GET_CLICKED_BEAT_SUCCESS: "게시글 조회 성공",
+    GET_CLICKED_BEAT_FAIL: "게시글 조회 실패",
     INVALID_BEAT_ID: "유효하지 않은 게시글입니다",
     READ_ALL_BEAT_SUCCESS: "전체 트랙 조회 성공",
     READ_SROTED_BEAT_SUCCESS: "보컬 구하는 중 탭 조회 성공",
+    OPENED_BEATS_GET_FAIL: "보컬 모집 중인 게시글 조회 성공",
 
     // 필터링 관련
     GET_FILTERING_SUCCESS: "필터링 조회 성공",
@@ -57,10 +60,14 @@ export default {
     PRODUCER_PORTFOLIO_UPLOAD_FAIL: "프로듀서 포트폴리오 작성 실패",
     PRODUCER_PORTFOLIO_TITLE_UPDATE_SUCCESS: "프로듀서 포트폴리오 타이틀 변경 성공",
     PRODUCER_PORTFOLIO_TITLE_UPDATE_FAIL: "프로듀서 포트폴리오 타이틀 변경 실패",
+    PRODUCER_PORTFOLIO_GET_SUCCESS: "프로듀서 포트폴리오 조회 성공",
+    PRODUCER_PORTFOLIO_GET_FAIL: "프로듀서 포트폴리오 조회 실패",
     VOCAL_PORTFOLIO_UPLOAD_SUCCESS: "보컬 포트폴리오 작성 성공",
     VOCAL_PORTFOLIO_UPLOAD_FAIL: "보컬 포트폴리오 작성 실패",
     VOCAL_PORTFOLIO_TITLE_UPDATE_SUCCESS: "보컬 포트폴리오 타이틀 변경 성공",
     VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL: "보컬 포트폴리오 타이틀 변경 실패",
+    VOCAL_PORTFOLIO_GET_SUCCESS: "보컬 포트폴리오 조회 성공",
+    VOCAL_PORTFOLIO_GET_FAIL: "보컬 포트폴리오 조회 실패",
 
     // 토큰
     CREATE_TOKEN_SUCCESS: "토큰 재발급 성공",
@@ -79,8 +86,12 @@ export default {
     GET_VOCAL_LIST_SUCCESS: "보컬 검색 창 조회 성공",
 
     // 프로필 관련
+    GET_FAIL_DURING_GET_PRODUCER_PROFILE: "프로듀서 프로필 조회 중 데이터 없음",
     READ_PRODUCER_PROFILE_SUCCESS: "프로듀서 프로필 조회 성공",
+    READ_PRODUCER_PROFILE_FAIL: "프로듀서 프로필 조회 실패",
+    GET_FAIL_DURING_GET_VOCAL_PROFILE: "보컬 프로필 조회 중 데이터 없음",
     READ_VOCAL_PROFILE_SUCCESS: "보컬 프로필 조회 성공",
+    READ_VOCAL_PROFILE_FAIL: "보컬 프로필 조회 실패",
 
     // 페이지네이션 관련
     INVALID_PAGINATION_QUERY_PARAMS: "유효하지 않은 page/limit 파라미터입니다.",
