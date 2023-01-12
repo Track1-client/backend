@@ -123,7 +123,6 @@ const getAllComment = async(beatId: number, userId: number, tableName: string, p
         });
 
         if ( !beatData ) throw new InvalidBeatIdError(rm.INVALID_BEAT_ID);
-        
         const allCommentData = await prisma.comment.findMany({
             where:{
                 beatId: beatId,
