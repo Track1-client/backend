@@ -1,6 +1,4 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import { constant } from 'lodash';
-import config from '../../config';
 import { rm, sc } from '../../constants';
 import { fail } from '../../constants/response';
 import slackAlarm, { SlackMessageFormat } from '../slackAlarm';
@@ -13,10 +11,11 @@ const globalErrorHandler: ErrorRequestHandler = (
     next: NextFunction
 ): void |  Response => {
     //! 예상 가능한 에러 
+    console.log(err);
     if (err instanceof AbstractError) { 
         const { message, statusCode, code } = err;
-        console.error(err);
-        
+        //console.error(err);
+        //console.log('adsfasdfa dsafads');
         if (!statusCode || statusCode == 500) {
             // 500 에러 발생 시 슬랙 알림 울리도록 추가
             const message: SlackMessageFormat = {
@@ -33,8 +32,8 @@ const globalErrorHandler: ErrorRequestHandler = (
             slackAlarm.sendMessage(message);
             console.error(`[statusCode: ${err.statusCode}] message: ${err.message}`);
         };
-
-        res.status(statusCode || 500).json({ message, code });
+        
+        return res.status(statusCode || 500).json({ message, code });
     } 
     else {  //! 예상 불가능한 에러 
         console.error('[UNEXPECTED ERROR]: ' + err);

@@ -7,3 +7,5 @@ export { UnauthorizedUser } from './unauthorizedUser';
 export { NoPortfolioData } from './noPortfolioData';
 export { NoProfileData } from './noProfileData';
 export { InvalidBeatIdError } from './invalidBeatId';
+export { InternalServerError } from './internalServerError';
+export { NoSoundFile } from './noSoundFile';

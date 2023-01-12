@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { profileService } from "../service";
 
-const getProducerProfile = async(req: Request, res: Response) => {
+const getProducerProfile = async(req: Request, res: Response, next: NextFunction) => {
 
     try {
         const { producerId } = req.params;
@@ -15,11 +15,11 @@ const getProducerProfile = async(req: Request, res: Response) => {
         return res.status(sc.OK).send(success(sc.OK, rm.READ_PRODUCER_PROFILE_SUCCESS, data));
 
     } catch(error) {
-        throw error;
+        return next(error);
     };
 };
 
-const getOpenedBeats = async(req: Request, res: Response) => {
+const getOpenedBeats = async(req: Request, res: Response, next: NextFunction) => {
     try {
         const { userId, tableName } = req.body;
         const { producerId } = req.params;
@@ -30,11 +30,11 @@ const getOpenedBeats = async(req: Request, res: Response) => {
         return res.status(sc.OK).send(success(sc.OK, rm.READ_SROTED_BEAT_SUCCESS, {"beatList": data}));
 
     } catch(error) {
-        throw error;
+        return next(error);
     };
 };
 
-const getVocalProfile = async(req:Request, res:Response) => {
+const getVocalProfile = async(req:Request, res:Response, next: NextFunction) => {
     try {
 
         const { vocalId } = req.params;
@@ -46,7 +46,7 @@ const getVocalProfile = async(req:Request, res:Response) => {
         return res.status(sc.OK).send(success(sc.OK, rm.READ_VOCAL_PROFILE_SUCCESS, data));
 
     } catch(error) {
-        throw error;
+        return next(error);
     };
 }
 

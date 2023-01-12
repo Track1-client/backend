@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { producerJoinDTO, vocalJoinDTO, userLogInDTO, UserLogInReturnDTO } from '../interfaces';
@@ -8,7 +8,7 @@ import config from '../config';
 import { UserDoesNotExists } from '../middlewares/error/constant';
 
 //! 프로듀서 회원가입
-const createProducer = async(req: Request, res: Response) => {
+const createProducer = async(req: Request, res: Response, next: NextFunction) => {
     try{
         const profileImage: Express.MulterS3.File = req.file as Express.MulterS3.File;  //! req.file -> single()로 받은 파일 
 
@@ -28,13 +28,13 @@ const createProducer = async(req: Request, res: Response) => {
         
         return res.status(sc.CREATED).send(success(sc.CREATED, rm.SIGNUP_SUCCESS, result))
     } catch (error) {
-        throw(error);
+        return next(error);
     };
 };
 
 
 //! 보컬 회원가입
-const createVocal = async(req: Request, res: Response) => {
+const createVocal = async(req: Request, res: Response, next: NextFunction) => {
     try{
         const profileImage: Express.MulterS3.File = req.file as Express.MulterS3.File;  //! req.file -> single()로 받은 파일 
 
@@ -54,13 +54,13 @@ const createVocal = async(req: Request, res: Response) => {
         
         return res.status(sc.CREATED).send(success(sc.CREATED, rm.SIGNUP_SUCCESS, result));
     } catch (error) {
-        throw(error);
+        return next(error);
     };
 };
 
 
 //! 프로듀서, 보컬 로그인
-const logInUser = async(req: Request, res: Response) => {
+const logInUser = async(req: Request, res: Response, next: NextFunction) => {
     try {
         const userLogInDto: userLogInDTO = req.body;
         const data = await userService.logIn(userLogInDto);
@@ -76,7 +76,7 @@ const logInUser = async(req: Request, res: Response) => {
     
         res.status(sc.OK).send(success(sc.OK, rm.SIGNIN_SUCCESS, result));
     } catch (error) {
-        throw(error);
+        return next(error);
     };
 };
 

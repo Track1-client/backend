@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import { getAudioDurationInSeconds } from 'get-audio-duration';
@@ -6,9 +6,10 @@ import config from '../config';
 import { BeatCreateDTO, BeatDownloadReturnDTO, CommentCreateDTO } from '../interfaces/tracks';
 import { tracksService } from '../service';
 import convertCategory from '../modules/convertCategory';
+import { NoSoundFile } from '../middlewares/error/constant';
 
 
-const createBeat = async(req: Request, res: Response) => {
+const createBeat = async(req: Request, res: Response, next: NextFunction) => {
     try {
 
         const myfiles = JSON.parse(JSON.stringify(req.files));
@@ -17,7 +18,7 @@ const createBeat = async(req: Request, res: Response) => {
         const jacketImageLocation = !("jacketImage" in myfiles) ? config.defaultBeatJacketImage : myfiles['jacketImage'][0]['location'] as string;
 
         //* wavFile 없는 경우 -> 오류 반환
-        if(!("wavFile" in myfiles)) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_WAV_FILE));
+        if(!("wavFile" in myfiles)) throw new NoSoundFile(rm.NO_WAV_FILE);
         const wavFilelocation = myfiles['wavFile'][0]['location'] as string;
 
         const beatDTO: BeatCreateDTO = req.body;
@@ -29,12 +30,12 @@ const createBeat = async(req: Request, res: Response) => {
 
         return res.status(sc.CREATED).send(success(sc.CREATED, rm.BEAT_UPLOAD_SUCCESS, {"beatId": data.id}));
     } catch (error) {
-        throw error;
+        return next(error);
     }
 };
 
 
-const getAllBeat = async (req: Request, res: Response) => {
+const getAllBeat = async (req: Request, res: Response, next: NextFunction) => {
     try {
 
         const { page, limit } = req.query;  //! for pagination - infinite scroll
@@ -43,11 +44,11 @@ const getAllBeat = async (req: Request, res: Response) => {
 
         return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_BEAT_SUCCESS, {"trackList": data})); 
     } catch (error) {
-        throw error;
+        return next(error);
     }
 };
 
-const getAllComment = async(req: Request, res: Response) => {
+const getAllComment = async(req: Request, res: Response, next: NextFunction) => {
     try {
 
         const { beatId } = req.params;
@@ -58,12 +59,12 @@ const getAllComment = async(req: Request, res: Response) => {
 
         return res.status(sc.OK).send(success(sc.OK, rm.READ_ALL_COMMENT_SUCCESS, {"commentList": data})); 
     } catch (error) {
-        throw error;
+        return next(error);
     }
 };
 
 
-const getBeatFile = async(req: Request, res: Response) => {
+const getBeatFile = async(req: Request, res: Response, next: NextFunction) => {
     try {
         const { beatId } = req.params;
 
@@ -80,13 +81,12 @@ const getBeatFile = async(req: Request, res: Response) => {
         return res.status(sc.OK).send(success(sc.OK, rm.GET_FILE_SUCCESS, beatReturnDTO));
     } 
     catch(error) {
-        console.error(error);
-        return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
+        return next(error);
     };
 };
 
 
-const updateBeatClosed = async(req: Request, res: Response) => {
+const updateBeatClosed = async(req: Request, res: Response, next: NextFunction) => {
     try {
 
         const { beatId } = req.params;
@@ -96,11 +96,11 @@ const updateBeatClosed = async(req: Request, res: Response) => {
         const updatedBeatClosed = await tracksService.updateBeatClosed(+beatId);
         return res.status(sc.OK).send(success(sc.OK, rm.BEAT_CLOSED));
     } catch (error) {
-        throw error;
+        return next(error);
     }
 };
 
-const getClickedBeat = async(req: Request, res: Response) => {
+const getClickedBeat = async(req: Request, res: Response, next: NextFunction) => {
     try {
 
         const { userId, tableName } = req.body;
@@ -110,11 +110,11 @@ const getClickedBeat = async(req: Request, res: Response) => {
 
         return res.status(sc.OK).send(success(sc.OK, rm.GET_CLICKED_BEAT_SUCCESS, data)); 
     } catch (error) {
-        throw error;
+        return next(error);
     }
 };
 
-const postBeatComment = async(req:Request, res:Response) => {
+const postBeatComment = async(req:Request, res:Response, next: NextFunction) => {
     try {
 
         const { beatId } = req.params;
@@ -131,11 +131,11 @@ const postBeatComment = async(req:Request, res:Response) => {
 
         return res.status(sc.CREATED).send(success(sc.CREATED, rm.COMMENT_UPLOAD_SUCCESS, {"commentId": data.id}));
     } catch (error) {
-        throw error;
+        return next(error);
     }
 };
 
-const getFilteringTracks = async(req: Request, res: Response) => {
+const getFilteringTracks = async(req: Request, res: Response, next: NextFunction) => {
     try {
 
         const { categ, page, limit } = req.query;
@@ -144,7 +144,7 @@ const getFilteringTracks = async(req: Request, res: Response) => {
 
         return res.status(sc.OK).send(success(sc.OK, rm.GET_FILTERING_SUCCESS, {"trackList": data}));
     } catch(error) {
-        throw error
+        return next(error);
     }
 };
 

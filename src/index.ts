@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response,  } from "express";
 import router from "./router";
 import cors from "cors";
-import { globalErrorHandler } from './middlewares/error';
+import { globalErrorHandler } from './middlewares';
 
 const app = express();
 const PORT = 3000; 

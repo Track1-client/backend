@@ -116,6 +116,14 @@ const getAllComment = async(beatId: number, userId: number, tableName: string, p
     try {
         //beatid에 해당하는 코멘트들 싹 가져오기
         //(코멘트고유id/보컬id/코멘트id/댓글wav파일/내용/재생길이
+        const beatData = await prisma.beat.findUnique({
+            where: {
+                id: beatId
+            },
+        });
+
+        if ( !beatData ) throw new InvalidBeatIdError(rm.INVALID_BEAT_ID);
+        
         const allCommentData = await prisma.comment.findMany({
             where:{
                 beatId: beatId,
@@ -203,7 +211,7 @@ const getClickedBeat = async(beatId: number, userId: number, tableName: string) 
             where: { id: beatId }
         });
 
-        if (!beatData) return null;
+        if (!beatData) throw new InvalidBeatIdError(rm.INVALID_BEAT_ID);
 
         const producerData = await prisma.producer.findUnique({
             where: { id: beatData.producerId },
@@ -214,7 +222,7 @@ const getClickedBeat = async(beatId: number, userId: number, tableName: string) 
                 id: true,
             }
         });
-
+        
         if (!producerData) throw new InvalidBeatIdError(rm.INVALID_BEAT_ID);
 
         const isMe = (userId === producerData?.id) ? true: false;

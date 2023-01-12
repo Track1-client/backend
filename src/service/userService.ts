@@ -8,6 +8,7 @@ import { rm, sc } from '../constants';
 import { UserLogInReturnDTO } from '../interfaces/user';
 import convertCategory from '../modules/convertCategory';
 import { AlreadyExistsUserNameOrId } from '../middlewares/error';
+import { InternalServerError } from '../middlewares/error/constant';
 
 
 const prisma = new PrismaClient();
@@ -142,13 +143,13 @@ const logIn = async(userLogInDTO: userLogInDTO) => {
 
         const userPW = producer?.producerPW || vocal?.vocalPW; 
         const isMatch = await bcrypt.compare(userLogInDTO.PW, userPW as string);
-        if (!isMatch) throw new UnauthorizedUser(sc.UNAUTHORIZED);
+        if (!isMatch) throw new UnauthorizedUser(rm.SIGNIN_FAIL);
         
         const result: UserLogInReturnDTO = { 
             tableName: tableName, 
             userId: user.id 
         };
-        if (!result) throw new ResultNotFound(rm.SIGNIN_FAIL);
+        if (!result) throw new InternalServerError(rm.INTERNAL_SERVER_ERROR);
 
         return result;
     } 

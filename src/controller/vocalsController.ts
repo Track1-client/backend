@@ -1,12 +1,12 @@
 import { ResultNotFound } from './../middlewares/error/constant/resultNotFound';
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { rm, sc } from '../constants';
 import { fail, success } from '../constants/response';
 import convertCategory from '../modules/convertCategory';
 import { vocalsService } from '../service';
 
 
-const getFilteringVocals = async(req: Request, res: Response) => {
+const getFilteringVocals = async(req: Request, res: Response, next: NextFunction) => {
 
     try {
         const { categ, isSelected, page, limit } = req.query;
@@ -16,7 +16,7 @@ const getFilteringVocals = async(req: Request, res: Response) => {
         
         return res.status(sc.OK).send(success(sc.OK, rm.GET_VOCAL_LIST_SUCCESS, {"vocalList": data}));
     } catch(error) {
-        throw(error);
+        return next(error);
     };
 };
 

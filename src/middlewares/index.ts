@@ -6,3 +6,4 @@ export {
 } from "./S3upload";
 export { default as Check_Pagination_Value } from './checkValidPaginationValue';
 export { default as sendMessage } from './slackAlarm';
+export { default as globalErrorHandler } from './error/globalErrorHandler';
