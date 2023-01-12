@@ -1,6 +1,10 @@
 <div align=center>
   <img src="https://user-images.githubusercontent.com/75441684/211895088-b446d63b-dc0a-4aec-8b96-407517f2806f.png">
-   _Discover Your Limitless Track_ <br><br> _🥁 음악 프로듀서 – 보컬 매칭 플랫폼 🎸_ 
+   <strong>_Discover Your Limitless Track_ </strong>
+   <br>
+   <br> 
+   🥁음악 프로듀서–보컬 매칭 플랫폼🎸
+   <br>
 </div>
 <br><br>
 
@@ -17,22 +21,14 @@
  
 
 ## <strong> 💻  Server </strong>
-|<img src="https://user-images.githubusercontent.com/75441684/211896210-69dc0940-99af-46c2-b6d1-9be3729229f1.jpeg" width="300">|<img src="" width="300">|
+|<img src="https://user-images.githubusercontent.com/75441684/211896210-69dc0940-99af-46c2-b6d1-9be3729229f1.jpeg" width="300">|<img src="https://avatars.githubusercontent.com/u/86148470?v=4" width="300">|
 |:------:|:------:|
-|[김다현](https://github.com/dahyunnee)(Server)|[소예원]()(Server)|
+|[김다현](https://github.com/dahyunnee)(Server)|[소예원](https://github.com/Soyewon)(Server)|
 
 <br>
-### <strong>  ✏️ ERD </strong>
-<img width="786" alt="스크린샷 2023-01-05 오후 6 22 16" src="https://user-images.githubusercontent.com/75441684/210745543-e9939509-1a2f-4675-ab22-c2707f196a28.png">
-<br/>
-<br/>
 
-### <strong> 👩🏻‍💻 역할 분담 </strong>
-<img width="705" alt="스크린샷 2022-12-31 오후 3 20 58" src="https://user-images.githubusercontent.com/86148470/210127304-762814aa-6323-40ee-85b4-282d64c06931.png">
+### <strong> ✔️ ERD </strong>
 <br>
-### <strong> 💻 ERD </strong>
-
-<br/>
 <img width="786" alt="스크린샷 2023-01-05 오후 6 22 16" src="https://user-images.githubusercontent.com/75441684/210745543-e9939509-1a2f-4675-ab22-c2707f196a28.png">
 <br/>
 <br/>
