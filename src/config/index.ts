@@ -26,8 +26,12 @@ export default {
   wavBucketName: process.env.S3_BUCKET_WAV_FILE as string,                //* only wav file
   imageBucketName: process.env.S3_BUCKET_IMAGE_FILE as string,            //* only image file
   bothWavImageBucketName: process.env.S3_BUCKET_WAV_AND_IMAGE as string,  //* both wav and image file into one object 
-  defaultUserImage: process.env.S3_DEFAULT_USER_IMAGE as string,  //* default user image file
-  defaultBeatJacketImage: process.env.S3_DEFAULT_BEAT_JACKETIMAGAE as string, //* default beat jacket image file
+  //defaultUserImage: process.env.S3_DEFAULT_USER_IMAGE as string,   //! 사용 안함 
+  defaultUserImage2: process.env.S3_DEFAULT_USER_IMAGE2 as string, //* default user image file
+  //defaultBeatJacketImage: process.env.S3_DEFAULT_BEAT_JACKETIMAGAE as string, //! 사용 안함
+  defaultVocalPortfolioImage: process.env.S3_DEFAULT_VOCAL_PORTFOLIO_IMAGE as string,  //* default vocal portfolio image
+  defaultJacketAndProducerPortfolioImage: process.env.S3_DEFUALT_JACKET_PRODUCER_PORTFOLIO_IMAGE as string, //* default beat jacket + producer potfolio image
+
 
   //? Slack Webhook
   slackAlarm: process.env.SLACK_ALARM_URI as string,
