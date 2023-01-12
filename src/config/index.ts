@@ -11,6 +11,7 @@ if (envFound.error) {
 
 export default {
   port: parseInt(process.env.PORT as string, 10) as number,
+  env: process.env.NODE_ENV as string,
 
   //? 데이터베이스
   database: process.env.DATABASE_URL as string,
@@ -27,4 +28,7 @@ export default {
   bothWavImageBucketName: process.env.S3_BUCKET_WAV_AND_IMAGE as string,  //* both wav and image file into one object 
   defaultUserImage: process.env.S3_DEFAULT_USER_IMAGE as string,  //* default user image file
   defaultBeatJacketImage: process.env.S3_DEFAULT_BEAT_JACKETIMAGAE as string, //* default beat jacket image file
+
+  //? Slack Webhook
+  slackAlarm: process.env.SLACK_ALARM_URI as string,
 };

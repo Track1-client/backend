@@ -6,6 +6,7 @@ import config from '../config';
 import { ProducerPortfolioDTO, VocalPortfolioDTO } from '../interfaces/mypage';
 import convertCategory from '../modules/convertCategory';
 import { mypageService, profileService } from '../service';
+import slackAlarm, { SlackMessageFormat } from "../middlewares/slackAlarm";
 
 const createProducerPortfolio = async(req: Request, res: Response) => {
     const myfiles = JSON.parse(JSON.stringify(req.files));
@@ -57,7 +58,19 @@ const updateProducerTitlePortfolio = async(req: Request, res: Response) => {
 
         return res.status(sc.OK).send(success(sc.OK, rm.PRODUCER_PORTFOLIO_TITLE_UPDATE_SUCCESS, data));
     }
-    catch {
+    catch(err) {
+        const message: SlackMessageFormat = {
+            color: slackAlarm.colors.danger,
+            title: 'Track-1 서버 에러',
+            text: err.message,
+            fields: [
+               {
+                  title: 'Error Stack:',
+                  value: `\`\`\`${err.stack}\`\`\`` //여기서 ```를 추가해서 마크다운 형태로 보내줍니다.
+               }
+            ]
+         };
+         slackAlarm.sendMessage(message); //슬랙에게 알림 전송
         return res.status(sc.INTERNAL_SERVER_ERROR).send(fail(sc.INTERNAL_SERVER_ERROR, rm.INTERNAL_SERVER_ERROR));
     };
 };
