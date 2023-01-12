@@ -29,7 +29,10 @@
     "create:distFolder": "tsc",
     "db:pull": "npx prisma db pull && npx prisma generate",
     "db:push": "npx prisma db push && npx prisma generate",
-    "mocha": "mocha src/test/*.ts -r ts-node/register --exit --timeout 1000000"
+    "mocha": "mocha src/test/*.ts -r ts-node/register --exit --timeout 1000000",
+    "prepare": "husky install",    
+    "test": "jest",
+    "lint": "yarn eslint ."
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -44,6 +47,7 @@
     "@types/multer-s3": "^3.0.0",
     "@types/node": "^18.11.17",
     "chai": "^4.3.7",
+    "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.20",
     "supertest": "^6.3.3",
