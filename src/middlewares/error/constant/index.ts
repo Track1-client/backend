@@ -1,4 +1,5 @@
 export { InvalidUpdatePortfolioIdError } from './invalidUpdatePortfolioId';
+export { InvalidUpdateVocalIdError } from './invalidUpdateVocalId';
 export { ResultNotFound } from './resultNotFound';
 export { AlreadyExistsUserNameOrId } from './alreadyHaveUser';
 export { UserDoesNotExists } from './userNotExists';
