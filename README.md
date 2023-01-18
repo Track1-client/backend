@@ -1,27 +1,35 @@
-<div align=center>
-  <img src="https://user-images.githubusercontent.com/75441684/211895088-b446d63b-dc0a-4aec-8b96-407517f2806f.png">
- 
-</div>
-<br><br>
 
 <div align=center>
 	
 # _Discover Your Limitless Track_ <br><br>
 # _🥁음악 프로듀서–보컬 매칭 플랫폼🎸_ <br>
-<img width="653" alt="스크린샷 2023-01-13 오전 3 43 52" src="https://user-images.githubusercontent.com/75441684/212173740-188ebf62-3c53-44de-8aac-e8428537901c.png">
-</div> <br>
+<img width="600" alt="스크린샷 2023-01-18 오후 6 53 26" src="https://user-images.githubusercontent.com/75441684/213140181-d49cbdc6-5917-4546-a3c4-0000a454ae8f.png">
+
+</div> <br><br>
 
 ## <strong> 💫 Track-1 핵심기능  </strong>
 ### <strong>1️⃣    녹음 댓글 기능 </strong><br>
  프로듀서가 스케치곡을 업로드하면 보컬들이 이를 다운로드 받아 각자 녹음 후 녹음 파일을 댓글로 업로드합니다. <br>
  곡을 올린 프로듀서는 이들의 녹음 파일을 들어보며 가장 마음에 드는 보컬에게 연락합니다.<br><br>
+<div align=left>
+	<img width="400" alt="스크린샷 2023-01-18 오후 6 50 21" src="https://user-images.githubusercontent.com/75441684/213141924-fe3ae8fb-7530-4198-991f-7b07af68696c.png">
+</div>
+
 ### <strong>2️⃣    카테고리별 곡/보컬 필터 기능</strong> <br>
  보컬은 트랙 검색 페이지에서 자신이 부르고 싶은 장르의 곡을 필터링하여 들어볼 수 있습니다. <br>
  반대로 프로듀서는 보컬 검색 페이지에서 본인이 작업한 곡의 장르에 맞는 보컬들을 필터링하여 들어볼 수 있습니다. <br><br>
+ 
+<div align=left>
+	<img width="400" alt="스크린샷 2023-01-18 오후 6 50 32" src="https://user-images.githubusercontent.com/75441684/213145847-253e5df0-2b6c-4d9c-a155-e30416c78e23.png">
+
+</div>
+
 ### <strong>3️⃣    뮤지션 프로필 기능 </strong><br>
  보컬과 프로듀서는 본인이 작업한 작업물을 각자의 프로필 페이지에 포트폴리오의 형태로 업로드할 수 있습니다. <br>
  이 중 가장 자신있는 작업물을 타이틀 곡으로 설정할 수 있습니다. 보컬의 경우 보컬 검색 탭에서 타이틀 곡을 추가 depth 없이 바로 들어볼 수 있습니다. <br><br><br>
- 
+<div align=left>
+<img width="400" alt="스크린샷 2023-01-18 오후 6 50 42" src="https://user-images.githubusercontent.com/75441684/213146044-0ea73f33-2454-40c0-a962-ff1b0ae1bd9a.png">
+</div><br><br>
 
 ## <strong> 💻  Server </strong>
 |<img src="https://user-images.githubusercontent.com/75441684/211896210-69dc0940-99af-46c2-b6d1-9be3729229f1.jpeg" width="300">|<img src="https://avatars.githubusercontent.com/u/86148470?v=4" width="300">|
