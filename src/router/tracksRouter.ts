@@ -41,5 +41,5 @@ router.post(
 
 router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
 
-
+router.delete('/:beatId', auth, tracksController.deleteBeat);
 export default router;

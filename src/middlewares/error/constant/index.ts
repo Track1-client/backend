@@ -9,3 +9,4 @@ export { NoProfileData } from './noProfileData';
 export { InvalidBeatIdError } from './invalidBeatId';
 export { InternalServerError } from './internalServerError';
 export { NoSoundFile } from './noSoundFile';
+export { ProducerAndBeatDoesNotMatch } from './ProducerAndBeatDoesNotMatch';

@@ -1,9 +1,9 @@
 import { ResultNotFound } from './../middlewares/error/constant/resultNotFound';
 import { PrismaClient } from "@prisma/client";
 import { getAudioDurationInSeconds } from 'get-audio-duration';
-import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO, AllCommentDTO } from '../interfaces/tracks';
+import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO, AllCommentDTO, DeleteBeatDTO } from '../interfaces/tracks';
 import { rm } from '../constants';
-import { InvalidBeatIdError } from '../middlewares/error/constant';
+import { InvalidBeatIdError, ProducerAndBeatDoesNotMatch } from '../middlewares/error/constant';
 
 const prisma = new PrismaClient();
 
@@ -344,6 +344,37 @@ const getFilteredTracks = async(categList: string[], page: number, limit: number
     }
 };
 
+const deleteBeatWithId = async(beatId: number, userId: number, tableName: string) => {
+    try {
+        const deletObj = await prisma.beat.findUnique({
+            where: {
+                producerBeat: {
+                    id: beatId,
+                    producerId: userId,
+                },
+            },
+        });
+        if (!deletObj) throw new ProducerAndBeatDoesNotMatch(rm.NOT_PRODUCER_BEAT);
+
+        await prisma.beat.delete({
+            where: {
+                producerBeat: {
+                    id: beatId,
+                    producerId: userId,
+                },
+            },
+        });
+
+        const result: DeleteBeatDTO = {
+            tableName,
+            userId,
+        };
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
 const tracksService = {
     createBeat,
     getBeatLocation,
@@ -353,6 +384,7 @@ const tracksService = {
     postBeatComment,
     getAllComment,
     getFilteredTracks,
+    deleteBeatWithId,
 };
 
 export default tracksService;

@@ -137,7 +137,6 @@ const postBeatComment = async(req:Request, res:Response, next: NextFunction) => 
 
 const getFilteringTracks = async(req: Request, res: Response, next: NextFunction) => {
     try {
-
         const { categ, page, limit } = req.query;
 
         const data = await tracksService.getFilteredTracks(await convertCategory(categ), Number(page), Number(limit));
@@ -148,6 +147,18 @@ const getFilteringTracks = async(req: Request, res: Response, next: NextFunction
     }
 };
 
+const deleteBeat = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { beatId } = req.params;
+        const { userId, tableName } = req.body;
+
+        const data = await tracksService.deleteBeatWithId(Number(beatId), userId, tableName);
+
+        return res.status(sc.OK).send(success(sc.OK, rm.DELETE_BEAT_SUCCESS, data));
+    } catch(error) {
+        return next(error);
+    }
+};
 
 const tracksController = {
     createBeat,
@@ -158,6 +169,7 @@ const tracksController = {
     postBeatComment,
     getAllComment,
     getFilteringTracks,
+    deleteBeat,
 };
 
 export default tracksController;

@@ -44,6 +44,8 @@ export default {
     READ_ALL_BEAT_SUCCESS: "전체 트랙 조회 성공",
     READ_SROTED_BEAT_SUCCESS: "보컬 구하는 중 탭 조회 성공",
     OPENED_BEATS_GET_FAIL: "보컬 모집 중인 게시글 조회 성공",
+    DELETE_BEAT_SUCCESS: "게시글 삭제 성공",
+    NOT_PRODUCER_BEAT: "요청한 프로듀서의 게시글이 아닙니다",
 
     // 필터링 관련
     GET_FILTERING_SUCCESS: "필터링 조회 성공",
