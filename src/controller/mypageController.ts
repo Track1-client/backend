@@ -108,7 +108,31 @@ const getMypage = async(req:Request, res: Response, next: NextFunction) => {
         return next(error);
     }
 
-}
+};
+
+const deleteProducerPortfolio = async(req:Request, res: Response, next: NextFunction) => {
+    try {
+        const { producerPortfolioId } = req.params;
+        const { userId, tableName } = req.body;
+
+        const data = await mypageService.deleteProducerPortfolioData(+userId, Number(producerPortfolioId));
+        return res.status(sc.OK).send(success(sc.OK, rm.DELETE_PRODUCER_PORTFOLIO_SUCCESS, data));
+    } catch (error) {
+        return next(error);
+    }
+};
+
+const deleteVocalPortfolio = async(req:Request, res: Response, next: NextFunction) => {
+    try {
+        const { vocalPortfolioId } = req.params;
+        const { userId, tableName } = req.body;
+
+        const data = await mypageService.deleteVocalPortfolioData(+userId, Number(vocalPortfolioId));
+        return res.status(sc.OK).send(success(sc.OK, rm.DELETE_VOCAL_PORTFOLIO_SUCCESS, data));
+    } catch (error) {
+        return next(error);
+    }
+};
 
 const mypageController = {
     createProducerPortfolio,
@@ -116,6 +140,8 @@ const mypageController = {
     updateProducerTitlePortfolio,
     updateVocalTitlePortfolio,
     getMypage,
+    deleteProducerPortfolio,
+    deleteVocalPortfolio,
 };
 
 export default mypageController;

@@ -35,4 +35,7 @@ router.patch('/vocal', auth, mypageController.updateVocalTitlePortfolio);
 
 router.get('/', auth, mypageController.getMypage);
 
+router.delete('/producer/:producerPortfolioId', auth, mypageController.deleteProducerPortfolio);
+router.delete('/vocal/:vocalPortfolioId', auth, mypageController.deleteVocalPortfolio);
+
 export default router;

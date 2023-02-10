@@ -44,6 +44,8 @@ export default {
     READ_ALL_BEAT_SUCCESS: "전체 트랙 조회 성공",
     READ_SROTED_BEAT_SUCCESS: "보컬 구하는 중 탭 조회 성공",
     OPENED_BEATS_GET_FAIL: "보컬 모집 중인 게시글 조회 성공",
+    DELETE_BEAT_SUCCESS: "게시글 삭제 성공",
+    NOT_PRODUCER_BEAT: "요청한 프로듀서의 게시글이 아닙니다",
 
     // 필터링 관련
     GET_FILTERING_SUCCESS: "필터링 조회 성공",
@@ -54,6 +56,8 @@ export default {
     COMMENT_UPLOAD_SUCCESS: "트랙 댓글 작성 성공",
     ONLY_VOCAL_CREATE: "보컬만 댓글을 작성할 수 있습니다.",
     READ_ALL_COMMENT_SUCCESS: "게시글 댓글 조회 성공",
+    NOT_VOCAL_COMMENT: "보컬의 댓글이 아닙니다",
+    DELETE_COMMENT_SUCCESS: "댓글 삭제 성공",
 
     // 포트폴리오 관련
     PRODUCER_PORTFOLIO_UPLOAD_SUCCESS: "프로듀서 포트폴리오 작성 성공",
@@ -62,12 +66,16 @@ export default {
     PRODUCER_PORTFOLIO_TITLE_UPDATE_FAIL: "프로듀서 포트폴리오 타이틀 변경 실패",
     PRODUCER_PORTFOLIO_GET_SUCCESS: "프로듀서 포트폴리오 조회 성공",
     PRODUCER_PORTFOLIO_GET_FAIL: "프로듀서 포트폴리오 조회 실패",
+    NOT_PRODUCER_PORTFOLIO: "프로듀서의 포트폴리오가 아닙니다",
+    DELETE_PRODUCER_PORTFOLIO_SUCCESS: "프로듀서 포트폴리오 삭제 성공",
     VOCAL_PORTFOLIO_UPLOAD_SUCCESS: "보컬 포트폴리오 작성 성공",
     VOCAL_PORTFOLIO_UPLOAD_FAIL: "보컬 포트폴리오 작성 실패",
     VOCAL_PORTFOLIO_TITLE_UPDATE_SUCCESS: "보컬 포트폴리오 타이틀 변경 성공",
     VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL: "보컬 포트폴리오 타이틀 변경 실패",
     VOCAL_PORTFOLIO_GET_SUCCESS: "보컬 포트폴리오 조회 성공",
     VOCAL_PORTFOLIO_GET_FAIL: "보컬 포트폴리오 조회 실패",
+    NOT_VOCAL_PORTFOLIO: "보컬의 포트폴리오가 아닙니다",
+    DELETE_VOCAL_PORTFOLIO_SUCCESS: "보컬 포트폴리오 삭제 성공",
 
     // 토큰
     CREATE_TOKEN_SUCCESS: "토큰 재발급 성공",

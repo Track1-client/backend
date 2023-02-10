@@ -22,6 +22,8 @@ model Beat {
   Producer         Producer          @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "beat_producer_id_fk")
   BeatFileDuration BeatFileDuration?
   Comment          Comment[]
+
+  @@unique([id, producerId], name: "producerBeat")
 }
 
 model Comment {
@@ -35,12 +37,14 @@ model Comment {
   Beat                Beat                 @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "comment_beat_id_fk")
   Vocal               Vocal                @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "comment_vocal_id_fk")
   CommentFileDuration CommentFileDuration?
+
+  @@unique([id, vocalId], name: "vocalComment")
 }
 
 model Producer {
   id                Int                 @id @unique @default(autoincrement())
-  name              String              @unique @db.VarChar(200)
-  contact           String              @db.VarChar(200)
+  name              String              @db.VarChar(200)
+  contact           String?             @db.VarChar(200)
   category          String[]            @db.VarChar
   keyword           String[]            @db.VarChar
   introduce         String?
@@ -66,6 +70,7 @@ model ProducerPortfolio {
   Producer                  Producer                   @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producerpf_producer_id_fk")
   ProducerPortfolioDuration ProducerPortfolioDuration?
   ProducerTitle             ProducerTitle?
+  @@unique([id, producerId], name: "producerPortfolio")
 }
 
 model ProducerTitle {
@@ -78,8 +83,8 @@ model ProducerTitle {
 
 model Vocal {
   id             Int              @id @unique @default(autoincrement())
-  name           String           @unique @db.VarChar(200)
-  contact        String           @db.VarChar(200)
+  name           String           @db.VarChar(200)
+  contact        String?          @db.VarChar(200)
   category       String[]         @db.VarChar
   keyword        String[]         @db.VarChar
   introduce      String?
@@ -115,6 +120,7 @@ model VocalPortfolio {
   Vocal                  Vocal                   @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocalpf_vocal_id_fk")
   VocalPortfolioDuration VocalPortfolioDuration?
   VocalTitle             VocalTitle?
+  @@unique([id, vocalId], name: "vocalPortfolio")
 }
 
 model BeatFileDuration {
@@ -153,4 +159,20 @@ model VocalOrder {
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
   Vocal                  Vocal    @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocalorder_vocalId_id_fk")
+}
+
+model Auth {
+  token     String   @unique @db.VarChar(50)
+  userId    Int
+  tableName String   @db.VarChar(50)
+  userEmail String   @db.VarChar(100)
+  createdAt DateTime @default(now())
+}
+
+model TempUser {
+  tableName String @db.VarChar(100)
+  userEmail String @db.VarChar(100)
+  authCode  String @db.VarChar(100)
+
+  @@unique([tableName, userEmail])
 }

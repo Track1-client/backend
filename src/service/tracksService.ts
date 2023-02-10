@@ -1,9 +1,11 @@
+import { VocalAndCommentDoesNotMatch } from './../middlewares/error/constant/VocalAndCommentDoesNotMatch';
 import { ResultNotFound } from './../middlewares/error/constant/resultNotFound';
 import { PrismaClient } from "@prisma/client";
 import { getAudioDurationInSeconds } from 'get-audio-duration';
-import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO, AllCommentDTO } from '../interfaces/tracks';
+import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO, AllCommentDTO, DeleteBeatDTO } from '../interfaces/tracks';
 import { rm } from '../constants';
-import { InvalidBeatIdError } from '../middlewares/error/constant';
+import { InvalidBeatIdError, ProducerAndBeatDoesNotMatch } from '../middlewares/error/constant';
+import DeletCommentDTO from '../interfaces/tracks/DeleteCommentDTO';
 
 const prisma = new PrismaClient();
 
@@ -344,6 +346,73 @@ const getFilteredTracks = async(categList: string[], page: number, limit: number
     }
 };
 
+const deleteBeatWithId = async(beatId: number, userId: number, tableName: string) => {
+    try {
+        const deletObj = await prisma.beat.findUnique({
+            where: {
+                producerBeat: {
+                    id: beatId,
+                    producerId: userId,
+                },
+            },
+        });
+        if (!deletObj) throw new ProducerAndBeatDoesNotMatch(rm.NOT_PRODUCER_BEAT);
+
+        await prisma.beat.delete({
+            where: {
+                producerBeat: {
+                    id: beatId,
+                    producerId: userId,
+                },
+            },
+        });
+
+        const result: DeleteBeatDTO = {
+            producerId: userId,
+        };
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const deleteCommentWithId = async(commentId: number, userId: number, tableName: string) => {
+    try {
+        const deleteObj = await prisma.comment.findUnique({
+            where: {
+                vocalComment: {
+                    vocalId: userId,
+                    id: commentId,
+                },
+            },
+            select: {
+                beatId: true,
+            }
+        });
+
+        if (!deleteObj) throw new VocalAndCommentDoesNotMatch(rm.NOT_VOCAL_COMMENT);
+
+        await prisma.comment.delete({
+            where: {
+                vocalComment: {
+                    vocalId: userId,
+                    id: commentId,
+                },
+            },
+        });
+
+        const result: DeletCommentDTO = {
+            vocalId: userId,
+            beatId: deleteObj.beatId,
+        };
+
+        return result;
+    } catch (error) {
+        throw error;
+    }
+
+};
+
 const tracksService = {
     createBeat,
     getBeatLocation,
@@ -353,6 +422,8 @@ const tracksService = {
     postBeatComment,
     getAllComment,
     getFilteredTracks,
+    deleteBeatWithId,
+    deleteCommentWithId,
 };
 
 export default tracksService;
