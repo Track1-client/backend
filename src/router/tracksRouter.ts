@@ -38,8 +38,8 @@ router.post(
     tracksController.postBeatComment
 );
 
-
 router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
+router.patch('/:beatId', auth, tracksController.updateBeatInfo);
 
 router.delete('/:beatId', auth, tracksController.deleteBeat);
 router.delete('/comment/:commentId', auth, tracksController.deleteComment);

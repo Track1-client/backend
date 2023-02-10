@@ -103,6 +103,9 @@ export default {
 
     // 페이지네이션 관련
     INVALID_PAGINATION_QUERY_PARAMS: "유효하지 않은 page/limit 파라미터입니다.",
+
+    //S3 관련
+    FAIL_DELETE_S3_OBJECT: "S3 객체 삭제 실패",
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: "서버 내 오류",
