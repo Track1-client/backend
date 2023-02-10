@@ -70,6 +70,7 @@ model ProducerPortfolio {
   Producer                  Producer                   @relation(fields: [producerId], references: [id], onDelete: Cascade, map: "producerpf_producer_id_fk")
   ProducerPortfolioDuration ProducerPortfolioDuration?
   ProducerTitle             ProducerTitle?
+  @@unique([id, producerId], name: "producerPortfolio")
 }
 
 model ProducerTitle {
@@ -119,6 +120,7 @@ model VocalPortfolio {
   Vocal                  Vocal                   @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "vocalpf_vocal_id_fk")
   VocalPortfolioDuration VocalPortfolioDuration?
   VocalTitle             VocalTitle?
+  @@unique([id, vocalId], name: "vocalPortfolio")
 }
 
 model BeatFileDuration {

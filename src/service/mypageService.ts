@@ -1,10 +1,11 @@
+import { VocalAndPortfolioDoesNotMatch } from './../middlewares/error/constant/VocalAndPortfolioDoesNotMatch';
 import { ResultNotFound } from './../middlewares/error/constant/resultNotFound';
 import { InvalidUpdatePortfolioIdError } from './../middlewares/error/constant/invalidUpdatePortfolioId';
 import { PrismaClient } from "@prisma/client";
 import getAudioDurationInSeconds from 'get-audio-duration';
-import { ProducerPortfolioDTO, VocalPortfolioDTO, ProducerPortfolioReturnDTO, VocalPortfolioReturnDTO, TitleUpdateReturnDTO } from '../interfaces/mypage';
+import { ProducerPortfolioDTO, VocalPortfolioDTO, ProducerPortfolioReturnDTO, VocalPortfolioReturnDTO, TitleUpdateReturnDTO, DeleteProducerPortfolioDTO, DeleteVocalPortfolioDTO } from '../interfaces/mypage';
 import { rm } from '../constants';
-import { InvalidUpdateVocalIdError } from '../middlewares/error/constant';
+import { InvalidUpdateVocalIdError, ProducerAndPortfolioDoesNotMatch } from '../middlewares/error/constant';
 
 const prisma = new PrismaClient();
 
@@ -269,11 +270,75 @@ const updateVocalTitle = async(oldTitlePortfolioId: number, newTitlePortfolioId:
     }  
 };
 
+const deleteProducerPortfolioData = async(userId: number, portfolioId: number) => {
+    try {
+        const deleteObj = await prisma.producerPortfolio.findUnique({
+            where: {
+                producerPortfolio: {
+                    id: portfolioId,
+                    producerId: userId,
+                },
+            }
+        });
+
+        if (!deleteObj) throw new ProducerAndPortfolioDoesNotMatch(rm.NOT_PRODUCER_PORTFOLIO);
+
+        await prisma.producerPortfolio.delete({
+            where: {
+                producerPortfolio: {
+                    id: portfolioId,
+                    producerId: userId,
+                },
+            }
+        });
+
+        const result: DeleteProducerPortfolioDTO = {
+            producerId: userId,
+        };
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const deleteVocalPortfolioData = async(userId: number, portfolioId: number) => {
+    try {
+        const deleteObj = await prisma.vocalPortfolio.findUnique({
+            where: {
+                vocalPortfolio: {
+                    id: portfolioId,
+                    vocalId: userId,
+                },
+            }
+        });
+
+        if (!deleteObj) throw new VocalAndPortfolioDoesNotMatch(rm.NOT_VOCAL_PORTFOLIO);
+
+        await prisma.vocalPortfolio.delete({
+            where: {
+                vocalPortfolio: {
+                    id: portfolioId,
+                    vocalId: userId,
+                },
+            }
+        });
+
+        const result: DeleteVocalPortfolioDTO = {
+            vocalId: userId,
+        };
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
 const mypageService = {
     postProducerPortfolio,
     postVocalPortfolio,
     updateProducerTitle,
     updateVocalTitle,
+    deleteProducerPortfolioData,
+    deleteVocalPortfolioData,
 };
 
 export default mypageService;

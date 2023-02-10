@@ -66,12 +66,16 @@ export default {
     PRODUCER_PORTFOLIO_TITLE_UPDATE_FAIL: "프로듀서 포트폴리오 타이틀 변경 실패",
     PRODUCER_PORTFOLIO_GET_SUCCESS: "프로듀서 포트폴리오 조회 성공",
     PRODUCER_PORTFOLIO_GET_FAIL: "프로듀서 포트폴리오 조회 실패",
+    NOT_PRODUCER_PORTFOLIO: "프로듀서의 포트폴리오가 아닙니다",
+    DELETE_PRODUCER_PORTFOLIO_SUCCESS: "프로듀서 포트폴리오 삭제 성공",
     VOCAL_PORTFOLIO_UPLOAD_SUCCESS: "보컬 포트폴리오 작성 성공",
     VOCAL_PORTFOLIO_UPLOAD_FAIL: "보컬 포트폴리오 작성 실패",
     VOCAL_PORTFOLIO_TITLE_UPDATE_SUCCESS: "보컬 포트폴리오 타이틀 변경 성공",
     VOCAL_PORTFOLIO_TITLE_UPDATE_FAIL: "보컬 포트폴리오 타이틀 변경 실패",
     VOCAL_PORTFOLIO_GET_SUCCESS: "보컬 포트폴리오 조회 성공",
     VOCAL_PORTFOLIO_GET_FAIL: "보컬 포트폴리오 조회 실패",
+    NOT_VOCAL_PORTFOLIO: "보컬의 포트폴리오가 아닙니다",
+    DELETE_VOCAL_PORTFOLIO_SUCCESS: "보컬 포트폴리오 삭제 성공",
 
     // 토큰
     CREATE_TOKEN_SUCCESS: "토큰 재발급 성공",

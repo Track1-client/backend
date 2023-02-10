@@ -5,7 +5,7 @@ import { getAudioDurationInSeconds } from 'get-audio-duration';
 import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO, AllCommentDTO, DeleteBeatDTO } from '../interfaces/tracks';
 import { rm } from '../constants';
 import { InvalidBeatIdError, ProducerAndBeatDoesNotMatch } from '../middlewares/error/constant';
-import DeletCommentDTO from '../interfaces/tracks/DeletCommentDTO';
+import DeletCommentDTO from '../interfaces/tracks/DeleteCommentDTO';
 
 const prisma = new PrismaClient();
 
