@@ -160,6 +160,19 @@ const deleteBeat = async(req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+const deleteComment = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { commentId } = req.params;
+        const { userId, tableName } = req.body;
+
+        const data = await tracksService.deleteCommentWithId(Number(commentId), userId, tableName);
+
+        return res.status(sc.OK).send(success(sc.OK, rm.DELETE_COMMENT_SUCCESS, data));
+    } catch (error) {
+        return next(error);
+    }
+};
+
 const tracksController = {
     createBeat,
     getAllBeat,
@@ -170,6 +183,7 @@ const tracksController = {
     getAllComment,
     getFilteringTracks,
     deleteBeat,
+    deleteComment,
 };
 
 export default tracksController;

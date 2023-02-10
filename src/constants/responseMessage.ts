@@ -56,6 +56,8 @@ export default {
     COMMENT_UPLOAD_SUCCESS: "트랙 댓글 작성 성공",
     ONLY_VOCAL_CREATE: "보컬만 댓글을 작성할 수 있습니다.",
     READ_ALL_COMMENT_SUCCESS: "게시글 댓글 조회 성공",
+    NOT_VOCAL_COMMENT: "보컬의 댓글이 아닙니다",
+    DELETE_COMMENT_SUCCESS: "댓글 삭제 성공",
 
     // 포트폴리오 관련
     PRODUCER_PORTFOLIO_UPLOAD_SUCCESS: "프로듀서 포트폴리오 작성 성공",

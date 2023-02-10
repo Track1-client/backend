@@ -42,4 +42,6 @@ router.post(
 router.patch('/:beatId/closed', auth, tracksController.updateBeatClosed);
 
 router.delete('/:beatId', auth, tracksController.deleteBeat);
+router.delete('/comment/:commentId', auth, tracksController.deleteComment);
+
 export default router;

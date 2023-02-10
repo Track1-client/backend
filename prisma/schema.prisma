@@ -37,6 +37,8 @@ model Comment {
   Beat                Beat                 @relation(fields: [beatId], references: [id], onDelete: Cascade, map: "comment_beat_id_fk")
   Vocal               Vocal                @relation(fields: [vocalId], references: [id], onDelete: Cascade, map: "comment_vocal_id_fk")
   CommentFileDuration CommentFileDuration?
+
+  @@unique([id, vocalId], name: "vocalComment")
 }
 
 model Producer {
