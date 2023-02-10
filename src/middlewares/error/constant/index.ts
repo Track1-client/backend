@@ -14,3 +14,4 @@ export { ProducerAndBeatDoesNotMatch } from './ProducerAndBeatDoesNotMatch';
 export { ProducerAndPortfolioDoesNotMatch } from './ProducerAndPortoflioDoestNotMatch';
 export { VocalAndCommentDoesNotMatch } from './VocalAndCommentDoesNotMatch';
 export { VocalAndPortfolioDoesNotMatch } from './VocalAndPortfolioDoesNotMatch';
+export { S3DeleteError } from './S3deleteError';

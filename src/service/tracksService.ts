@@ -1,3 +1,4 @@
+import { S3DeleteError } from './../middlewares/error/constant/S3deleteError';
 import { VocalAndCommentDoesNotMatch } from './../middlewares/error/constant/VocalAndCommentDoesNotMatch';
 import { ResultNotFound } from './../middlewares/error/constant/resultNotFound';
 import { PrismaClient } from "@prisma/client";
@@ -6,6 +7,8 @@ import { BeatCreateDTO, BeatClickedDTO, AllBeatDTO, CommentCreateDTO, AllComment
 import { rm } from '../constants';
 import { InvalidBeatIdError, ProducerAndBeatDoesNotMatch } from '../middlewares/error/constant';
 import DeletCommentDTO from '../interfaces/tracks/DeleteCommentDTO';
+import multipartS3 from '../config/s3MultipartConfig';
+import config from '../config';
 
 const prisma = new PrismaClient();
 
@@ -205,6 +208,30 @@ const updateBeatClosed = async(beatId: number) => {
         throw error;
     }
 };
+
+const updateBeatInfo = async(beatId: number, userId: number) => {
+    try {
+        const updateObj = await prisma.beat.findUnique({
+            where: {
+                producerBeat: {
+                    id: beatId,
+                    producerId: userId,
+                },
+            }
+        });
+
+        if (!updateObj) throw new ProducerAndBeatDoesNotMatch(rm.NOT_PRODUCER_BEAT);
+/*
+        await prisma.beat.update({
+            data: {
+
+            }
+        })
+*/
+    } catch (error) {
+        throw error;
+    }
+};
     
 const getClickedBeat = async(beatId: number, userId: number, tableName: string) => {
     try {
@@ -358,6 +385,20 @@ const deleteBeatWithId = async(beatId: number, userId: number, tableName: string
         });
         if (!deletObj) throw new ProducerAndBeatDoesNotMatch(rm.NOT_PRODUCER_BEAT);
 
+
+        //! s3 delete object
+        const keyList = (deletObj.beatImage !== config.defaultJacketAndProducerPortfolioImage) 
+                            ? [deletObj.beatFile, deletObj.beatImage] : [deletObj.beatFile];  //* 기본 재킷이미ㅣ 삭제하지 않기 위해 
+        const objects = keyList.map(key => ({ Key: key }));
+
+        await multipartS3.deleteObjects({
+            Bucket: config.bothWavImageBucketName,
+            Delete: { Objects: objects }
+        }, function(err) {
+            if (err) { throw new S3DeleteError(rm.FAIL_DELETE_S3_OBJECT);}
+        }).promise();
+
+
         await prisma.beat.delete({
             where: {
                 producerBeat: {
@@ -378,7 +419,7 @@ const deleteBeatWithId = async(beatId: number, userId: number, tableName: string
 
 const deleteCommentWithId = async(commentId: number, userId: number, tableName: string) => {
     try {
-        const deleteObj = await prisma.comment.findUnique({
+        let deleteObj = await prisma.comment.findUnique({
             where: {
                 vocalComment: {
                     vocalId: userId,
@@ -387,11 +428,37 @@ const deleteCommentWithId = async(commentId: number, userId: number, tableName: 
             },
             select: {
                 beatId: true,
+                commentFile: true,
             }
         });
 
         if (!deleteObj) throw new VocalAndCommentDoesNotMatch(rm.NOT_VOCAL_COMMENT);
+        const a = 'https://track1-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%87%E1%85%A9%E1%86%B7%E1%84%87%E1%85%A9%E1%86%B7_blue.mp3';
+        //let fileName = deleteObj.commentFile.split(config.wavBucketName+'.s3.ap-northeast-2.amazonaws.com/')[1];
+        let fileName = a.split(config.wavBucketName+'.s3.ap-northeast-2.amazonaws.com/')[1];
+        console.log(fileName);
+        const s3obj = await multipartS3.getObject({
+            Bucket: config.wavBucketName,
+            Key: fileName as string,
+        }, function(err) {
+            if (err) { throw new S3DeleteError(rm.FAIL_DELETE_S3_OBJECT);}
+        }).promise();
+        console.log(s3obj.ContentType);
 
+        /*
+        //! s3 delete object
+        await multipartS3.deleteObject({
+            Bucket: config.wavBucketName,
+            Key: fileName as string,
+        }, function(err) {
+            if (err) { throw new S3DeleteError(rm.FAIL_DELETE_S3_OBJECT);}
+        }).promise();
+
+*/
+
+ 
+
+/*
         await prisma.comment.delete({
             where: {
                 vocalComment: {
@@ -399,8 +466,8 @@ const deleteCommentWithId = async(commentId: number, userId: number, tableName: 
                     id: commentId,
                 },
             },
-        });
-
+        }); 
+*/
         const result: DeletCommentDTO = {
             vocalId: userId,
             beatId: deleteObj.beatId,
@@ -418,6 +485,7 @@ const tracksService = {
     getBeatLocation,
     getAllBeat,
     updateBeatClosed,
+    updateBeatInfo,
     getClickedBeat,
     postBeatComment,
     getAllComment,

@@ -10,7 +10,7 @@ const getProducerProfile = async(req: Request, res: Response, next: NextFunction
         const { userId, tableName } = req.body;
         const { page, limit } = req.query;
 
-        const data = await profileService.getProducerProfileData(+producerId,+userId, tableName, Number(page), Number(limit));
+        const data = await profileService.getProducerProfileData(Number(producerId),+userId, tableName, Number(page), Number(limit));
 
         return res.status(sc.OK).send(success(sc.OK, rm.READ_PRODUCER_PROFILE_SUCCESS, data));
 
@@ -25,7 +25,7 @@ const getOpenedBeats = async(req: Request, res: Response, next: NextFunction) =>
         const { producerId } = req.params;
         const { page, limit } = req.query;
 
-        const data = await profileService.getOpenedBeatsList(+producerId, Number(page), Number(limit));
+        const data = await profileService.getOpenedBeatsList(Number(producerId), Number(page), Number(limit));
 
         return res.status(sc.OK).send(success(sc.OK, rm.READ_SROTED_BEAT_SUCCESS, {"beatList": data}));
 
@@ -41,7 +41,7 @@ const getVocalProfile = async(req:Request, res:Response, next: NextFunction) => 
         const { userId, tableName } = req.body;
         const { page, limit } = req.query;
         
-        const data = await profileService.getVocalProfileData(+vocalId,+userId, tableName, Number(page), Number(limit));
+        const data = await profileService.getVocalProfileData(Number(vocalId), +userId, tableName, Number(page), Number(limit));
 
         return res.status(sc.OK).send(success(sc.OK, rm.READ_VOCAL_PROFILE_SUCCESS, data));
 

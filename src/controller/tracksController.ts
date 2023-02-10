@@ -85,7 +85,6 @@ const getBeatFile = async(req: Request, res: Response, next: NextFunction) => {
     };
 };
 
-
 const updateBeatClosed = async(req: Request, res: Response, next: NextFunction) => {
     try {
 
@@ -95,6 +94,17 @@ const updateBeatClosed = async(req: Request, res: Response, next: NextFunction) 
 
         const updatedBeatClosed = await tracksService.updateBeatClosed(+beatId);
         return res.status(sc.OK).send(success(sc.OK, rm.BEAT_CLOSED));
+    } catch (error) {
+        return next(error);
+    }
+};
+
+const updateBeatInfo = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { beatId } = req.params;
+        const { tableName, userId } = req.body;
+        
+        const data = await tracksService.updateBeatInfo(+beatId, userId);
     } catch (error) {
         return next(error);
     }
@@ -178,6 +188,7 @@ const tracksController = {
     getAllBeat,
     getBeatFile,
     updateBeatClosed,
+    updateBeatInfo,
     getClickedBeat,
     postBeatComment,
     getAllComment,
