@@ -51,7 +51,31 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
             },
         });
 
-        if (!producerProfileData) throw new NoProfileData(rm.GET_FAIL_DURING_GET_PRODUCER_PROFILE);
+        //if (!producerProfileData) throw new NoProfileData(rm.GET_FAIL_DURING_GET_PRODUCER_PROFILE);
+        let title;
+        if (producerProfileData) title = producerProfileData.Producer.ProducerPortfolio[0];  //! 타이틀 포트폴리오
+        else {
+            const producer = await prisma.producer.findUnique({
+                where: {
+                    id: producerId
+                },
+            });
+
+            return  {  
+                whoamI: 'producer',
+                isMe : (producerId == userId) ? true: false,
+                vocalProfile: {
+                    id: producerId,
+                    profileImge: producer?.producerImage,
+                    name: producer?.name,
+                    contact: producer?.contact as string,
+                    keyword: producer?.keyword,
+                    category: producer?.category,
+                    introduce: producer?.introduce as string,
+                },
+                producerPortfolio: [],
+            };
+        }
 
         //! 타이틀 아닌 포트폴리오들 리스트
         const producerPortfolioData = await prisma.producerPortfolio.findMany({
@@ -78,8 +102,6 @@ const getProducerProfileData = async(producerId: number, userId: number, tableNa
             skip: (page-1)*limit,
             take: limit,
         });
-        
-        const title = producerProfileData.Producer.ProducerPortfolio[0];  //! 타이틀 포트폴리오
 
         const producerPortfolioTitle: ProducerPortfolioReturnDTO = { //! 타이틀 포트폴리오 DTO
             id: title.id,
@@ -212,6 +234,7 @@ const getOpenedBeatsList = async(producerId: number, page: number, limit: number
 //* 포트폴리오 get (타이틀을 0번 인덱스로 반환하기)
 const getVocalProfileData = async(vocalId: number, userId: number, tableName: string, page: number, limit: number) => {
     try {
+        
         //! 타이틀인 포트폴리오 + 보컬 정보 
         const vocalProfileData = await prisma.vocalPortfolio.findFirst({
             where:{
@@ -255,8 +278,33 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
             },
         });
 
-        if (!vocalProfileData) throw new NoProfileData(rm.GET_FAIL_DURING_GET_VOCAL_PROFILE);
+        //if (!vocalProfileData) throw new NoProfileData(rm.GET_FAIL_DURING_GET_VOCAL_PROFILE);
+        let title;
+        if (vocalProfileData) title = vocalProfileData.Vocal.vocalPortfolio[0];  //! 타이틀 포트폴리오
+        else {
+            const vocal = await prisma.vocal.findUnique({
+                where: {
+                    id: vocalId
+                },
+            });
 
+            return  {  
+                whoamI: 'vocal',
+                isMe : (vocalId == userId) ? true: false,
+                vocalProfile: {
+                    id: vocalId,
+                    profileImge: vocal?.vocalImage,
+                    name: vocal?.name,
+                    contact: vocal?.contact as string,
+                    keyword: vocal?.keyword,
+                    category: vocal?.category,
+                    introduce: vocal?.introduce as string,
+                    isSelected: vocal?.isSelected,
+                },
+                vocalPortfolio: [],
+            };
+        }
+        
         //! 타이틀 아닌 포트폴리오들 리스트
         const vocalPortfolioData = await prisma.vocalPortfolio.findMany({
             select:{
@@ -284,17 +332,15 @@ const getVocalProfileData = async(vocalId: number, userId: number, tableName: st
             take: limit,
         });
         
-        const title = vocalProfileData.Vocal.vocalPortfolio[0];  //! 타이틀 포트폴리오
-
         const vocalPortfolioTitle: VocalPortfolioReturnDTO = { //! 타이틀 포트폴리오 DTO
-            vocalPortfolioId: title.id,
-            jacketImage: title.vpfImage,
-            beatWavFile: title.vpfFile,
-            title: title.title,
-            content: title.content as string,
-            keyword: title.keyword,
-            category: title.category[0] as string,
-            wavFileLength: title.VocalPortfolioDuration?.duration as number,
+            vocalPortfolioId: title?.id as number,
+            jacketImage: title?.vpfImage as string,
+            beatWavFile: title?.vpfFile as string,
+            title: title?.title as string,
+            content: title?.content as string,
+            keyword: title?.keyword as string[],
+            category: title?.category[0] as string,
+            wavFileLength: title?.VocalPortfolioDuration?.duration as number,
         };
         
         //! 타이틀 아닌 포트폴리오들 DTO
